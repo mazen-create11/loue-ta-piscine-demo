@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /hote.html
+Disallow: /admin.html
+Disallow: /confirmation.html
+
+Sitemap: https://loue-ta-piscine-demo.netlify.app/sitemap.xml

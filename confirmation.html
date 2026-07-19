@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réservation confirmée — Loue ta piscine</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  .page-c{max-width:660px; margin:0 auto; padding:44px 24px 80px}
+
+  .check-wrap{display:flex; justify-content:center; margin-bottom:18px}
+  .check{width:74px; height:74px}
+  .check circle{fill:none; stroke:var(--bassin); stroke-width:2; stroke-dasharray:214; stroke-dashoffset:214; animation:draw .7s var(--eo) .1s forwards}
+  .check path{fill:none; stroke:var(--bassin); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:34; stroke-dashoffset:34; animation:draw .45s var(--eo) .65s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  h1{font-family:var(--serif); font-weight:500; font-size:clamp(26px,4vw,34px); text-align:center; margin:0 0 6px}
+  .sub{text-align:center; color:var(--brume); font-size:14.5px; margin:0 0 34px}
+  .sub b{color:var(--encre); font-weight:600}
+
+  .card{background:var(--blanc); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-1); margin-bottom:16px; overflow:hidden}
+  .card .c-head{padding:15px 22px; border-bottom:1px solid var(--craie); font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--solaire-ink); font-weight:600}
+  .card .c-body{padding:16px 22px 18px}
+
+  .recap-row{display:flex; justify-content:space-between; gap:14px; font-size:14px; padding:7px 0}
+  .recap-row .lbl{color:var(--brume)}
+  .recap-row .val{font-weight:600; text-align:right; font-variant-numeric:tabular-nums}
+  .recap-row.total{border-top:1px solid var(--craie); margin-top:8px; padding-top:13px; font-size:15.5px}
+
+  /* Timeline argent */
+  .flow{display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; position:relative; padding-top:6px}
+  .flow::before{content:""; position:absolute; top:21px; left:16.6%; right:16.6%; border-top:2px dashed var(--line)}
+  .f-step{text-align:center; position:relative; padding:0 8px}
+  .f-step .dot{width:32px; height:32px; border-radius:50%; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; position:relative; z-index:2; background:color-mix(in srgb,var(--bassin) 12%,var(--blanc)); border:1.5px solid var(--bassin)}
+  .f-step .dot svg{width:15px; height:15px; stroke:var(--bassin)}
+  .f-step.pending .dot{background:var(--craie-2); border-color:var(--line)}
+  .f-step.pending .dot svg{stroke:var(--brume)}
+  .f-step b{display:block; font-size:12.5px; margin-bottom:2px}
+  .f-step small{font-size:11px; color:var(--brume); line-height:1.45; display:block}
+
+  /* Coordonnées révélées */
+  .reveal-card{border:1.5px solid var(--bassin)}
+  .reveal-card .c-head{color:var(--bassin)}
+  .contact{display:flex; align-items:center; gap:15px; padding:6px 0}
+  .contact .avatar{width:46px; height:46px; border-radius:50%; background:var(--encre); color:var(--craie); font-family:var(--serif); font-size:20px; display:flex; align-items:center; justify-content:center; flex:none}
+  .contact .c-info{flex:1}
+  .contact b{font-size:15px}
+  .contact small{display:block; color:var(--brume); font-size:12px}
+  .numero{font-variant-numeric:tabular-nums; font-weight:600; font-size:16.5px; letter-spacing:.03em; display:inline-block; margin-top:3px}
+  .numero .digit{display:inline-block; animation:reveal-d .4s var(--eo) backwards}
+  .c-actions{display:flex; gap:8px}
+  .c-actions .btn{padding:9px 15px; font-size:13px}
+  @keyframes reveal-d{from{opacity:0; transform:translateY(5px); filter:blur(3px)}to{opacity:1; transform:none; filter:none}}
+  .sym{border-top:1px solid var(--craie); margin-top:14px; padding-top:13px; font-size:12.5px; color:var(--brume); line-height:1.55}
+  .sym b{color:var(--encre)}
+
+  .addr{display:flex; gap:13px; align-items:flex-start}
+  .addr svg{width:19px; height:19px; stroke:var(--bassin); flex:none; margin-top:2px}
+  .addr b{font-size:14.5px; display:block}
+  .addr p{margin:3px 0 0; font-size:13px; color:var(--brume); line-height:1.55; max-width:52ch}
+
+  .ctas{display:flex; gap:10px; justify-content:center; margin-top:26px; flex-wrap:wrap}
+  .note-annul{text-align:center; font-size:12px; color:var(--brume); margin-top:16px}
+  @media (prefers-reduced-motion: reduce){ .check circle,.check path{animation:none; stroke-dashoffset:0} .numero .digit{animation:none} }
+</style>
+</head>
+<body>
+
+<header class="page">
+  <div class="h-inner">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#10222B" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#10222B" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span>loue ta piscine</span>
+    </a>
+    <nav class="nav"><a href="index.html" class="hideable">Retour à l'accueil</a></nav>
+  </div>
+</header>
+
+<main class="page-c">
+  <div class="check-wrap" aria-hidden="true">
+    <svg class="check" viewBox="0 0 74 74">
+      <circle cx="37" cy="37" r="34"/>
+      <path d="M24 38.5l9 9L51 28"/>
+    </svg>
+  </div>
+  <h1>C'est réservé.</h1>
+  <p class="sub">Samedi 25 juillet, 9 h – 11 h · séance ouverte · <b>2 baigneurs</b><br>Le bassin des Micocouliers, Aix-en-Provence</p>
+
+  <div class="card reveal-card">
+    <div class="c-head">Vos coordonnées sont maintenant partagées</div>
+    <div class="c-body">
+      <div class="contact">
+        <div class="avatar" aria-hidden="true">C</div>
+        <div class="c-info">
+          <b>Claire</b>
+          <small>votre hôte — répond en ~1 h</small>
+          <span class="numero" id="numero" aria-label="Numéro de Claire : 06 12 48 73 59"></span>
+        </div>
+        <div class="c-actions">
+          <a class="btn btn-bassin" href="#">Appeler</a>
+          <a class="btn btn-ligne" href="#">Message</a>
+        </div>
+      </div>
+      <p class="sym">Symétrique et au même moment : <b>Claire vient de recevoir votre numéro</b>. Avant le paiement, la messagerie masquait les coordonnées des deux côtés — c'est ce qui protège la réservation.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="c-head">L'adresse exacte, enfin</div>
+    <div class="c-body">
+      <div class="addr">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 21c-4.5-4-7-7.2-7-10.5a7 7 0 1 1 14 0C19 13.8 16.5 17 12 21z" stroke-linejoin="round"/><circle cx="12" cy="10.5" r="2.6"/></svg>
+        <div>
+          <b>14 chemin des Micocouliers, 13090 Aix-en-Provence</b>
+          <p>Entrez par le portillon de bois dans le mur de pierres — Claire vous accueille à votre première venue. Parking libre le long du chemin.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="c-head">Où en est votre argent</div>
+    <div class="c-body">
+      <div class="flow">
+        <div class="f-step">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <b>Payé — 16 €</b>
+          <small>carte débitée à l'instant, reçu par e-mail</small>
+        </div>
+        <div class="f-step">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke-linecap="round"/></svg></div>
+          <b>Séquestré</b>
+          <small>conservé par notre prestataire jusqu'à votre séance</small>
+        </div>
+        <div class="f-step pending">
+          <div class="dot"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" aria-hidden="true"><path d="M4 8h16v10H4z"/><path d="M4 11h16" stroke-linecap="round"/></svg></div>
+          <b>Versé à Claire</b>
+          <small>automatiquement, sous 48 h après la séance</small>
+        </div>
+      </div>
+      <div class="recap-row total"><span class="lbl">Total payé — rien sur place</span><span class="val">16,00 €</span></div>
+    </div>
+  </div>
+
+  <div class="ctas">
+    <a class="btn btn-encre" href="fiche.html">Voir ma réservation</a>
+    <a class="btn btn-bassin" id="ics" download="reservation-micocouliers.ics" href="#">Ajouter au calendrier</a>
+    <a class="btn btn-ligne" href="index.html">Retour à l'accueil</a>
+  </div>
+  <script>
+    (function(){
+      var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Loue ta piscine//FR','BEGIN:VEVENT',
+        'UID:demo-2857@louetapiscine','DTSTART:20260725T070000Z','DTEND:20260725T090000Z',
+        'SUMMARY:Le bassin des Micocouliers — séance ouverte (2 baigneurs)',
+        'LOCATION:14 chemin des Micocouliers\\, 13090 Aix-en-Provence',
+        'DESCRIPTION:Payé 16 € tout compris. Hôte : Claire — 06 12 48 73 59. Entrée par le portillon.',
+        'END:VEVENT','END:VCALENDAR'].join('\r\n');
+      document.getElementById('ics').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    })();
+  </script>
+  <p class="note-annul">Annulation gratuite jusqu'au jeudi 23 juillet, 9 h — remboursement intégral, automatique.</p>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  /* Révélation du numéro chiffre par chiffre — la démo de la règle des coordonnées */
+  var num = '06 12 48 73 59';
+  var el = document.getElementById('numero');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  num.split('').forEach(function(ch, i){
+    var s = document.createElement('span');
+    s.className = 'digit';
+    s.textContent = ch === ' ' ? ' ' : ch;
+    if(!reduced) s.style.animationDelay = (0.9 + i * 0.05) + 's';
+    el.appendChild(s);
+  });
+
+  /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
+  document.addEventListener('click', function(ev){
+    var dead = ev.target.closest('a[href="#"]');
+    if(dead) ev.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>

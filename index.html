@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loue ta piscine — piscines et spas de particuliers, à l'heure</title>
+<meta name="description" content="Réservez la piscine, le jacuzzi ou le sauna d'un particulier près de chez vous. À l'heure ou à la journée, privatisé ou en séance ouverte. Prix tout compris.">
+<link rel="canonical" href="https://loue-ta-piscine-demo.netlify.app/">
+<meta property="og:title" content="Loue ta piscine">
+<meta property="og:description" content="La piscine d'à côté, rien qu'à vous. À l'heure ou à la journée.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://loue-ta-piscine-demo.netlify.app/">
+<meta property="og:image" content="https://loue-ta-piscine-demo.netlify.app/img/hero-bleue.webp">
+<meta property="og:site_name" content="Loue ta piscine">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/sentient-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/hero-bleue.webp" as="image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Loue ta piscine","description":"Location de piscines, jacuzzis et saunas entre particuliers, à l'heure ou à la journée.","inLanguage":"fr-FR"}
+</script>
+<style>
+  @font-face{font-family:'Sentient'; src:url('fonts/sentient-400.woff2') format('woff2'); font-weight:400; font-display:swap}
+  @font-face{font-family:'Sentient'; src:url('fonts/sentient-500.woff2') format('woff2'); font-weight:500; font-display:swap}
+  @font-face{font-family:'General Sans'; src:url('fonts/generalsans-400.woff2') format('woff2'); font-weight:400; font-display:swap}
+  @font-face{font-family:'General Sans'; src:url('fonts/generalsans-500.woff2') format('woff2'); font-weight:500; font-display:swap}
+  @font-face{font-family:'General Sans'; src:url('fonts/generalsans-600.woff2') format('woff2'); font-weight:600; font-display:swap}
+
+  :root{
+    --encre:#10222B; --encre-2:#0B181F; --craie:#F2F1EA; --craie-2:#FAF9F4;
+    --bassin:#2F5D54; --solaire:#B98A46; --solaire-ink:#8A6430; --brume:#5A6E72; --alerte:#A6402C;
+    --line:#E0DDD2; --blanc:#FFFFFF;
+    --serif:'Sentient',"Iowan Old Style",Georgia,serif;
+    --sans:'General Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --eo:cubic-bezier(.23,1,.32,1);
+    --r:10px;
+    --shadow-1:0 1px 3px rgba(16,34,43,.06);
+    --shadow-2:0 10px 30px rgba(16,34,43,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--craie); color:var(--encre); font-family:var(--sans); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+  img{max-width:100%; display:block}
+  a{color:var(--bassin)}
+  button{font-family:var(--sans); cursor:pointer}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--bassin); outline-offset:2px; border-radius:4px}
+  .wrap{max-width:1220px; margin:0 auto; padding:0 24px}
+
+  /* ============ Header ============ */
+  header{position:fixed; inset:0 0 auto; z-index:50; transition:background .25s var(--eo), box-shadow .25s var(--eo)}
+  header .h-inner{max-width:1220px; margin:0 auto; padding:15px 24px; display:flex; align-items:center; gap:26px}
+  header.solid{background:var(--craie); box-shadow:0 1px 0 var(--line)}
+  .logo{display:flex; align-items:center; gap:10px; text-decoration:none}
+  .logo svg{width:29px; height:29px}
+  .logo .ring{stroke:#F2F1EA; transition:stroke .25s var(--eo)}
+  header.solid .logo .ring{stroke:var(--encre)}
+  .logo span{font-family:var(--serif); font-weight:500; font-size:19px; color:#F2F1EA; transition:color .25s var(--eo)}
+  header.solid .logo span{color:var(--encre)}
+  .nav{margin-left:auto; display:flex; gap:24px; align-items:center}
+  .nav a{text-decoration:none; font-size:14px; font-weight:500; color:rgba(242,241,234,.85); transition:color .2s var(--eo); padding:12px 2px}
+  .nav a:hover{color:#fff}
+  header.solid .nav a{color:var(--brume)}
+  header.solid .nav a:hover{color:var(--encre)}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius:8px; padding:13px 20px; font-size:14px; font-weight:600; text-decoration:none; transition:filter .15s var(--eo), transform .15s var(--eo), box-shadow .2s var(--eo)}
+  .btn:hover{filter:brightness(1.07)}
+  .btn:active{transform:scale(.985)}
+  .btn-bassin{background:var(--bassin); color:#F2F1EA}
+  .btn-encre{background:var(--encre); color:#F2F1EA}
+  .btn-hote{background:transparent; color:#F2F1EA; border:1px solid rgba(242,241,234,.5)}
+  header.solid .btn-hote{color:var(--encre); border-color:var(--encre)}
+  @media (max-width:820px){ .nav a.hideable{display:none} }
+
+  /* ============ Hero ============ */
+  .hero{position:relative; height:min(88vh,760px); min-height:560px; display:flex; align-items:flex-end; overflow:hidden}
+  .hero img.bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%}
+  .hero .veil{position:absolute; inset:0; background:linear-gradient(to top, rgba(6,14,18,.84) 0%, rgba(6,14,18,.2) 52%, rgba(6,14,18,.38) 100%)}
+  .hero .h-content{position:relative; z-index:2; width:100%; max-width:1220px; margin:0 auto; padding:0 24px 58px; color:#F2F1EA}
+  .hero h1{font-family:var(--serif); font-weight:500; font-size:clamp(32px,4.6vw,54px); line-height:1.07; letter-spacing:-.012em; margin:0 0 8px; max-width:18ch; text-wrap:balance}
+  .hero .sub{font-size:clamp(14.5px,1.6vw,17px); color:rgba(242,241,234,.8); margin:0 0 26px}
+  .search{display:flex; background:var(--craie-2); border-radius:12px; overflow:hidden; max-width:700px; box-shadow:0 10px 36px rgba(6,14,18,.4)}
+  .search .field{flex:1 1 0; padding:13px 20px; min-width:0; border:none; background:transparent; text-align:left; cursor:pointer; transition:background .18s var(--eo)}
+  .search .field:hover{background:#fff}
+  .search .field + .field{border-left:1px solid var(--line)}
+  .search .f-label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--solaire-ink); font-weight:600; margin-bottom:1px}
+  .search .f-val{font-size:14.5px; color:var(--encre); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block}
+  .search .go{background:var(--bassin); color:#F2F1EA; border:none; padding:0 28px; font-size:15px; font-weight:600; transition:filter .15s var(--eo)}
+  .search .go:hover{filter:brightness(1.12)}
+  @media (max-width:640px){
+    .search{flex-direction:column}
+    .search .field + .field{border-left:none; border-top:1px solid var(--line)}
+    .search .go{padding:14px}
+    .hero{height:min(94vh,820px)}
+  }
+
+  /* ============ Chips catégories ============ */
+  .chipbar{position:sticky; top:0; z-index:40; background:var(--craie); border-bottom:1px solid var(--line)}
+  .chipbar .c-inner{max-width:1220px; margin:0 auto; padding:14px 24px; display:flex; gap:10px; overflow-x:auto; scrollbar-width:none}
+  .chipbar .c-inner::-webkit-scrollbar{display:none}
+  .chip{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--craie-2); border-radius:99px; padding:9px 18px; font-size:13.5px; font-weight:500; color:var(--brume); white-space:nowrap; transition:all .18s var(--eo)}
+  .chip svg{width:16px; height:16px}
+  .chip:hover{border-color:var(--brume)}
+  .chip.active{background:var(--encre); color:#F2F1EA; border-color:var(--encre)}
+
+  /* ============ Sections ============ */
+  section{padding:72px 0; scroll-margin-top:64px}
+  .sec-top{display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:30px}
+  h2{font-family:var(--serif); font-weight:500; font-size:clamp(25px,3vw,34px); line-height:1.12; letter-spacing:-.008em; margin:0; text-wrap:balance}
+  .sec-link{font-size:14px; font-weight:600; text-decoration:none; white-space:nowrap}
+  .sec-link:hover{text-decoration:underline; text-underline-offset:3px}
+
+  /* ============ Cards annonces ============ */
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px 18px}
+  @media (max-width:1080px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:820px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .grid{grid-template-columns:1fr} }
+  .card{position:relative; text-decoration:none; color:var(--encre); display:block; transition:opacity .3s var(--eo), transform .3s var(--eo)}
+  .card.hide{opacity:0; transform:scale(.97); pointer-events:none; position:absolute; visibility:hidden}
+  .card .c-img{position:relative; border-radius:var(--r); overflow:hidden; aspect-ratio:4/3; box-shadow:var(--shadow-1)}
+  .card .c-img img{width:100%; height:100%; object-fit:cover; transition:transform .55s var(--eo)}
+  .card:hover .c-img img{transform:scale(1.045)}
+  .card .c-badge{position:absolute; top:10px; left:10px; z-index:2; font-size:11px; font-weight:600; letter-spacing:.03em; padding:4px 11px; border-radius:99px; backdrop-filter:blur(6px)}
+  .badge-ouverte{background:rgba(47,93,84,.88); color:#F2F1EA}
+  .badge-bleue{background:rgba(16,34,43,.82); color:#E8C989}
+  .badge-neutre{background:rgba(250,249,244,.88); color:var(--encre)}
+  .card .fav{position:absolute; top:9px; right:9px; z-index:2; width:32px; height:32px; border:none; border-radius:50%; background:rgba(16,34,43,.35); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; transition:background .2s var(--eo), transform .15s var(--eo)}
+  .card .fav:hover{background:rgba(16,34,43,.55)}
+  .card .fav:active{transform:scale(.9)}
+  .card .fav svg{width:16px; height:16px; fill:none; stroke:#F2F1EA; stroke-width:1.9; transition:fill .2s var(--eo), stroke .2s var(--eo)}
+  .card .fav[aria-pressed="true"] svg{fill:#E8C989; stroke:#E8C989}
+  .card .c-body{padding:11px 2px 0}
+  .card .c-row{display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+  .card h3{font-family:var(--serif); font-weight:500; font-size:16.5px; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .card .note{display:inline-flex; align-items:center; gap:4px; font-size:13px; font-weight:500; font-variant-numeric:tabular-nums; flex:none}
+  .card .note svg{width:12px; height:12px; fill:var(--solaire)}
+  .card .note small{color:var(--brume); font-weight:400}
+  .card .c-place{font-size:13px; color:var(--brume); margin:2px 0 6px}
+  .card .c-price{font-size:14px}
+  .card .c-price b{font-weight:600}
+  .card .c-price span{color:var(--brume)}
+
+  /* ============ Widget ============ */
+  .w-sec{background:var(--craie-2); border-block:1px solid var(--line)}
+  .w-intro{max-width:56ch; color:var(--brume); font-size:15.5px; margin:10px 0 34px}
+  .widget{display:grid; grid-template-columns:1.35fr 1fr; background:var(--blanc); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:var(--shadow-2)}
+  @media (max-width:860px){ .widget{grid-template-columns:1fr} }
+  .w-left{padding:26px 28px; border-right:1px solid var(--line)}
+  @media (max-width:860px){ .w-left{border-right:none; border-bottom:1px solid var(--line)} }
+  .w-head{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .w-title{font-family:var(--serif); font-size:19px; font-weight:500; margin:0}
+  .w-loc{font-size:12.5px; color:var(--brume); margin:3px 0 16px}
+  .w-tag{font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; background:color-mix(in srgb,var(--solaire) 15%,transparent); color:var(--solaire-ink); white-space:nowrap}
+  .day-tabs{display:flex; gap:8px; margin-bottom:16px}
+  .day-tab{border:1px solid var(--line); background:var(--craie-2); border-radius:7px; padding:7px 15px; font-size:13px; font-weight:500; color:var(--brume); transition:all .18s var(--eo)}
+  .day-tab.active{background:var(--encre); color:#F2F1EA; border-color:var(--encre)}
+  .slots{display:flex; flex-direction:column; gap:7px}
+  .slot{display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:9px; padding:11px 14px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo)}
+  .slot:not(:disabled):hover{border-color:var(--bassin)}
+  .slot.selected{border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 6%,#fff); box-shadow:inset 3px 0 0 var(--bassin)}
+  .slot:disabled{cursor:default; opacity:.5; background:var(--craie-2)}
+  .slot .s-time{font-variant-numeric:tabular-nums; font-weight:600; font-size:14px; min-width:92px}
+  .slot .s-info{flex:1; font-size:12.5px; color:var(--brume)}
+  .slot .s-tag{font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; white-space:nowrap}
+  .tag-open{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .tag-full{background:var(--line); color:var(--brume)}
+  .tag-priv{background:color-mix(in srgb,var(--encre) 9%,transparent); color:var(--encre)}
+  .buffer-row{display:flex; align-items:center; gap:10px; padding:0 14px; font-size:10.5px; color:var(--brume); letter-spacing:.05em}
+  .buffer-row::before,.buffer-row::after{content:""; flex:1; border-top:1px dashed var(--line)}
+  .w-right{padding:26px 28px; display:flex; flex-direction:column; background:var(--craie-2)}
+  .r-empty{color:var(--brume); font-size:13.5px; margin:auto 0; text-align:center; padding:26px 8px; line-height:1.6}
+  .r-lbl{font-size:11px; text-transform:uppercase; letter-spacing:.11em; color:var(--solaire-ink); font-weight:600; margin:0 0 3px}
+  .r-time{font-family:var(--serif); font-size:22px; margin:0 0 3px}
+  .r-note{font-size:12px; color:var(--brume); margin:0 0 16px; line-height:1.5}
+  .persons{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+  .persons .p-lbl{font-size:13.5px; font-weight:500; flex:1}
+  .stepper{display:flex; align-items:center; border:1px solid var(--line); border-radius:7px; overflow:hidden; background:#fff}
+  .stepper button{width:34px; height:34px; border:none; background:#fff; font-size:16px; color:var(--bassin); transition:background .15s var(--eo)}
+  .stepper button:hover:not(:disabled){background:var(--craie)}
+  .stepper button:disabled{color:var(--line); cursor:default}
+  .stepper .p-num{width:32px; text-align:center; font-weight:600; font-size:14px; font-variant-numeric:tabular-nums}
+  .privat{display:flex; gap:11px; align-items:flex-start; border:1px solid var(--line); border-radius:9px; padding:12px 14px; margin-bottom:16px; background:#fff; transition:border-color .18s var(--eo)}
+  .privat:has(input:checked){border-color:var(--bassin)}
+  .privat input{margin-top:2px; accent-color:var(--bassin); width:15px; height:15px}
+  .privat label{font-size:12.5px; line-height:1.45; cursor:pointer}
+  .privat label b{font-weight:600; font-size:13px}
+  .privat label small{display:block; color:var(--brume); font-size:11.5px; margin-top:1px}
+  .privat.off{opacity:.5}
+  .total{border-top:1px solid var(--line); padding-top:14px; margin-top:auto}
+  .t-row{display:flex; justify-content:space-between; font-size:13px; color:var(--brume); margin-bottom:4px}
+  .t-row.grand{font-size:15.5px; color:var(--encre); font-weight:600; margin:8px 0 13px}
+  .t-row .amt{font-variant-numeric:tabular-nums}
+  .total .btn{width:100%; font-size:14.5px; padding:12px}
+  .t-small{font-size:11px; color:var(--brume); text-align:center; margin:9px 0 0; line-height:1.5}
+
+  /* ============ Preuves ============ */
+  .proof .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:44px}
+  @media (max-width:820px){ .proof .stats{grid-template-columns:repeat(2,1fr)} }
+  .stat{border-top:2px solid var(--line); padding-top:14px}
+  .stat b{font-family:var(--serif); font-weight:500; font-size:24px; display:block; font-variant-numeric:tabular-nums}
+  .stat span{font-size:12.5px; color:var(--brume)}
+  .quotes{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  @media (max-width:820px){ .quotes{grid-template-columns:1fr} }
+  .quote{background:var(--blanc); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; box-shadow:var(--shadow-1)}
+  .quote .q-stars{display:flex; gap:2px; margin-bottom:10px}
+  .quote .q-stars svg{width:13px; height:13px; fill:var(--solaire)}
+  .quote p{margin:0 0 14px; font-size:14.5px; line-height:1.6}
+  .quote footer{font-size:12.5px; color:var(--brume); background:none; padding:0}
+
+  /* ============ Hôtes ============ */
+  .hosts{position:relative; overflow:hidden; color:#F2F1EA}
+  .hosts img.bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 30%}
+  .hosts .h-veil{position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,14,18,.94) 34%, rgba(6,14,18,.6) 72%, rgba(6,14,18,.45))}
+  .hosts .h-inner2{position:relative; z-index:2; max-width:1220px; margin:0 auto; padding:84px 24px}
+  .hosts h2{color:#F2F1EA; max-width:20ch}
+  .hosts ul{list-style:none; padding:0; margin:22px 0 30px}
+  .hosts li{padding-left:24px; position:relative; margin:9px 0; font-size:15px; color:rgba(242,241,234,.88)}
+  .hosts li::before{content:""; position:absolute; left:0; top:8px; width:7px; height:7px; border-radius:50%; background:var(--solaire)}
+  .hosts .wa{display:inline-flex; align-items:center; gap:8px; margin-left:16px; color:rgba(242,241,234,.85); font-size:14px; text-decoration:none; border-bottom:1px solid rgba(242,241,234,.3); padding-bottom:1px}
+  .hosts .wa:hover{color:#fff}
+
+  /* ============ Footer ============ */
+  footer.site{background:var(--encre-2); color:rgba(242,241,234,.65); padding:54px 0 36px; font-size:13.5px}
+  .f-inner{max-width:1220px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:32px}
+  @media (max-width:820px){ .f-inner{grid-template-columns:1fr 1fr} }
+  .f-brand{display:flex; align-items:center; gap:9px; margin-bottom:12px}
+  .f-brand svg{width:23px; height:23px}
+  .f-brand span{font-family:var(--serif); font-size:17px; color:#F2F1EA}
+  footer.site h3{font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--solaire); margin:0 0 12px; font-weight:600}
+  footer.site a{color:rgba(242,241,234,.65); text-decoration:none; display:block; margin:7px 0; font-size:13px}
+  footer.site a:hover{color:#F2F1EA}
+  .f-cities{display:grid; grid-template-columns:1fr 1fr; gap:0 18px}
+  .legal{max-width:1220px; margin:40px auto 0; padding:20px 24px 0; border-top:1px solid rgba(242,241,234,.12); font-size:11.5px; color:rgba(242,241,234,.4)}
+
+  /* ============ Reveal ============ */
+  .reveal{opacity:0; transform:translateY(12px); transition:opacity .5s var(--eo), transform .5s var(--eo)}
+  .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important; animation:none!important; scroll-behavior:auto!important}
+    .reveal{opacity:1; transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="h-inner">
+    <a class="logo" href="#" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path class="ring" d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke-width="2.6" stroke-linecap="round"/>
+        <path class="ring" d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span>loue ta piscine</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#annonces" class="hideable">Piscines</a>
+      <a href="#annonces" class="hideable">Jacuzzis</a>
+      <a href="#annonces" class="hideable">Saunas</a>
+      <a href="hote.html" class="btn btn-hote">Devenir hôte</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <img class="bg" src="img/hero-bleue.webp" alt="Piscine privée au crépuscule, cyprès et lanterne" fetchpriority="high" width="1800" height="1200">
+  <div class="veil"></div>
+  <div class="h-content">
+    <h1>La piscine d'à côté,<br>rien qu'à vous.</h1>
+    <p class="sub">Piscines, jacuzzis et saunas de particuliers. À l'heure ou à la journée.</p>
+    <div class="search" role="search" aria-label="Rechercher un bassin">
+      <button class="field" type="button"><span class="f-label">Où</span><span class="f-val">Aix-en-Provence</span></button>
+      <button class="field" type="button"><span class="f-label">Quand</span><span class="f-val">Samedi 25 juillet</span></button>
+      <button class="field" type="button"><span class="f-label">Baigneurs</span><span class="f-val">4 personnes</span></button>
+      <button class="go" type="button">Chercher</button>
+    </div>
+  </div>
+</div>
+
+<div class="chipbar" aria-label="Catégories">
+  <div class="c-inner" role="tablist">
+    <button class="chip active" data-filter="all" role="tab" aria-selected="true">Tout</button>
+    <button class="chip" data-filter="piscine" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 15q2.3 1.9 4.5 0t4.5 0q2.3 1.9 4.5 0t4.5 0M3 19q2.3 1.9 4.5 0t4.5 0q2.3 1.9 4.5 0t4.5 0" stroke-linecap="round"/><path d="M8 15V6.5A2.5 2.5 0 0 1 13 6M15 15V6.5A2.5 2.5 0 0 1 20 6" stroke-linecap="round"/></svg>
+      Piscines</button>
+    <button class="chip" data-filter="spa" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14v3a5 5 0 0 1-5 5h-4a5 5 0 0 1-5-5z"/><path d="M8 8q-1-1.6 0-3M12 8q-1-1.6 0-3M16 8q-1-1.6 0-3" stroke-linecap="round"/></svg>
+      Jacuzzis</button>
+    <button class="chip" data-filter="sauna" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.5"/><path d="M4 12h16M8 12v8M16 12v8" stroke-linecap="round"/></svg>
+      Saunas</button>
+    <button class="chip" data-filter="ouverte" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="8" r="2.6"/><circle cx="16.5" cy="9.5" r="2.1"/><path d="M4.5 19a4.5 4.5 0 0 1 9 0M12.8 19a3.9 3.9 0 0 1 7.2-1.8" stroke-linecap="round"/></svg>
+      Séances ouvertes</button>
+  </div>
+</div>
+
+<main>
+<section id="annonces" style="padding-top:56px">
+  <div class="wrap">
+    <div class="sec-top reveal">
+      <h2>Près de chez vous</h2>
+      <a class="sec-link" href="#">Tout voir sur la carte →</a>
+    </div>
+    <div class="grid" id="grid">
+
+      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
+        <div class="c-img">
+          <span class="c-badge badge-ouverte">Séance ouverte</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/provencale.webp" alt="Bassin en pierre provençal à l'heure dorée" loading="lazy" width="900" height="600">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Le bassin des Micocouliers</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93 <small>(41)</small></span></div>
+          <p class="c-place">Aix-en-Provence · à 12 min</p>
+          <p class="c-price"><b>dès 7 €</b><span> /pers · séance 2 h — ou privatisé 68 €</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
+        <div class="c-img">
+          <span class="c-badge badge-neutre">Privatisé</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/moderne.webp" alt="Piscine à débordement moderne au crépuscule" loading="lazy" width="900" height="600">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Le miroir des collines</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,88 <small>(26)</small></span></div>
+          <p class="c-place">Cassis · à 25 min</p>
+          <p class="c-price"><b>34 €</b><span> /h · 2 h minimum</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
+        <div class="c-img">
+          <span class="c-badge badge-ouverte">Séance ouverte</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/familiale.webp" alt="Piscine familiale au fond d'un verger, bouée jaune sur la margelle" loading="lazy" width="900" height="600">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>La piscine du verger</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,97 <small>(58)</small></span></div>
+          <p class="c-place">Pertuis · à 18 min</p>
+          <p class="c-price"><b>dès 6 €</b><span> /pers · enfants −50 %</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
+        <div class="c-img">
+          <span class="c-badge badge-bleue">L'heure bleue · 19 h – 21 h</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/margelle.webp" alt="Margelle en travertin, eau sombre et reflet doré" loading="lazy" width="1000" height="667">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Les margelles blondes</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,91 <small>(33)</small></span></div>
+          <p class="c-place">Lourmarin · à 30 min</p>
+          <p class="c-price"><b>12 €</b><span> /pers · le créneau du soir</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="spa">
+        <div class="c-img">
+          <span class="c-badge badge-neutre">Privatisé</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/rooftop.webp" alt="Jacuzzi fumant sur un rooftop en ville, guirlandes allumées" loading="lazy" width="900" height="600">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Le rooftop des Chartreux</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,85 <small>(19)</small></span></div>
+          <p class="c-place">Marseille 4ᵉ · à 8 min</p>
+          <p class="c-price"><b>25 €</b><span> /h · jusqu'à 4 personnes</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="spa">
+        <div class="c-img">
+          <span class="c-badge badge-neutre">Privatisé</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/spa.webp" alt="Bain nordique en bois fumant à la tombée du soir" loading="lazy" width="1000" height="667">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Le bain du cabanon</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,96 <small>(47)</small></span></div>
+          <p class="c-place">Luberon · à 35 min</p>
+          <p class="c-price"><b>22 €</b><span> /h · chauffé toute l'année</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
+        <div class="c-img">
+          <span class="c-badge badge-neutre">Chauffée · toute l'année</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/interieure.webp" alt="Piscine intérieure sous voûtes de pierre, éclairage chaud" loading="lazy" width="900" height="600">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>L'orangerie</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,90 <small>(24)</small></span></div>
+          <p class="c-place">Avignon · à 40 min</p>
+          <p class="c-price"><b>28 €</b><span> /h · intérieure, 29 °C</span></p>
+        </div>
+      </a>
+
+      <a class="card reveal" href="fiche.html" data-cat="sauna">
+        <div class="c-img">
+          <span class="c-badge badge-neutre">Privatisé</span>
+          <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
+          <img src="img/sauna.webp" alt="Sauna en cèdre à la lumière ambrée" loading="lazy" width="1000" height="667">
+        </div>
+        <div class="c-body">
+          <div class="c-row"><h3>Le sauna de la bastide</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,94 <small>(31)</small></span></div>
+          <p class="c-place">Aix-en-Provence · à 15 min</p>
+          <p class="c-price"><b>18 €</b><span> /h · 2 à 6 personnes</span></p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="w-sec" id="creneaux">
+  <div class="wrap">
+    <h2 class="reveal">Privatisez. Ou partagez la séance, et divisez le prix.</h2>
+    <p class="w-intro reveal">La séance ouverte n'existe nulle part ailleurs : plusieurs foyers, une jauge, un petit prix. Essayez :</p>
+    <div class="widget reveal" id="widget">
+      <div class="w-left">
+        <div class="w-head"><h3 class="w-title">Le bassin des Micocouliers — 10 × 5 m</h3><span class="w-tag">Chauffée</span></div>
+        <p class="w-loc">Aix-en-Provence · hôte vérifié · règlement affiché avant paiement</p>
+        <div class="day-tabs" role="tablist">
+          <button class="day-tab active" data-day="0" role="tab" aria-selected="true">Sam 25 juil.</button>
+          <button class="day-tab" data-day="1" role="tab" aria-selected="false">Dim 26 juil.</button>
+        </div>
+        <div class="slots" id="slots"></div>
+      </div>
+      <div class="w-right" id="recap" aria-live="polite">
+        <p class="r-empty">Choisissez un créneau.<br>Le prix est tout compris, avant de payer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b>★ 4,92</b><span>note moyenne des bassins</span></div>
+      <div class="stat"><b>12 points</b><span>vérifiés avant chaque mise en ligne</span></div>
+      <div class="stat"><b>48 h</b><span>délai max de versement à l'hôte</span></div>
+      <div class="stat"><b>0 €</b><span>à payer sur place — jamais</span></div>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal" style="margin:0">
+        <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <p>« Deux heures privatisées pour les 8 ans de ma fille. Tout était prêt, rien à payer sur place. »</p>
+        <footer>Nadia — Marseille</footer>
+      </figure>
+      <figure class="quote reveal" style="margin:0">
+        <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <p>« Séance ouverte du matin à 8 €. Trois foyers, chacun son coin du bassin. »</p>
+        <footer>Julien — Aix-en-Provence</footer>
+      </figure>
+      <figure class="quote reveal" style="margin:0">
+        <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+        <p>« Le jacuzzi un soir de janvier, réservé à 17 h. Le numéro de l'hôte arrive avec le paiement. »</p>
+        <footer>Sarah — Avignon</footer>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="hosts" id="hotes" style="padding:0">
+  <img class="bg" src="img/hero-bleue.webp" alt="" loading="lazy" width="1800" height="1200">
+  <div class="h-veil"></div>
+  <div class="h-inner2">
+    <h2 class="reveal">Votre bassin peut payer son propre entretien.</h2>
+    <ul class="reveal">
+      <li>Vos prix, vos horaires, vos règles — modifiables à tout moment.</li>
+      <li>Privatisation, séance ouverte, ou les deux.</li>
+      <li>Versement automatique sous 48 h après chaque séance.</li>
+      <li>Baigneurs identifiés, caution par empreinte bancaire.</li>
+    </ul>
+    <div class="reveal">
+      <a class="btn btn-bassin" href="hote.html">Estimer mes revenus</a>
+      <a class="wa" href="#">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" stroke-linejoin="round"/></svg>
+        WhatsApp, 7 j/7
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="f-inner">
+    <div>
+      <div class="f-brand">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span>loue ta piscine</span>
+      </div>
+      <p style="max-width:32ch; margin:0; line-height:1.6; font-size:13px">Piscines, jacuzzis et saunas de particuliers. À l'heure ou à la journée.</p>
+    </div>
+    <div>
+      <h3>Réserver</h3>
+      <a href="#annonces">Piscines</a><a href="#annonces">Jacuzzis</a><a href="#annonces">Saunas</a><a href="#creneaux">Séances ouvertes</a>
+    </div>
+    <div>
+      <h3>Hôtes</h3>
+      <a href="hote.html">Devenir hôte</a><a href="hote.html">Estimer mes revenus</a><a href="#">Sécurité &amp; conformité</a><a href="#">Confiance &amp; données</a><a href="admin.html" style="opacity:.55">Supervision (démo)</a>
+    </div>
+    <div>
+      <h3>Villes</h3>
+      <div class="f-cities">
+        <a href="#">Aix-en-Provence</a><a href="#">Marseille</a><a href="#">Toulon</a><a href="#">Avignon</a><a href="#">Montpellier</a><a href="#">Nice</a>
+      </div>
+    </div>
+  </div>
+  <div class="legal">© 2026 Loue ta piscine — maquette de démonstration. Annonces, avis et disponibilités fictifs.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Header */
+  var hdr = document.getElementById('hdr');
+  var onScroll = function(){ hdr.classList.toggle('solid', window.scrollY > 40); };
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* Reveals — stagger léger par groupe */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('in'); io.unobserve(e.target);
+    });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(function(el, i){
+    el.style.transitionDelay = (Math.min(i % 4, 3) * 55) + 'ms';
+    io.observe(el);
+  });
+
+  /* Favoris */
+  document.querySelectorAll('.fav').forEach(function(f){
+    f.addEventListener('click', function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      f.setAttribute('aria-pressed', f.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+  });
+
+  /* Filtres catégories */
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); c.setAttribute('aria-selected','false'); });
+      chip.classList.add('active'); chip.setAttribute('aria-selected','true');
+      var f = chip.dataset.filter;
+      cards.forEach(function(card){
+        var show = f === 'all' || card.dataset.cat.split(' ').indexOf(f) !== -1;
+        card.classList.toggle('hide', !show);
+      });
+    });
+  });
+
+  /* ===== Widget créneaux ===== */
+  var DAYS = [
+    [
+      {t:'9 h – 11 h',  regime:'open', cap:12, booked:4,  priceP:8,  pricePriv:68},
+      {t:'11 h – 13 h', regime:'open', cap:12, booked:12, priceP:8,  pricePriv:68},
+      {buffer:true},
+      {t:'13 h 30 – 16 h 30', regime:'priv'},
+      {buffer:true},
+      {t:'17 h – 19 h', regime:'open', cap:12, booked:0,  priceP:8,  pricePriv:68},
+      {t:'19 h 30 – 21 h 30 · l’heure bleue', regime:'open', cap:10, booked:6, priceP:12, pricePriv:105}
+    ],
+    [
+      {t:'9 h – 11 h',  regime:'open', cap:12, booked:2,  priceP:8,  pricePriv:68},
+      {t:'11 h – 13 h', regime:'open', cap:12, booked:5,  priceP:8,  pricePriv:68},
+      {buffer:true},
+      {t:'14 h – 18 h · demi-journée', regime:'priv'},
+      {buffer:true},
+      {t:'19 h 30 – 21 h 30 · l’heure bleue', regime:'open', cap:10, booked:0, priceP:12, pricePriv:105}
+    ]
+  ];
+  var state = {day:0, slot:null, persons:2, privatise:false};
+  var slotsEl = document.getElementById('slots');
+  var recapEl = document.getElementById('recap');
+
+  function euro(n){ return n.toFixed(2).replace('.', ',').replace(',00','') + ' €'; }
+
+  function renderSlots(){
+    slotsEl.innerHTML = '';
+    DAYS[state.day].forEach(function(s, i){
+      if(s.buffer){
+        var b = document.createElement('div');
+        b.className = 'buffer-row'; b.textContent = 'rotation · 30 min';
+        slotsEl.appendChild(b); return;
+      }
+      var btn = document.createElement('button');
+      btn.className = 'slot' + (state.slot === i ? ' selected' : '');
+      btn.type = 'button';
+      var left = s.cap - s.booked;
+      if(s.regime === 'priv'){
+        btn.disabled = true;
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Réservé — un seul groupe</span><span class="s-tag tag-priv">Privatisé</span>';
+      } else if(left <= 0){
+        btn.disabled = true;
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Séance complète — '+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
+      } else {
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">'+euro(s.priceP)+'/pers · '+left+' place'+(left>1?'s':'')+'</span><span class="s-tag tag-open">Séance ouverte</span>';
+        btn.addEventListener('click', function(){
+          state.slot = i; state.privatise = false;
+          var cs = DAYS[state.day][i];
+          if(state.persons > cs.cap - cs.booked) state.persons = cs.cap - cs.booked;
+          render();
+        });
+      }
+      slotsEl.appendChild(btn);
+    });
+  }
+
+  function renderRecap(){
+    if(state.slot === null){
+      recapEl.innerHTML = '<p class="r-empty">Choisissez un créneau.<br>Le prix est tout compris, avant de payer.</p>';
+      return;
+    }
+    var s = DAYS[state.day][state.slot];
+    var left = s.cap - s.booked;
+    var canPriv = s.booked === 0;
+    var total = state.privatise ? s.pricePriv : s.priceP * state.persons;
+    recapEl.innerHTML =
+      '<p class="r-lbl">Votre séance</p>'+
+      '<p class="r-time">'+s.t+'</p>'+
+      '<p class="r-note">'+(state.privatise
+        ? 'Privatisé : vous serez les seuls, jusqu’à '+s.cap+' baigneurs.'
+        : 'Séance ouverte — jusqu’à '+s.cap+' baigneurs au total.')+'</p>'+
+      '<div class="persons"><span class="p-lbl">Baigneurs</span>'+
+        '<div class="stepper">'+
+          '<button type="button" id="p-minus" aria-label="Moins de baigneurs"'+(state.persons<=1?' disabled':'')+'>−</button>'+
+          '<span class="p-num">'+state.persons+'</span>'+
+          '<button type="button" id="p-plus" aria-label="Plus de baigneurs"'+((state.privatise ? state.persons>=s.cap : state.persons>=left)?' disabled':'')+'>+</button>'+
+        '</div></div>'+
+      '<div class="privat'+(canPriv?'':' off')+'">'+
+        '<input type="checkbox" id="privcheck"'+(state.privatise?' checked':'')+(canPriv?'':' disabled')+'>'+
+        '<label for="privcheck"><b>Privatiser — '+euro(s.pricePriv)+'</b>'+
+        '<small>'+(canPriv ? 'Possible tant que personne n’a réservé.' : s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label>'+
+      '</div>'+
+      '<div class="total">'+
+        '<div class="t-row"><span>'+(state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(total)+'</span></div>'+
+        '<div class="t-row"><span>Frais de service</span><span class="amt">inclus</span></div>'+
+        '<div class="t-row grand"><span>Total</span><span class="amt">'+euro(total)+'</span></div>'+
+        '<a class="btn btn-encre" href="fiche.html" style="display:flex">Réserver</a>'+
+        '<p class="t-small">Annulation gratuite jusqu’à 48 h avant. Rien à payer sur place.</p>'+
+      '</div>';
+    var minus = document.getElementById('p-minus'), plus = document.getElementById('p-plus');
+    if(minus) minus.addEventListener('click', function(){ if(state.persons>1){ state.persons--; renderRecap(); } });
+    if(plus) plus.addEventListener('click', function(){
+      var max = state.privatise ? s.cap : left;
+      if(state.persons < max){ state.persons++; renderRecap(); }
+    });
+    var pc = document.getElementById('privcheck');
+    if(pc && canPriv) pc.addEventListener('change', function(){ state.privatise = pc.checked; renderRecap(); });
+  }
+
+  function render(){ renderSlots(); renderRecap(); }
+
+  document.querySelectorAll('.day-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.day-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      state.day = parseInt(tab.dataset.day,10); state.slot = null; state.privatise = false;
+      render();
+    });
+  });
+
+  render();
+
+  /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
+  document.addEventListener('click', function(ev){
+    var dead = ev.target.closest('a[href="#"]');
+    if(dead) ev.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le bassin des Micocouliers — Aix-en-Provence · Loue ta piscine</title>
+<meta name="description" content="Piscine de pierre 10 × 5 m à Aix-en-Provence. Séance ouverte dès 7 €/pers ou privatisation. Visitée et vérifiée, prix tout compris.">
+<link rel="canonical" href="https://loue-ta-piscine-demo.netlify.app/fiche.html">
+<meta property="og:title" content="Le bassin des Micocouliers — Aix-en-Provence">
+<meta property="og:description" content="Piscine de pierre 10 × 5 m, eau à 27 °C. Séance ouverte dès 7 €/pers ou privatisation dès 68 €. Prix tout compris.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://loue-ta-piscine-demo.netlify.app/fiche.html">
+<meta property="og:image" content="https://loue-ta-piscine-demo.netlify.app/img/provencale.webp">
+<meta property="og:site_name" content="Loue ta piscine">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Product","name":"Le bassin des Micocouliers","description":"Piscine de pierre 10 × 5 m à Aix-en-Provence, eau chauffée à 27 °C, séance ouverte ou privatisation.","image":"https://loue-ta-piscine-demo.netlify.app/img/provencale.webp","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.93","reviewCount":"41"},"offers":{"@type":"AggregateOffer","lowPrice":"7","highPrice":"290","priceCurrency":"EUR"}}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/base.css">
+<link rel="preload" href="img/provencale.webp" as="image">
+<style>
+  .crumb{font-size:12.5px; color:var(--brume); padding:18px 0 14px}
+  .crumb a{color:var(--brume); text-decoration:none}
+  .crumb a:hover{color:var(--encre)}
+  .crumb span{margin:0 6px; color:var(--line)}
+
+  /* ---- Galerie ---- */
+  .gallery{display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; border-radius:14px; overflow:hidden; position:relative; max-height:460px}
+  .gallery a{display:block; position:relative; overflow:hidden}
+  .gallery img{width:100%; height:100%; object-fit:cover; transition:transform .5s var(--eo)}
+  .gallery a:hover img{transform:scale(1.035)}
+  .gallery .g-main{grid-row:1/3}
+  .g-count{position:absolute; right:14px; bottom:14px; z-index:2; background:rgba(250,249,244,.92); color:var(--encre); border:none; border-radius:7px; padding:8px 14px; font-size:12.5px; font-weight:600; backdrop-filter:blur(4px)}
+  @media (max-width:760px){
+    .gallery{grid-template-columns:1fr 1fr; grid-template-rows:auto auto; max-height:none}
+    .gallery .g-main{grid-column:1/3; grid-row:auto; aspect-ratio:16/10}
+    .gallery a:not(.g-main){aspect-ratio:4/3}
+    .gallery a:nth-child(4),.gallery a:nth-child(5){display:none}
+  }
+
+  /* ---- Layout ---- */
+  .sheet{display:grid; grid-template-columns:1fr 400px; gap:44px; padding:30px 0 72px; align-items:start}
+  @media (max-width:960px){ .sheet{grid-template-columns:1fr} }
+
+  .title-row{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin:0 0 4px}
+  h1{font-family:var(--serif); font-weight:500; font-size:clamp(26px,3.4vw,36px); line-height:1.1; margin:0}
+  .note{display:inline-flex; align-items:center; gap:5px; font-size:14.5px; font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .note svg{width:13px; height:13px; fill:var(--solaire)}
+  .note small{color:var(--brume); font-weight:400}
+  .place{font-size:14px; color:var(--brume); margin:0 0 14px}
+  .badges{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px}
+  .b{font-size:12px; font-weight:600; padding:5px 13px; border-radius:99px}
+  .b-ouverte{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .b-visite{background:color-mix(in srgb,var(--solaire) 15%,transparent); color:var(--solaire-ink)}
+  .b-neutre{background:var(--craie-2); border:1px solid var(--line); color:var(--brume)}
+
+  .desc{font-size:15.5px; line-height:1.7; max-width:62ch; margin:0 0 8px}
+  .desc-host{font-size:12.5px; color:var(--brume); margin:0 0 30px}
+
+  h2.small{font-family:var(--serif); font-weight:500; font-size:21px; margin:34px 0 16px}
+
+  .equip{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:11px; max-width:640px}
+  .eq{display:flex; align-items:center; gap:11px; font-size:14px; border:1px solid var(--line); border-radius:9px; padding:11px 14px; background:var(--blanc)}
+  .eq svg{width:19px; height:19px; flex:none; stroke:var(--bassin)}
+
+  details{border:1px solid var(--line); border-radius:11px; background:var(--blanc); margin:0 0 12px; max-width:640px; box-shadow:var(--shadow-1)}
+  details summary{padding:16px 20px; font-weight:600; font-size:14.5px; cursor:pointer; display:flex; align-items:center; gap:12px; list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::after{content:"+"; margin-left:auto; font-size:18px; color:var(--brume); transition:transform .2s var(--eo)}
+  details[open] summary::after{transform:rotate(45deg)}
+  details .d-body{padding:0 20px 18px; font-size:14px; color:var(--brume)}
+  details .d-body ul{margin:0; padding-left:0; list-style:none; columns:2; column-gap:26px}
+  @media (max-width:640px){ details .d-body ul{columns:1} }
+  details .d-body li{margin:0 0 9px; padding-left:22px; position:relative; break-inside:avoid}
+  details .d-body li::before{content:""; position:absolute; left:0; top:5px; width:12px; height:12px; border-radius:50%; background:color-mix(in srgb,var(--bassin) 15%,transparent)}
+  details .d-body li.ok::before{background:var(--bassin)}
+  .v-date{font-size:12px; color:var(--brume); font-weight:400; margin-left:auto; padding-right:10px}
+
+  /* Avis */
+  .avis{display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:640px}
+  @media (max-width:640px){ .avis{grid-template-columns:1fr} }
+  .avis figure{margin:0; background:var(--blanc); border:1px solid var(--line); border-radius:11px; padding:18px 20px; box-shadow:var(--shadow-1)}
+  .avis .q-stars{display:flex; gap:2px; margin-bottom:9px}
+  .avis .q-stars svg{width:12px; height:12px; fill:var(--solaire)}
+  .avis p{margin:0 0 10px; font-size:13.5px; line-height:1.6}
+  .avis figcaption{font-size:12px; color:var(--brume)}
+
+  /* Hôte */
+  .host{display:flex; gap:18px; align-items:flex-start; background:var(--blanc); border:1px solid var(--line); border-radius:12px; padding:22px 24px; max-width:640px; box-shadow:var(--shadow-1)}
+  .avatar{width:56px; height:56px; border-radius:50%; background:var(--encre); color:var(--craie); font-family:var(--serif); font-size:24px; display:flex; align-items:center; justify-content:center; flex:none}
+  .host b{font-size:15.5px}
+  .host .h-meta{font-size:12.5px; color:var(--brume); margin:3px 0 10px}
+  .host p{margin:0; font-size:13.5px; line-height:1.6}
+  .host .h-note{font-size:12px; color:var(--brume); margin-top:10px; padding-top:10px; border-top:1px solid var(--line)}
+
+  /* Localisation */
+  .map{position:relative; border-radius:12px; overflow:hidden; height:230px; max-width:640px; background:linear-gradient(140deg,#E4E6DC, #D6DDD4 55%, #CFD8D2); border:1px solid var(--line)}
+  .map .zone{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:150px; height:150px; border-radius:50%; background:color-mix(in srgb,var(--bassin) 18%,transparent); border:2px solid color-mix(in srgb,var(--bassin) 45%,transparent)}
+  .map .dot{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:12px; height:12px; border-radius:50%; background:var(--bassin); box-shadow:0 0 0 4px rgba(47,93,84,.25)}
+  .map figcaption{position:absolute; left:14px; bottom:12px; background:rgba(250,249,244,.94); border-radius:7px; padding:7px 13px; font-size:12px; color:var(--encre)}
+
+  /* ---- Panneau réservation ---- */
+  .book{position:sticky; top:82px; background:var(--blanc); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-2); overflow:hidden}
+  .book .bk-head{padding:20px 24px 0; display:flex; align-items:baseline; justify-content:space-between; gap:10px}
+  .book .bk-price{font-size:14px; color:var(--brume)}
+  .book .bk-price b{font-family:var(--serif); font-weight:500; font-size:22px; color:var(--encre)}
+  .book .bk-body{padding:16px 24px 22px}
+  .day-strip{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:14px}
+  .day{border:1px solid var(--line); background:var(--craie-2); border-radius:7px; padding:7px 2px; text-align:center; transition:all .18s var(--eo)}
+  .day small{display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--brume)}
+  .day b{font-size:13.5px; font-weight:600; font-variant-numeric:tabular-nums}
+  .day.active{background:var(--encre); border-color:var(--encre)}
+  .day.active small,.day.active b{color:#F2F1EA}
+  .day:disabled{opacity:.4; cursor:default}
+  .slots{display:flex; flex-direction:column; gap:6px; margin-bottom:4px}
+  .slot{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:8px; padding:9px 12px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo)}
+  .slot:not(:disabled):hover{border-color:var(--bassin)}
+  .slot.selected{border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 6%,#fff); box-shadow:inset 3px 0 0 var(--bassin)}
+  .slot:disabled{cursor:default; opacity:.5; background:var(--craie-2)}
+  .slot .s-time{font-variant-numeric:tabular-nums; font-weight:600; font-size:12.5px; min-width:78px}
+  .slot .s-info{flex:1; font-size:11.5px; color:var(--brume)}
+  .slot .s-tag{font-size:10px; font-weight:600; padding:2px 8px; border-radius:99px; white-space:nowrap}
+  .tag-open{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .tag-full{background:var(--line); color:var(--brume)}
+  .tag-priv{background:color-mix(in srgb,var(--encre) 9%,transparent); color:var(--encre)}
+  .buffer-row{display:flex; align-items:center; gap:8px; padding:0 12px; font-size:9.5px; color:var(--brume); letter-spacing:.05em}
+  .buffer-row::before,.buffer-row::after{content:""; flex:1; border-top:1px dashed var(--line)}
+  .bk-config{border-top:1px solid var(--line); margin-top:14px; padding-top:14px}
+  .persons{display:flex; align-items:center; gap:12px; margin-bottom:12px}
+  .persons .p-lbl{font-size:13px; font-weight:500; flex:1}
+  .stepper{display:flex; align-items:center; border:1px solid var(--line); border-radius:7px; overflow:hidden; background:#fff}
+  .stepper button{width:32px; height:32px; border:none; background:#fff; font-size:15px; color:var(--bassin)}
+  .stepper button:hover:not(:disabled){background:var(--craie)}
+  .stepper button:disabled{color:var(--line); cursor:default}
+  .stepper .p-num{width:30px; text-align:center; font-weight:600; font-size:13.5px; font-variant-numeric:tabular-nums}
+  .opt{display:flex; gap:10px; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--craie)}
+  .opt:last-of-type{border-bottom:none}
+  .opt input{margin-top:2px; accent-color:var(--bassin); width:15px; height:15px}
+  .opt label{font-size:12.5px; line-height:1.4; cursor:pointer; flex:1}
+  .opt label small{display:block; color:var(--brume); font-size:11px}
+  .opt .o-price{font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .opt.off{opacity:.5}
+  .privat{display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:9px; padding:11px 13px; margin:12px 0; background:var(--craie-2); transition:border-color .18s var(--eo)}
+  .privat:has(input:checked){border-color:var(--bassin); background:#fff}
+  .privat input{margin-top:2px; accent-color:var(--bassin); width:15px; height:15px}
+  .privat label{font-size:12px; line-height:1.45; cursor:pointer}
+  .privat label b{font-weight:600; font-size:12.5px}
+  .privat label small{display:block; color:var(--brume); font-size:11px; margin-top:1px}
+  .privat.off{opacity:.55}
+  .t-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--brume); margin-bottom:4px}
+  .t-row .amt{font-variant-numeric:tabular-nums}
+  .t-row.grand{font-size:15px; color:var(--encre); font-weight:600; margin:8px 0 12px}
+  .bk-cta{width:100%; font-size:14.5px; padding:12px}
+  .t-small{font-size:10.5px; color:var(--brume); text-align:center; margin:9px 0 0; line-height:1.5}
+  .bk-msg{display:block; text-align:center; font-size:12px; margin-top:12px}
+  .bk-empty{color:var(--brume); font-size:12.5px; text-align:center; padding:10px 6px 4px; line-height:1.55}
+
+  /* ---- Assistant baigneur ---- */
+  .fab{position:fixed; right:20px; bottom:20px; z-index:90; width:54px; height:54px; border-radius:50%; border:none; background:var(--encre); box-shadow:0 8px 24px rgba(6,14,18,.35); display:flex; align-items:center; justify-content:center; transition:transform .2s var(--eo)}
+  .fab:hover{transform:scale(1.06)}
+  .fab svg{width:22px; height:22px; fill:var(--solaire)}
+  .bot{position:fixed; right:20px; bottom:86px; z-index:95; width:min(340px, calc(100vw - 32px)); background:var(--blanc); border:1px solid var(--line); border-radius:16px; box-shadow:0 18px 50px rgba(6,14,18,.28); display:none; flex-direction:column; overflow:hidden; max-height:min(480px, calc(100vh - 120px))}
+  .bot.open{display:flex}
+  .bot .b-head{background:var(--encre-2, #0B181F); background:#0B181F; color:#F2F1EA; padding:13px 16px; display:flex; align-items:center; gap:10px}
+  .bot .b-head svg{width:15px; height:15px; fill:var(--solaire); flex:none}
+  .bot .b-head b{font-size:13px; display:block}
+  .bot .b-head small{font-size:10.5px; color:rgba(242,241,234,.6)}
+  .bot .b-close{margin-left:auto; border:none; background:none; color:rgba(242,241,234,.7); font-size:19px; line-height:1; padding:4px; cursor:pointer}
+  .bot .b-body{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:8px; background:var(--craie-2); min-height:150px}
+  .bot .bulle{max-width:85%; padding:9px 13px; border-radius:12px; font-size:12.5px; line-height:1.5}
+  .bot .bulle.eux{background:var(--blanc); border:1px solid var(--line); border-bottom-left-radius:4px; align-self:flex-start}
+  .bot .bulle.moi{background:var(--bassin); color:#F2F1EA; border-bottom-right-radius:4px; align-self:flex-end}
+  .typing{display:inline-flex; gap:4px; padding:10px 13px; background:var(--blanc); border:1px solid var(--line); border-radius:12px; border-bottom-left-radius:4px; align-self:flex-start}
+  .typing i{width:5px; height:5px; border-radius:50%; background:var(--brume); animation:blink 1.1s infinite}
+  .typing i:nth-child(2){animation-delay:.18s}
+  .typing i:nth-child(3){animation-delay:.36s}
+  @keyframes blink{0%,70%,100%{opacity:.25}35%{opacity:1}}
+  .bulle.streaming::after{content:""; display:inline-block; width:2px; height:1em; margin-left:2px; background:currentColor; vertical-align:-2px; animation:caret .8s step-end infinite}
+  @keyframes caret{50%{opacity:0}}
+  .bot .b-quick{display:flex; flex-wrap:wrap; gap:6px; padding:10px 13px; border-top:1px solid var(--craie); background:var(--blanc)}
+  .bot .qchip{border:1px solid var(--line); background:var(--blanc); border-radius:99px; padding:6px 11px; font-size:11.5px; font-weight:500; color:var(--encre); cursor:pointer; transition:all .18s var(--eo)}
+  .bot .qchip:hover{border-color:var(--bassin); color:var(--bassin)}
+  .bot .b-input{display:flex; gap:8px; padding:11px 13px; border-top:1px solid var(--craie); background:var(--blanc)}
+  .bot .b-input input{flex:1; border:1px solid var(--line); border-radius:8px; padding:9px 12px; font-family:var(--sans); font-size:12.5px; background:var(--craie-2)}
+  .bot .b-input input:focus{outline:none; border-color:var(--bassin); background:#fff}
+  .bot .b-input button{border:none; border-radius:8px; background:var(--encre); color:#F2F1EA; padding:0 15px; font-weight:600; font-size:12.5px; cursor:pointer}
+  .b-action{align-self:flex-start; border:1px solid var(--bassin); background:color-mix(in srgb,var(--bassin) 8%,#fff); color:var(--bassin); border-radius:99px; padding:7px 14px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); transition:all .18s var(--eo)}
+  .b-action:hover{background:var(--bassin); color:#F2F1EA}
+  .book.flash{animation:flash 1.8s var(--eo)}
+  @keyframes flash{0%,60%{box-shadow:0 0 0 3px color-mix(in srgb,var(--bassin) 45%,transparent), var(--shadow-2)}100%{box-shadow:var(--shadow-2)}}
+  @media (prefers-reduced-motion: reduce){ .typing i{animation:none} .book.flash{animation:none} .bulle.streaming::after{animation:none} }
+</style>
+</head>
+<body>
+
+<header class="page">
+  <div class="h-inner">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#10222B" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#10222B" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span>loue ta piscine</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="index.html#annonces" class="hideable">Piscines</a>
+      <a href="index.html#annonces" class="hideable">Jacuzzis</a>
+      <a href="index.html#annonces" class="hideable">Saunas</a>
+      <a href="hote.html" class="btn btn-ligne">Devenir hôte</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="crumb" aria-label="Fil d'ariane">
+    <a href="index.html">Accueil</a><span>/</span><a href="index.html#annonces">Aix-en-Provence</a><span>/</span>Le bassin des Micocouliers
+  </nav>
+
+  <div class="gallery">
+    <a class="g-main" href="#"><img src="img/provencale.webp" alt="Le bassin de pierre à l'heure dorée, lavandes et mur de la bastide" fetchpriority="high" width="900" height="600"></a>
+    <a href="#"><img src="img/bassin-2.webp" alt="Le bassin côté transats, douche extérieure sur le mur de pierre" loading="lazy" width="1100" height="734"></a>
+    <a href="#"><img src="img/margelle.webp" alt="La margelle en travertin au soir, eau profonde" loading="lazy" width="1000" height="667"></a>
+    <a href="#"><img src="img/hero-bleue.webp" alt="Le bassin à l'heure bleue, cyprès et lanterne allumée" loading="lazy" width="1800" height="1200"></a>
+    <a href="#"><img src="img/portillon.webp" alt="Le portillon de bois dans le mur de pierres sèches, l'accès au jardin" loading="lazy" width="900" height="600"></a>
+    <button class="g-count" type="button">12 photos</button>
+  </div>
+
+  <div class="sheet">
+    <article>
+      <div class="title-row">
+        <h1>Le bassin des Micocouliers</h1>
+        <span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93 <small>· 41 avis</small></span>
+      </div>
+      <p class="place">Aix-en-Provence — quartier des Micocouliers · 10 × 5 m · profondeur 1,20 – 2 m</p>
+      <div class="badges">
+        <span class="b b-visite">Visitée le 12 mai 2026</span>
+        <span class="b b-ouverte">Séances ouvertes</span>
+        <span class="b b-neutre">Privatisable</span>
+        <span class="b b-neutre">Chauffée · 27 °C</span>
+      </div>
+
+      <p class="desc">Un bassin de pierre des années 60, restauré, au fond d'un jardin de lavandes et de micocouliers. L'eau est chauffée d'avril à octobre, la douche est au mur, les transats à l'ombre du grand arbre. Le portillon donne directement sur le jardin : vous ne traversez pas la maison.</p>
+      <p class="desc-host">Description rédigée par Claire, relue lors de la Visite.</p>
+
+      <h2 class="small">Équipements</h2>
+      <div class="equip">
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M7 19V6a3 3 0 0 1 6 0M17 19V6" stroke-linecap="round"/><path d="M3 19h18" stroke-linecap="round"/></svg>Douche extérieure</div>
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><rect x="4" y="10" width="16" height="8" rx="1.5"/><path d="M7 10V7h10v3" stroke-linecap="round"/></svg>4 transats + parasol</div>
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2.5" stroke-linecap="round"/></svg>Chauffée avril – octobre</div>
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M9 8h6M9 12h6" stroke-linecap="round"/></svg>Vestiaire &amp; WC dédiés</div>
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M4 20h16M6 20V9l6-4.5L18 9v11" stroke-linejoin="round"/></svg>Accès sans passer par la maison</div>
+        <div class="eq"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14M5 16h14M12 4v4" stroke-linecap="round"/><circle cx="12" cy="6" r="2"/></svg>Barrière de sécurité normée</div>
+      </div>
+
+      <h2 class="small">La Visite — nos 12 points, vérifiés sur place</h2>
+      <details>
+        <summary>Vérifié par l'équipe le 12 mai 2026 <span class="v-date">conforme 12/12</span></summary>
+        <div class="d-body">
+          <ul>
+            <li class="ok">Dispositif de sécurité normé (barrière NF P90-306)</li>
+            <li class="ok">Analyse d'eau du mois consultée</li>
+            <li class="ok">Profondeurs affichées au bord du bassin</li>
+            <li class="ok">Margelles et abords en bon état, non glissants</li>
+            <li class="ok">Douche et rinçage en état de marche</li>
+            <li class="ok">Sanitaires accessibles aux baigneurs</li>
+            <li class="ok">Accès indépendant, sans traversée du logement</li>
+            <li class="ok">Photos conformes à la réalité</li>
+            <li class="ok">Jauge cohérente avec la taille du bassin</li>
+            <li class="ok">Trousse de premiers secours à proximité</li>
+            <li class="ok">Perche et bouée de sauvetage visibles</li>
+            <li class="ok">Identité de l'hôte vérifiée</li>
+          </ul>
+        </div>
+      </details>
+
+      <h2 class="small">Le règlement de Claire</h2>
+      <details id="reglement">
+        <summary>À accepter avant de réserver</summary>
+        <div class="d-body">
+          <ul>
+            <li>Enfants de moins de 10 ans accompagnés d'un adulte dans l'eau</li>
+            <li>Musique autorisée jusqu'à 20 h, volume raisonnable</li>
+            <li>Pas d'animaux dans le bassin</li>
+            <li>Pas de verre autour du bassin — gobelets fournis</li>
+            <li>Maillot de bain obligatoire, douche avant baignade</li>
+            <li>Le portillon reste fermé — jardin partagé avec personne</li>
+          </ul>
+        </div>
+      </details>
+
+      <h2 class="small">Ils y ont nagé</h2>
+      <div class="avis">
+        <figure>
+          <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+          <p>« Séance du matin en semaine, on était deux familles. L'eau à 27°, le café offert par Claire — on a repris pour août. »</p>
+          <figcaption>Mélanie — juillet 2026 · séance ouverte</figcaption>
+        </figure>
+        <figure>
+          <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
+          <p>« Privatisé pour les 60 ans de mon père, 15 personnes. Le créneau de l'heure bleue vaut chaque euro. »</p>
+          <figcaption>Karim — juin 2026 · privatisation</figcaption>
+        </figure>
+      </div>
+
+      <h2 class="small">Votre hôte</h2>
+      <div class="host">
+        <div class="avatar" aria-hidden="true">C</div>
+        <div>
+          <b>Claire</b>
+          <p class="h-meta">Hôte vérifiée · membre depuis 2025 · répond en ~1 h</p>
+          <p>Le bassin est celui de la maison de famille. Je vous accueille au portillon à chaque première venue — après, vous êtes chez vous.</p>
+          <p class="h-note">La messagerie reste intégrée avant réservation. Le numéro de Claire vous est communiqué dès la réservation confirmée.</p>
+        </div>
+      </div>
+
+      <h2 class="small">Où se trouve le bassin</h2>
+      <figure class="map" style="margin:0">
+        <div class="zone" aria-hidden="true"></div>
+        <div class="dot" aria-hidden="true"></div>
+        <figcaption>Quartier des Micocouliers, Aix-en-Provence — l'adresse exacte vous est envoyée après réservation.</figcaption>
+      </figure>
+    </article>
+
+    <aside class="book" aria-label="Réserver ce bassin">
+      <div class="bk-head">
+        <span class="bk-price"><b>dès 7 €</b> /pers · séance 2 h</span>
+        <span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93</span>
+      </div>
+      <div class="bk-body">
+        <div class="day-strip" id="days" role="tablist"></div>
+        <div class="slots" id="slots"></div>
+        <div id="config"></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="f-inner">
+    <div>
+      <div class="f-brand">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span>loue ta piscine</span>
+      </div>
+      <p style="max-width:32ch; margin:0; line-height:1.6; font-size:13px">Piscines, jacuzzis et saunas de particuliers. À l'heure ou à la journée.</p>
+    </div>
+    <div>
+      <h3>Réserver</h3>
+      <a href="index.html#annonces">Piscines</a><a href="index.html#annonces">Jacuzzis</a><a href="index.html#annonces">Saunas</a>
+    </div>
+    <div>
+      <h3>Hôtes</h3>
+      <a href="hote.html">Devenir hôte</a><a href="hote.html">Estimer mes revenus</a><a href="#">Sécurité &amp; conformité</a>
+    </div>
+    <div>
+      <h3>Villes</h3>
+      <div class="f-cities">
+        <a href="#">Aix-en-Provence</a><a href="#">Marseille</a><a href="#">Toulon</a><a href="#">Avignon</a>
+      </div>
+    </div>
+  </div>
+  <div class="legal">© 2026 Loue ta piscine — maquette de démonstration. Annonces, avis et disponibilités fictifs.</div>
+</footer>
+
+<button class="fab" id="fab" type="button" aria-label="Une question sur ce bassin ?" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>
+</button>
+
+<div class="bot" id="bot" role="dialog" aria-label="Questions sur ce bassin">
+  <div class="b-head">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>
+    <div><b>Une question sur ce bassin ?</b><small>réponse immédiate — ou écrivez à Claire</small></div>
+    <button class="b-close" id="bot-close" type="button" aria-label="Fermer">×</button>
+  </div>
+  <div class="b-body" id="bot-body"></div>
+  <div class="b-quick" id="bot-quick"></div>
+  <form class="b-input" id="bot-form">
+    <input type="text" placeholder="Posez votre question…" aria-label="Votre question">
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* 7 jours de calendrier — données démo */
+  function d(t,cap,booked,pP,pV){ return {t:t, regime:'open', cap:cap, booked:booked, priceP:pP, pricePriv:pV}; }
+  var BUF = {buffer:true};
+  var DAYS = [
+    {lbl:['Sam','25'], slots:[ d('9 h – 11 h',12,4,8,68), d('11 h – 13 h',12,12,8,68), BUF, {t:'13 h 30 – 16 h 30', regime:'priv'}, BUF, d('17 h – 19 h',12,0,8,68), d('19 h 30 – 21 h 30',10,6,12,105) ]},
+    {lbl:['Dim','26'], slots:[ d('9 h – 11 h',12,2,8,68), d('11 h – 13 h',12,5,8,68), BUF, {t:'14 h – 18 h · demi-journée', regime:'priv'}, BUF, d('19 h 30 – 21 h 30',10,0,12,105) ]},
+    {lbl:['Lun','27'], slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,3,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,0,12,105) ]},
+    {lbl:['Mar','28'], slots:[ d('9 h – 11 h',12,1,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,4,7,68), d('19 h 30 – 21 h 30',10,2,12,105) ]},
+    {lbl:['Mer','29'], slots:[ d('9 h – 11 h',12,6,7,68), d('11 h – 13 h',12,8,7,68), BUF, {t:'14 h – 21 h · journée privée', regime:'priv'} ]},
+    {lbl:['Jeu','30'], slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,3,12,105) ]},
+    {lbl:['Ven','31'], slots:[ d('9 h – 11 h',12,2,7,68), d('11 h – 13 h',12,7,7,68), BUF, d('14 h – 16 h',12,5,7,68), d('17 h – 19 h',12,9,7,68), d('19 h 30 – 21 h 30',10,8,12,105) ]}
+  ];
+  var EXTRAS = [
+    {id:'bbq', lbl:'Barbecue à disposition', sub:'charbon fourni', price:15},
+    {id:'serv', lbl:'Serviettes — lot de 4', sub:'lavées entre chaque séance', price:6},
+    {id:'gouter', lbl:'Goûter maison', sub:'préparé par Claire, 6 pers.', price:18}
+  ];
+  var state = {day:0, slot:null, persons:2, privatise:false, extras:{}};
+  var daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots'), cfgEl = document.getElementById('config');
+
+  function euro(n){ return n.toFixed(2).replace('.', ',').replace(',00','') + ' €'; }
+
+  function renderDays(){
+    daysEl.innerHTML = '';
+    DAYS.forEach(function(dy, i){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'day' + (state.day === i ? ' active' : '');
+      b.setAttribute('role','tab'); b.setAttribute('aria-selected', state.day === i ? 'true' : 'false');
+      b.innerHTML = '<small>'+dy.lbl[0]+'</small><b>'+dy.lbl[1]+'</b>';
+      b.addEventListener('click', function(){ state.day = i; state.slot = null; state.privatise = false; render(); });
+      daysEl.appendChild(b);
+    });
+  }
+
+  function renderSlots(){
+    slotsEl.innerHTML = '';
+    DAYS[state.day].slots.forEach(function(s, i){
+      if(s.buffer){
+        var b = document.createElement('div');
+        b.className = 'buffer-row'; b.textContent = 'rotation · 30 min';
+        slotsEl.appendChild(b); return;
+      }
+      var btn = document.createElement('button');
+      btn.className = 'slot' + (state.slot === i ? ' selected' : '');
+      btn.type = 'button';
+      if(s.regime === 'priv'){
+        btn.disabled = true;
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Réservé</span><span class="s-tag tag-priv">Privatisé</span>';
+      } else {
+        var left = s.cap - s.booked;
+        if(left <= 0){
+          btn.disabled = true;
+          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Complet — '+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
+        } else {
+          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">'+euro(s.priceP)+'/pers · '+left+' pl.</span><span class="s-tag tag-open">Ouverte</span>';
+          btn.addEventListener('click', function(){
+            state.slot = i; state.privatise = false;
+            if(state.persons > left) state.persons = left;
+            render();
+          });
+        }
+      }
+      slotsEl.appendChild(btn);
+    });
+  }
+
+  function renderConfig(){
+    if(state.slot === null){
+      cfgEl.innerHTML = '<p class="bk-empty">Choisissez un créneau — le prix est tout compris, avant de payer.</p>'+
+        '<a class="bk-msg" href="#">Poser une question à Claire — messagerie intégrée</a>';
+      return;
+    }
+    var s = DAYS[state.day].slots[state.slot];
+    var left = s.cap - s.booked;
+    var canPriv = s.booked === 0;
+    var base = state.privatise ? s.pricePriv : s.priceP * state.persons;
+    var extrasTotal = 0, extrasRows = '';
+    EXTRAS.forEach(function(x){
+      var on = !!state.extras[x.id];
+      if(on) extrasTotal += x.price;
+      extrasRows += '<div class="opt"><input type="checkbox" id="x-'+x.id+'"'+(on?' checked':'')+'>'+
+        '<label for="x-'+x.id+'">'+x.lbl+'<small>'+x.sub+'</small></label>'+
+        '<span class="o-price">+'+euro(x.price)+'</span></div>';
+    });
+    var total = base + extrasTotal;
+    cfgEl.innerHTML =
+      '<div class="bk-config">'+
+      '<div class="persons"><span class="p-lbl">Baigneurs</span><div class="stepper">'+
+        '<button type="button" id="p-minus" aria-label="Moins"'+(state.persons<=1?' disabled':'')+'>−</button>'+
+        '<span class="p-num">'+state.persons+'</span>'+
+        '<button type="button" id="p-plus" aria-label="Plus"'+((state.privatise ? state.persons>=s.cap : state.persons>=left)?' disabled':'')+'>+</button>'+
+      '</div></div>'+
+      '<div class="privat'+(canPriv?'':' off')+'">'+
+        '<input type="checkbox" id="privcheck"'+(state.privatise?' checked':'')+(canPriv?'':' disabled')+'>'+
+        '<label for="privcheck"><b>Privatiser — '+euro(s.pricePriv)+'</b>'+
+        '<small>'+(canPriv?'Possible tant que personne n’a réservé.':s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label>'+
+      '</div>'+
+      extrasRows+
+      '<div style="border-top:1px solid var(--line); margin-top:12px; padding-top:12px">'+
+        '<div class="t-row"><span>'+(state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(base)+'</span></div>'+
+        (extrasTotal ? '<div class="t-row"><span>Extras</span><span class="amt">'+euro(extrasTotal)+'</span></div>' : '')+
+        '<div class="t-row"><span>Frais de service</span><span class="amt">inclus</span></div>'+
+        '<div class="t-row grand"><span>Total</span><span class="amt">'+euro(total)+'</span></div>'+
+        '<a class="btn btn-encre bk-cta" href="confirmation.html" style="display:flex">Réserver — '+DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' juil., '+s.t+'</a>'+
+        '<p class="t-small">Plusieurs heures ? Demi-journée privatisée 139 € · journée complète 290 €.<br>Annulation gratuite jusqu’à 48 h avant. Rien à payer sur place.<br>Le numéro de Claire vous est envoyé à la confirmation.</p>'+
+      '</div></div>';
+    var minus = document.getElementById('p-minus'), plus = document.getElementById('p-plus');
+    if(minus) minus.addEventListener('click', function(){ if(state.persons>1){ state.persons--; renderConfig(); } });
+    if(plus) plus.addEventListener('click', function(){
+      var max = state.privatise ? s.cap : left;
+      if(state.persons < max){ state.persons++; renderConfig(); }
+    });
+    var pc = document.getElementById('privcheck');
+    if(pc && canPriv) pc.addEventListener('change', function(){ state.privatise = pc.checked; renderConfig(); });
+    EXTRAS.forEach(function(x){
+      var el = document.getElementById('x-'+x.id);
+      if(el) el.addEventListener('change', function(){ state.extras[x.id] = el.checked; renderConfig(); });
+    });
+  }
+
+  function render(){ renderDays(); renderSlots(); renderConfig(); }
+  render();
+
+  /* ============ Assistant baigneur — même fonction serverless, tâche « guest » ============ */
+  function aiCall(task, messages, context){
+    return fetch('/api/assistant', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({task:task, messages:messages, context:context||''})
+    }).then(function(r){ if(!r.ok) throw new Error('http '+r.status); return r.json(); })
+      .then(function(d){ if(!d.text) throw new Error('vide'); return d.text; });
+  }
+  function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  var CAN_STREAM = !!(window.ReadableStream && window.TextDecoder);
+  /* Flux mot à mot ; onDelta reçoit le texte accumulé. Repli sur aiCall si le navigateur ne suit pas. */
+  function aiStream(task, messages, context, onDelta){
+    if(!CAN_STREAM) return aiCall(task, messages, context);
+    return fetch('/api/assistant', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({task:task, messages:messages, context:context||'', stream:true})
+    }).then(function(r){
+      if(!r.ok) throw new Error('http '+r.status);
+      var reader = r.body.getReader(), dec = new TextDecoder(), full = '';
+      return (function pump(){
+        return reader.read().then(function(res){
+          if(res.done) return full;
+          full += dec.decode(res.value, {stream:true});
+          if(onDelta) onDelta(full);
+          return pump();
+        });
+      })();
+    }).then(function(full){ if(!full || !full.trim()) throw new Error('vide'); return full; });
+  }
+  /* Pendant le flux : les balises [[action:…]] restent invisibles, même à moitié écrites */
+  function displayText(t){
+    t = t.replace(/\[\[action:\w+\]\]/g, '');
+    var i = t.lastIndexOf('[[');
+    if(i !== -1 && t.indexOf(']]', i) === -1) t = t.slice(0, i);
+    return t.replace(/\[$/, '').trim();
+  }
+  var fab = document.getElementById('fab'), bot = document.getElementById('bot');
+  var botBody = document.getElementById('bot-body'), botQuick = document.getElementById('bot-quick');
+  var botHist = [], botStarted = false;
+  /* Réponses locales de secours si l'API est injoignable (démo hors ligne) */
+  var GUEST_Q = [
+    {q:'L’eau est à combien ?', f:'L’eau est chauffée à 27 °C d’avril à octobre — vérifiée lors de la Visite du 12 mai.'},
+    {q:'On sera seuls ?', f:'En séance ouverte, jusqu’à 12 baigneurs de plusieurs foyers partagent le bassin. Pour être seuls, privatisez le créneau dès 68 € — tant que personne d’autre n’a réservé la séance.'},
+    {q:'C’est où exactement ?', f:'Quartier des Micocouliers, à Aix-en-Provence. L’adresse exacte et le numéro de Claire vous sont envoyés automatiquement dès la réservation confirmée — c’est la règle de la plateforme.'}
+  ];
+  function botMsg(html, who){
+    var d = document.createElement('div');
+    d.className = 'bulle ' + (who || 'eux');
+    d.innerHTML = html;
+    botBody.appendChild(d);
+    botBody.scrollTop = botBody.scrollHeight;
+    return d;
+  }
+  function botTyping(){
+    var t = document.createElement('div');
+    t.className = 'typing'; t.innerHTML = '<i></i><i></i><i></i>';
+    botBody.appendChild(t); botBody.scrollTop = botBody.scrollHeight;
+    return t;
+  }
+  /* Boutons d'action renvoyés par le bot — liste fermée, dégradation propre */
+  var ACTIONS = {
+    reserver:{lbl:'Choisir mon créneau', run:function(){
+      bot.classList.remove('open'); fab.setAttribute('aria-expanded','false');
+      var book = document.querySelector('.book');
+      book.scrollIntoView({behavior:'smooth', block:'center'});
+      book.classList.add('flash');
+      setTimeout(function(){ book.classList.remove('flash'); }, 1800);
+    }},
+    reglement:{lbl:'Voir le règlement', run:function(){
+      bot.classList.remove('open'); fab.setAttribute('aria-expanded','false');
+      var d = document.getElementById('reglement');
+      if(d){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'center'}); }
+    }},
+    message:{lbl:'Écrire à Claire', run:function(){
+      bot.classList.remove('open'); fab.setAttribute('aria-expanded','false');
+      document.querySelector('.host').scrollIntoView({behavior:'smooth', block:'center'});
+    }}
+  };
+  function screenContext(){
+    var d = DAYS[state.day];
+    var ctx = 'Le visiteur regarde le ' + d.lbl[0] + ' ' + d.lbl[1] + ' juillet.';
+    if(state.slot !== null){
+      var s = d.slots[state.slot];
+      ctx += ' Créneau sélectionné : ' + s.t + (state.privatise ? ' en privatisation' : ' en séance ouverte') + ', ' + state.persons + ' baigneur(s).';
+    }
+    return ctx;
+  }
+  /* Fin de flux : texte propre figé, balise action → bouton */
+  function finishAnswer(full, bulle){
+    var act = null;
+    var clean = full.replace(/\[\[action:(\w+)\]\]/g, function(_, name){ if(ACTIONS[name]) act = ACTIONS[name]; return ''; }).trim();
+    bulle.classList.remove('streaming');
+    bulle.innerHTML = esc(clean).replace(/\n/g,'<br>');
+    if(act){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'b-action'; b.textContent = act.lbl + ' →';
+      b.addEventListener('click', act.run);
+      botBody.appendChild(b);
+    }
+    botBody.scrollTop = botBody.scrollHeight;
+    return clean;
+  }
+  function ask(text, fallback){
+    botMsg(esc(text), 'moi');
+    botHist.push({role:'user', content:text});
+    var typing = botTyping(), bulle = null;
+    function ensureBulle(){
+      if(!bulle){
+        typing.remove();
+        bulle = botMsg('', 'eux');
+        bulle.classList.add('streaming');
+      }
+      return bulle;
+    }
+    aiStream('guest', botHist.slice(-8), screenContext(), function(sofar){
+      ensureBulle().innerHTML = esc(displayText(sofar)).replace(/\n/g,'<br>');
+      botBody.scrollTop = botBody.scrollHeight;
+    })
+      .then(function(full){
+        botHist.push({role:'assistant', content:finishAnswer(full, ensureBulle())});
+      })
+      .catch(function(){
+        if(bulle && bulle.textContent){
+          botHist.push({role:'assistant', content:finishAnswer(bulle.textContent, bulle)});
+          return;
+        }
+        typing.remove();
+        var a = fallback || 'Je n’arrive pas à joindre l’assistant — posez votre question à Claire via la messagerie de la fiche, elle répond en ~1 h.';
+        botMsg(esc(a));
+        botHist.push({role:'assistant', content:a});
+      });
+  }
+  function botInit(){
+    if(botStarted) return;
+    botStarted = true;
+    botMsg('Bonjour ! Je connais ce bassin par cœur — température, séances, accès, règlement. Posez votre question, ou écrivez directement à Claire via la messagerie.');
+    GUEST_Q.forEach(function(item){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'qchip'; b.textContent = item.q;
+      b.addEventListener('click', function(){ ask(item.q, item.f); });
+      botQuick.appendChild(b);
+    });
+  }
+  fab.addEventListener('click', function(){
+    var open = bot.classList.toggle('open');
+    fab.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){
+      botInit();
+      /* pas d'autofocus sur mobile — le clavier masquerait le fil */
+      if(window.matchMedia('(min-width:720px)').matches){
+        setTimeout(function(){ var i = document.querySelector('#bot-form input'); if(i) i.focus(); }, 250);
+      }
+    }
+  });
+  document.getElementById('bot-close').addEventListener('click', function(){ bot.classList.remove('open'); fab.setAttribute('aria-expanded','false'); });
+  document.getElementById('bot-form').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var inp = ev.target.querySelector('input');
+    var val = inp.value.trim();
+    if(!val) return;
+    inp.value = '';
+    ask(val);
+  });
+
+  /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
+  document.addEventListener('click', function(ev){
+    var dead = ev.target.closest('a[href="#"]');
+    if(dead) ev.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>

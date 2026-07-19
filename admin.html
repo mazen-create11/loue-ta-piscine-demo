@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supervision — Loue ta piscine</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  body{background:var(--craie)}
+  .shell{display:grid; grid-template-columns:224px 1fr; min-height:100vh}
+  @media (max-width:900px){ .shell{grid-template-columns:1fr} aside.side{display:none} }
+  aside.side{background:var(--encre-2); color:rgba(242,241,234,.75); padding:22px 14px; display:flex; flex-direction:column; gap:3px; position:sticky; top:0; height:100vh}
+  .side .logo{padding:4px 12px 8px}
+  .side .logo span{color:#F2F1EA; font-size:17px}
+  .side .role{font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--solaire); font-weight:700; padding:0 12px 18px}
+  .side a.item{display:flex; align-items:center; gap:11px; padding:10px 13px; border-radius:8px; text-decoration:none; color:rgba(242,241,234,.72); font-size:13.5px; font-weight:500; transition:background .18s var(--eo), color .18s var(--eo)}
+  .side a.item:hover{background:rgba(242,241,234,.07); color:#F2F1EA}
+  .side a.item svg{width:17px; height:17px; stroke:currentColor; flex:none}
+  .side .count{margin-left:auto; background:var(--alerte); color:#F2F1EA; font-size:10.5px; font-weight:700; border-radius:99px; padding:1px 7px}
+  .side .count.gold{background:var(--solaire); color:#10222B}
+  .side .spacer{flex:1}
+  .side .wa-box{background:rgba(242,241,234,.06); border:1px solid rgba(242,241,234,.12); border-radius:10px; padding:13px 14px; font-size:11.5px; line-height:1.5}
+  .side .wa-box b{color:#F2F1EA; display:block; margin-bottom:2px; font-size:12px}
+  .side .wa-box a{color:var(--solaire); font-weight:600; text-decoration:none; display:inline-flex; margin-top:7px}
+
+  .content{padding:24px 30px 64px; max-width:1120px}
+  .topbar{display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap}
+  .topbar h1{font-family:var(--serif); font-weight:500; font-size:24px; margin:0}
+  .topbar small{display:block; font-size:12.5px; color:var(--brume)}
+  .pill-alert{margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--alerte); background:color-mix(in srgb,var(--alerte) 11%,transparent); border-radius:99px; padding:6px 13px}
+
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px}
+  @media (max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} }
+  .kpi{background:var(--blanc); border:1px solid var(--line); border-radius:13px; padding:17px 19px; box-shadow:var(--shadow-1)}
+  .kpi .k-lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--brume); font-weight:600; margin:0 0 7px}
+  .kpi .k-val{font-family:var(--serif); font-weight:500; font-size:28px; margin:0; font-variant-numeric:tabular-nums}
+  .kpi .k-sub{font-size:11.5px; color:var(--brume); margin:5px 0 0}
+  .kpi .k-sub.up{color:var(--bassin); font-weight:600}
+  .kpi .k-sub.warn{color:var(--alerte); font-weight:600}
+
+  .panel{background:var(--blanc); border:1px solid var(--line); border-radius:13px; box-shadow:var(--shadow-1); margin-bottom:16px; overflow:hidden; scroll-margin-top:20px}
+  .p-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:16px 20px 14px; border-bottom:1px solid var(--craie)}
+  .p-head h2{font-size:14.5px; font-weight:600; margin:0}
+  .p-head h2 small{font-weight:400; color:var(--brume); font-size:12px; margin-left:6px}
+  .p-link{font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap}
+  .p-body{padding:6px 20px 16px}
+  .cols{display:grid; grid-template-columns:1.5fr 1fr; gap:16px; align-items:start}
+  @media (max-width:1000px){ .cols{grid-template-columns:1fr} }
+
+  /* Journal des créneaux */
+  .ev{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--craie); font-size:12.5px}
+  .ev:last-child{border-bottom:none}
+  .ev .e-time{font-family:var(--mono, ui-monospace); font-variant-numeric:tabular-nums; color:var(--brume); font-size:11.5px; min-width:44px}
+  .ev .e-pool{min-width:118px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .ev .e-pool small{display:block; font-weight:400; color:var(--brume); font-size:10.5px}
+  .ev .e-flow{flex:1; display:flex; align-items:center; gap:7px; flex-wrap:wrap}
+  .st{font-size:10px; font-weight:700; letter-spacing:.04em; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .st-libre{background:var(--craie); color:var(--brume); border:1px dashed var(--line)}
+  .st-ouvert{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .st-complet{background:var(--bassin); color:#F2F1EA}
+  .st-priv{background:var(--encre); color:#F2F1EA}
+  .st-rot{background:repeating-linear-gradient(45deg,var(--line),var(--line) 3px,transparent 3px,transparent 7px); color:var(--brume)}
+  .st-exp{background:color-mix(in srgb,var(--alerte) 12%,transparent); color:var(--alerte)}
+  .ev .arrow{color:var(--brume); font-size:11px}
+  .ev .e-note{font-size:11px; color:var(--brume)}
+  .rules{background:var(--craie-2); border-radius:9px; padding:13px 16px; margin-top:12px; font-size:11.5px; color:var(--brume); line-height:1.7}
+  .rules b{color:var(--encre); display:block; margin-bottom:3px; font-size:12px}
+
+  /* Tables */
+  table.adm{width:100%; border-collapse:collapse; font-size:12.5px}
+  table.adm th{text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--brume); font-weight:600; padding:9px 0; border-bottom:1px solid var(--craie)}
+  table.adm td{padding:10px 8px 10px 0; border-bottom:1px solid var(--craie); vertical-align:middle; font-variant-numeric:tabular-nums}
+  table.adm tr:last-child td{border-bottom:none}
+  table.adm td small{display:block; color:var(--brume); font-size:11px}
+  .tag{font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .tag-ok{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .tag-wait{background:color-mix(in srgb,var(--solaire) 15%,transparent); color:var(--solaire-ink)}
+  .tag-done{background:var(--craie); color:var(--brume)}
+  .tag-bad{background:color-mix(in srgb,var(--alerte) 12%,transparent); color:var(--alerte)}
+
+  /* Litiges */
+  .case{border:1px solid var(--line); border-radius:11px; padding:15px 17px; margin-bottom:12px; background:var(--craie-2)}
+  .case.urgent{border-left:3px solid var(--alerte)}
+  .case .c-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:5px}
+  .case b{font-size:13px}
+  .case .c-amt{font-weight:600; font-variant-numeric:tabular-nums; font-size:13px}
+  .case p{margin:0 0 11px; font-size:12px; color:var(--brume); line-height:1.55}
+  .case .c-actions{display:flex; gap:7px; flex-wrap:wrap}
+  .btn-xs{border:none; border-radius:7px; padding:7px 12px; font-size:11.5px; font-weight:600; cursor:pointer; transition:filter .15s var(--eo)}
+  .btn-xs:hover{filter:brightness(1.08)}
+  .btn-xs.ok{background:var(--bassin); color:#F2F1EA}
+  .btn-xs.dark{background:var(--encre); color:#F2F1EA}
+  .btn-xs.no{background:transparent; color:var(--brume); border:1px solid var(--line)}
+
+  #toasts{position:fixed; right:20px; bottom:20px; z-index:100; display:flex; flex-direction:column; gap:8px; align-items:flex-end}
+  .toast{display:flex; align-items:center; gap:9px; background:var(--encre); color:#F2F1EA; font-size:13px; font-weight:500; border-radius:9px; padding:11px 16px; box-shadow:0 8px 24px rgba(6,14,18,.3)}
+  .toast svg{width:15px; height:15px; stroke:#7FBFA5; flex:none}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="side" aria-label="Navigation supervision">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span>loue ta piscine</span>
+    </a>
+    <div class="role">Supervision plateforme</div>
+    <a href="#vue" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="7" height="9" rx="1.5"/><rect x="13" y="4" width="7" height="5" rx="1.5"/><rect x="13" y="11" width="7" height="9" rx="1.5"/><rect x="4" y="15" width="7" height="5" rx="1.5"/></svg>Vue d'ensemble</a>
+    <a href="#journal" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5" stroke-linecap="round"/></svg>Journal des créneaux</a>
+    <a href="#resas" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>Réservations</a>
+    <a href="#litiges" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 4l8 14H4z" stroke-linejoin="round"/><path d="M12 10v4" stroke-linecap="round"/><circle cx="12" cy="16.4" r=".8" fill="currentColor" stroke="none"/></svg>Litiges<span class="count">2</span></a>
+    <a href="#visites" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" stroke-linejoin="round"/><path d="M9 11.5l2.2 2.2L15.5 9" stroke-linecap="round" stroke-linejoin="round"/></svg>Visites<span class="count gold">2</span></a>
+    <a href="#versements" class="item"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16v10H4z"/><path d="M4 11h16" stroke-linecap="round"/></svg>Versements</a>
+    <div class="spacer"></div>
+    <div class="wa-box">
+      <b>WhatsApp support</b>
+      3 conversations en cours — vous répondez, tout est journalisé.
+      <a href="#">Ouvrir WhatsApp →</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar" id="vue">
+      <div><h1>Supervision</h1><small>Samedi 19 juillet — la plateforme tourne, vous arbitrez</small></div>
+      <span class="pill-alert">2 litiges · 2 visites à planifier</span>
+    </div>
+
+    <div class="cards">
+      <div class="kpi"><p class="k-lbl">Volume du mois</p><p class="k-val">4 820 €</p><p class="k-sub up">+31 % vs juin · 14 bassins actifs</p></div>
+      <div class="kpi"><p class="k-lbl">Commissions</p><p class="k-val">1 205 €</p><p class="k-sub">15 % hôtes + 10 % clients — 25 % du prix hôte</p></div>
+      <div class="kpi"><p class="k-lbl">Réservations aujourd'hui</p><p class="k-val">23</p><p class="k-sub">dont 14 séances ouvertes · 9 privatisations</p></div>
+      <div class="kpi"><p class="k-lbl">À traiter</p><p class="k-val">4</p><p class="k-sub warn">2 litiges · 2 visites — objectif &lt; 48 h</p></div>
+    </div>
+
+    <div class="panel" id="journal">
+      <div class="p-head"><h2>Journal des créneaux<small>en direct — chaque transition est tracée</small></h2><a class="p-link" href="#">Tout l'historique →</a></div>
+      <div class="p-body">
+        <div class="ev">
+          <span class="e-time">18 h 42</span>
+          <span class="e-pool">Les Micocouliers<small>Aix · sam 19 h 30</small></span>
+          <span class="e-flow"><span class="st st-ouvert">Ouvert 6/10</span><span class="arrow">→</span><span class="st st-ouvert">Ouvert 9/10</span><span class="e-note">résa Inès · 3 baigneurs · 36 € — le créneau reste en vente (1 place)</span></span>
+        </div>
+        <div class="ev">
+          <span class="e-time">18 h 31</span>
+          <span class="e-pool">Le verger<small>Pertuis · dim 11 h</small></span>
+          <span class="e-flow"><span class="st st-ouvert">Ouvert 10/12</span><span class="arrow">→</span><span class="st st-complet">Complet</span><span class="e-note">jauge atteinte — retiré de la vente automatiquement</span></span>
+        </div>
+        <div class="ev">
+          <span class="e-time">18 h 04</span>
+          <span class="e-pool">Le rooftop<small>Marseille · ven 20 h</small></span>
+          <span class="e-flow"><span class="st st-libre">Libre</span><span class="arrow">→</span><span class="st st-priv">Privatisé</span><span class="e-note">demande de privatisation — créneau retiré de la vente le temps de la réponse de l'hôte (24 h) + <span class="st st-rot">rotation 30 min</span> insérée</span></span>
+        </div>
+        <div class="ev">
+          <span class="e-time">17 h 20</span>
+          <span class="e-pool">L'orangerie<small>Avignon · sam 14 h</small></span>
+          <span class="e-flow"><span class="st st-complet">Complet</span><span class="arrow">→</span><span class="st st-ouvert">Ouvert 9/12</span><span class="e-note">annulation (+48 h, remboursée auto) — 3 places remises en vente</span></span>
+        </div>
+        <div class="ev">
+          <span class="e-time">16 h 55</span>
+          <span class="e-pool">La bastide<small>Aix · jeu 17 h</small></span>
+          <span class="e-flow"><span class="st st-exp">Demande expirée</span><span class="e-note">hôte sans réponse en 24 h — client remboursé, créneau relibéré, hôte notifiée (2ᵉ fois ce mois → visibilité réduite)</span></span>
+        </div>
+        <div class="ev">
+          <span class="e-time">16 h 12</span>
+          <span class="e-pool">Les Micocouliers<small>Aix · mer 29</small></span>
+          <span class="e-flow"><span class="st st-libre">Libre × 4</span><span class="arrow">→</span><span class="st st-priv">Journée privée</span><span class="e-note">forfait journée 290 € — les 4 créneaux couverts sont bloqués d'un coup</span></span>
+        </div>
+        <div class="rules">
+          <b>Les 6 règles que le système applique seul</b>
+          1 · La première réservation fige le régime du créneau (ouvert ou privatisé). &nbsp;
+          2 · Un créneau ouvert reste en vente tant que la jauge n'est pas atteinte — complet, il se retire seul. &nbsp;
+          3 · Une privatisation (créneau, demi-journée, journée) retire tout ce qu'elle couvre + insère la rotation de 30 min. &nbsp;
+          4 · Une annulation recalcule l'état : places remises en vente ou créneau relibéré. &nbsp;
+          5 · Un régime ne change jamais tant qu'une réservation est en cours. &nbsp;
+          6 · Une demande sans réponse de l'hôte en 24 h expire : client remboursé, créneau relibéré. &nbsp;
+          En base : contrainte d'exclusion sur les privatisations (double réservation impossible), jauge vérifiée en transaction.
+        </div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <div class="panel" id="resas">
+          <div class="p-head"><h2>Réservations du jour<small>tous bassins</small></h2><a class="p-link" href="#">Les 23 →</a></div>
+          <div class="p-body">
+            <table class="adm">
+              <thead><tr><th>Quand</th><th>Bassin</th><th>Type</th><th>Montant</th><th>État</th></tr></thead>
+              <tbody>
+                <tr><td>9 h – 11 h</td><td>Les Micocouliers<small>Claire · Aix</small></td><td>Ouverte 4/12</td><td>32 €</td><td><span class="tag tag-done">Terminée · versement lundi</span></td></tr>
+                <tr><td>13 h 30</td><td>Les Micocouliers<small>Claire · Aix</small></td><td>Demi-journée</td><td>139 €</td><td><span class="tag tag-ok">En cours · séquestré</span></td></tr>
+                <tr><td>15 h – 17 h</td><td>Le verger<small>Marc · Pertuis</small></td><td>Ouverte 8/12</td><td>64 €</td><td><span class="tag tag-ok">Payée · séquestrée</span></td></tr>
+                <tr><td>19 h 30</td><td>Les Micocouliers<small>Claire · Aix</small></td><td>L'heure bleue 9/10</td><td>108 €</td><td><span class="tag tag-ok">Payée · séquestrée</span></td></tr>
+                <tr><td>20 h – 22 h</td><td>Le rooftop<small>Nora · Marseille</small></td><td>Privatisé</td><td>68 €</td><td><span class="tag tag-wait">Demande — expire dans 22 h</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="litiges">
+          <div class="p-head"><h2>Litiges à arbitrer<small>sur pièces — versements suspendus</small></h2></div>
+          <div class="p-body" style="padding-top:14px">
+            <div class="case urgent" id="case-1">
+              <div class="c-top"><b>Barbecue endommagé — Le verger, résa #2841</b><span class="c-amt">Caution 200 € · demande hôte 45 €</span></div>
+              <p>Marc (hôte) signale la grille du barbecue tordue, photos d'état des lieux avant/après à l'appui. Le client conteste. Les photos horodatées montrent le dommage. Versement de la séance suspendu en attendant votre décision.</p>
+              <div class="c-actions">
+                <button class="btn-xs ok" data-toast="45 € prélevés sur la caution, versés à Marc — dossier clos, les deux parties notifiées">Prélever 45 € pour l'hôte</button>
+                <button class="btn-xs no" data-toast="Caution libérée intégralement — dossier clos">Libérer la caution</button>
+                <button class="btn-xs dark" data-toast="Conversation WhatsApp ouverte avec les deux parties">WhatsApp</button>
+              </div>
+            </div>
+            <div class="case" id="case-2">
+              <div class="c-top"><b>Eau jugée froide — Le rooftop, résa #2833</b><span class="c-amt">Séance 50 € · remboursement demandé</span></div>
+              <p>Cliente demande un remboursement : « jacuzzi à 30° au lieu de 37° ». L'annonce promet 37°, le carnet d'entretien de Nora ne montre pas de relevé ce jour-là. La règle : l'annonce fait foi.</p>
+              <div class="c-actions">
+                <button class="btn-xs ok" data-toast="Cliente remboursée 50 € — Nora notifiée, rappel carnet d'entretien envoyé">Rembourser la cliente</button>
+                <button class="btn-xs no" data-toast="Remboursement partiel 25 € proposé aux deux parties">Proposer 50/50</button>
+                <button class="btn-xs dark" data-toast="Conversation WhatsApp ouverte avec Nora">WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel" id="visites">
+          <div class="p-head"><h2>Annonces en attente de Visite</h2></div>
+          <div class="p-body">
+            <table class="adm">
+              <tbody>
+                <tr><td>Bassin des Oliviers<small>Éric · Venelles · inscrit hier</small></td><td><button class="btn-xs ok" data-toast="Visite proposée à Éric — mardi 10 h">Planifier</button></td></tr>
+                <tr><td>Spa du cabanon<small>Léa · Cassis · inscrite il y a 3 j</small></td><td><button class="btn-xs ok" data-toast="Visite proposée à Léa — mercredi 14 h">Planifier</button></td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:11px; color:var(--brume); margin:10px 0 0; line-height:1.5">Aucune annonce en ligne sans les 12 points vérifiés — c'est la promesse de la marque, elle se tient ici.</p>
+          </div>
+        </div>
+
+        <div class="panel" id="versements">
+          <div class="p-head"><h2>Versements en file</h2><a class="p-link" href="#">Historique →</a></div>
+          <div class="p-body">
+            <table class="adm">
+              <tbody>
+                <tr><td>Claire<small>3 séances · sam</small></td><td>216 €</td><td><span class="tag tag-wait">Lundi</span></td></tr>
+                <tr><td>Marc<small>2 séances · sam</small></td><td>82 €</td><td><span class="tag tag-wait">Lundi</span></td></tr>
+                <tr><td>Nora<small>1 séance · ven</small></td><td>39 €</td><td><span class="tag tag-bad">Suspendu — litige #2833</span></td></tr>
+                <tr><td>Sofiane<small>4 séances · ven</small></td><td>156 €</td><td><span class="tag tag-done">Versé ce matin</span></td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:11px; color:var(--brume); margin:10px 0 0; line-height:1.5">Automatique sous 48 h après chaque séance — un litige ouvert suspend le versement concerné, rien d'autre.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  var toasts = document.getElementById('toasts');
+  function toast(msg){
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>' + msg;
+    toasts.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 3200);
+  }
+  document.querySelectorAll('[data-toast]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var box = b.closest('.case');
+      if(box){ box.style.opacity = '.45'; box.querySelectorAll('button').forEach(function(x){ x.disabled = true; }); }
+      else { b.disabled = true; b.textContent = 'Planifiée ✓'; }
+      toast(b.dataset.toast);
+    });
+  });
+
+  /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
+  document.addEventListener('click', function(ev){
+    var dead = ev.target.closest('a[href="#"]');
+    if(dead) ev.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>

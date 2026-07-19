@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon espace hôte — Loue ta piscine</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  body{background:var(--craie)}
+  .shell{display:grid; grid-template-columns:236px 1fr; min-height:100vh}
+  @media (max-width:900px){ .shell{grid-template-columns:1fr} aside.side{position:fixed; inset:auto 0 0 0; height:auto; flex-direction:row; padding:8px 10px; z-index:60; border-top:1px solid rgba(242,241,234,.1); overflow-x:auto} .side .logo,.side .me,.side .wa-box,.side .spacer{display:none} .side a.item{flex:none} .content{padding-bottom:110px} }
+
+  /* ============ Sidebar ============ */
+  aside.side{background:var(--encre-2); color:rgba(242,241,234,.75); padding:22px 14px; display:flex; flex-direction:column; gap:3px; position:sticky; top:0; height:100vh}
+  .side .logo{padding:4px 12px 22px}
+  .side .logo span{color:#F2F1EA; font-size:17px}
+  .side a.item{display:flex; align-items:center; gap:11px; padding:10px 13px; border-radius:8px; text-decoration:none; color:rgba(242,241,234,.72); font-size:13.5px; font-weight:500; position:relative; transition:background .18s var(--eo), color .18s var(--eo); white-space:nowrap}
+  .side a.item:hover{background:rgba(242,241,234,.07); color:#F2F1EA}
+  .side a.item.active{background:rgba(47,93,84,.4); color:#F2F1EA}
+  .side a.item.active::before{content:""; position:absolute; left:-14px; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--solaire)}
+  @media (max-width:900px){ .side a.item.active::before{display:none} }
+  .side a.item svg{width:17px; height:17px; stroke:currentColor; flex:none}
+  .side .count{margin-left:auto; background:var(--solaire); color:#10222B; font-size:10.5px; font-weight:700; border-radius:99px; padding:1px 7px}
+  .side .spacer{flex:1}
+  .side .me{display:flex; align-items:center; gap:10px; padding:12px 13px; border-top:1px solid rgba(242,241,234,.1)}
+  .side .me .avatar{width:34px; height:34px; border-radius:50%; background:var(--bassin); color:#F2F1EA; font-family:var(--serif); font-size:15px; display:flex; align-items:center; justify-content:center; flex:none}
+  .side .me b{display:block; color:#F2F1EA; font-size:13px}
+  .side .me small{font-size:11px; color:rgba(242,241,234,.55)}
+  .side .wa-box{background:rgba(242,241,234,.06); border:1px solid rgba(242,241,234,.12); border-radius:10px; padding:13px 14px; font-size:11.5px; line-height:1.5; margin-top:8px}
+  .side .wa-box b{color:#F2F1EA; display:block; margin-bottom:2px; font-size:12px}
+  .side .wa-box a{color:var(--solaire); font-weight:600; text-decoration:none; display:inline-flex; margin-top:7px}
+
+  /* ============ Contenu / vues ============ */
+  .content{padding:24px 30px 64px; max-width:1080px}
+  .view{display:none}
+  .view.active{display:block; animation:view-in .32s var(--eo)}
+  @keyframes view-in{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion: reduce){ .view.active{animation:none} }
+
+  .topbar{display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap}
+  .topbar .t-left{min-width:200px}
+  .topbar h1{font-family:var(--serif); font-weight:500; font-size:24px; margin:0; line-height:1.15}
+  .topbar small{font-size:12.5px; color:var(--brume)}
+  .bien-select{display:flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--blanc); border-radius:9px; padding:9px 14px; font-size:13px; font-weight:600; margin-left:auto}
+  .bien-select svg{width:15px; height:15px; stroke:var(--bassin)}
+  .bien-select select{border:none; background:transparent; font-family:var(--sans); font-size:13px; font-weight:600; color:var(--encre); cursor:pointer}
+  .pill-status{display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--bassin); background:color-mix(in srgb,var(--bassin) 12%,transparent); border-radius:99px; padding:6px 13px}
+  .pill-status::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--bassin); animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .topbar .btn{padding:9px 16px; font-size:13px}
+
+  /* ---- KPI ---- */
+  .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px}
+  @media (max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} }
+  .kpi{background:var(--blanc); border:1px solid var(--line); border-radius:13px; padding:17px 19px; box-shadow:var(--shadow-1); position:relative; overflow:hidden; transition:box-shadow .2s var(--eo), transform .2s var(--eo)}
+  .kpi:hover{box-shadow:var(--shadow-2); transform:translateY(-1px)}
+  .kpi .k-lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--brume); font-weight:600; margin:0 0 7px}
+  .kpi .k-val{font-family:var(--serif); font-weight:500; font-size:29px; margin:0; font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+  .kpi .k-sub{font-size:11.5px; color:var(--brume); margin:5px 0 0; display:flex; align-items:center; gap:5px}
+  .kpi .k-sub.up{color:var(--bassin); font-weight:600}
+  .kpi .k-sub.up svg{width:11px; height:11px; stroke:var(--bassin)}
+  .kpi .spark{position:absolute; right:14px; bottom:14px; display:flex; align-items:flex-end; gap:2.5px; height:26px; opacity:.85}
+  .kpi .spark i{width:4.5px; border-radius:2px; background:color-mix(in srgb,var(--bassin) 25%,transparent)}
+  .kpi .spark i:last-child{background:var(--bassin)}
+
+  /* ---- Panneaux ---- */
+  .cols{display:grid; grid-template-columns:1.5fr 1fr; gap:16px; align-items:start}
+  @media (max-width:1000px){ .cols{grid-template-columns:1fr} }
+  .panel{background:var(--blanc); border:1px solid var(--line); border-radius:13px; box-shadow:var(--shadow-1); margin-bottom:16px; overflow:hidden}
+  .panel .p-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:16px 20px 14px; border-bottom:1px solid var(--craie)}
+  .panel h2{font-size:14.5px; font-weight:600; margin:0}
+  .panel h2 small{font-weight:400; color:var(--brume); font-size:12px; margin-left:6px}
+  .panel .p-link{font-size:12.5px; font-weight:600; text-decoration:none; white-space:nowrap}
+  .panel .p-link:hover{text-decoration:underline; text-underline-offset:3px}
+  .panel .p-body{padding:6px 20px 16px}
+  .panel .p-foot{display:flex; justify-content:space-between; align-items:center; padding:12px 20px; border-top:1px solid var(--craie); background:var(--craie-2); font-size:12.5px; color:var(--brume)}
+  .panel .p-foot b{font-variant-numeric:tabular-nums; color:var(--encre); font-size:13.5px}
+
+  /* ---- Résas ---- */
+  .resa{display:flex; align-items:center; gap:13px; padding:13px 0; border-bottom:1px solid var(--craie)}
+  .resa:last-child{border-bottom:none}
+  .resa .r-when{min-width:106px; font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums}
+  .resa .r-when small{display:block; color:var(--brume); font-weight:400; font-size:11px}
+  .resa .r-who{flex:1; font-size:13px; min-width:0}
+  .resa .r-who small{display:block; color:var(--brume); font-size:11.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .s-tag{font-size:10.5px; font-weight:600; padding:3px 9px; border-radius:99px; white-space:nowrap}
+  .tag-open{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
+  .tag-priv{background:color-mix(in srgb,var(--encre) 9%,transparent); color:var(--encre)}
+  .resa .r-amt{font-size:13.5px; font-weight:600; font-variant-numeric:tabular-nums; min-width:58px; text-align:right}
+  .resa .r-amt small{display:block; font-weight:600; font-size:10px; text-transform:uppercase; letter-spacing:.04em}
+  .st-avenir{color:var(--bassin)} .st-attente{color:var(--solaire-ink)} .st-verse{color:var(--brume)}
+  .r-actions{display:flex; gap:6px}
+  .btn-xs{border:none; border-radius:7px; padding:7px 12px; font-size:11.5px; font-weight:600; transition:filter .15s var(--eo)}
+  .btn-xs:hover{filter:brightness(1.08)}
+  .btn-xs.ok{background:var(--bassin); color:#F2F1EA}
+  .btn-xs.no{background:transparent; color:var(--brume); border:1px solid var(--line)}
+  .btn-xs.no:hover{color:var(--alerte); border-color:var(--alerte); filter:none}
+
+  /* ---- Chart ---- */
+  .chart{display:flex; align-items:flex-end; gap:7px; height:126px; padding:26px 0 4px}
+  .chart.tall{height:190px}
+  .bar{flex:1; background:color-mix(in srgb,var(--bassin) 22%,transparent); border-radius:4px 4px 0 0; position:relative; min-width:0; transition:background .2s var(--eo)}
+  .bar:hover{background:var(--bassin)}
+  .bar::after{content:attr(data-val); position:absolute; top:-21px; left:50%; transform:translateX(-50%); font-size:10px; font-weight:600; color:var(--encre); font-variant-numeric:tabular-nums; opacity:0; transition:opacity .18s var(--eo); white-space:nowrap}
+  .bar:hover::after{opacity:1}
+  .bar.hot{background:var(--bassin)}
+  .bar span{position:absolute; bottom:-20px; left:50%; transform:translateX(-50%); font-size:9.5px; color:var(--brume); text-transform:uppercase}
+  .chart-note{font-size:11.5px; color:var(--brume); margin:26px 0 0; line-height:1.5}
+
+  /* ---- Calendrier semaine ---- */
+  .week{display:grid; grid-template-columns:repeat(7,1fr); gap:8px; padding:4px 0 8px; overflow-x:auto}
+  @media (max-width:860px){ .week{grid-template-columns:repeat(7,minmax(120px,1fr)); }}
+  .wd{min-width:0}
+  .wd .wd-head{text-align:center; padding:7px 4px 9px}
+  .wd .wd-head small{display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--brume)}
+  .wd .wd-head b{font-size:15px; font-variant-numeric:tabular-nums}
+  .wd.today .wd-head b{color:var(--bassin)}
+  .wd .wd-col{display:flex; flex-direction:column; gap:5px}
+  .cell{border-radius:7px; padding:7px 9px; font-size:10.5px; line-height:1.35; border:1px solid var(--line); background:var(--craie-2); color:var(--brume)}
+  .cell b{display:block; font-size:10.5px; font-variant-numeric:tabular-nums; color:var(--encre)}
+  .cell.open{background:color-mix(in srgb,var(--bassin) 10%,#fff); border-color:color-mix(in srgb,var(--bassin) 35%,transparent)}
+  .cell.open b{color:var(--bassin)}
+  .cell.full{background:color-mix(in srgb,var(--bassin) 30%,#fff); border-color:var(--bassin)}
+  .cell.priv{background:var(--encre); border-color:var(--encre); color:rgba(242,241,234,.75)}
+  .cell.priv b{color:#F2F1EA}
+  .cell.libre{border-style:dashed; background:transparent}
+  .legend{display:flex; gap:16px; flex-wrap:wrap; padding:10px 0 2px; font-size:11.5px; color:var(--brume)}
+  .legend i{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-2px; margin-right:6px; border:1px solid var(--line)}
+
+  /* ---- Créneaux (réglage) ---- */
+  .cren{display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--craie); flex-wrap:wrap; transition:opacity .25s var(--eo)}
+  .cren:last-child{border-bottom:none}
+  .cren.closed{opacity:.45}
+  .cren .c-time{font-size:12.5px; font-weight:600; min-width:112px; font-variant-numeric:tabular-nums}
+  .cren .c-time small{display:block; font-weight:400; color:var(--brume); font-size:10.5px}
+  .cren select{font-family:var(--sans); font-size:12.5px; font-weight:500; padding:7px 10px; border:1px solid var(--line); border-radius:7px; background:var(--craie-2); color:var(--encre); cursor:pointer; transition:border-color .18s var(--eo)}
+  .cren select:hover:not(:disabled){border-color:var(--bassin)}
+  .cren select:disabled{cursor:not-allowed; color:var(--brume)}
+  .cren .c-jauge{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--brume); margin-left:auto; font-variant-numeric:tabular-nums}
+  .cren .c-jauge b{color:var(--encre)}
+  .cren .c-lock{font-size:10.5px; color:var(--solaire-ink); font-weight:600; margin-left:auto}
+
+  /* ---- Prix / switches ---- */
+  .field-row{display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--craie)}
+  .field-row:last-child{border-bottom:none}
+  .field-row label{flex:1; font-size:13px; font-weight:500}
+  .field-row label small{display:block; font-weight:400; color:var(--brume); font-size:11.5px}
+  .money{display:flex; align-items:center; border:1px solid var(--line); border-radius:8px; background:var(--craie-2); overflow:hidden; transition:border-color .18s var(--eo)}
+  .money:focus-within{border-color:var(--bassin)}
+  .money input{width:52px; text-align:right; font-family:var(--sans); font-size:13.5px; font-weight:600; padding:8px 4px 8px 9px; border:none; background:transparent; font-variant-numeric:tabular-nums}
+  .money input:focus{outline:none}
+  .money .cur{padding:0 9px 0 2px; font-size:12.5px; color:var(--brume)}
+  .switch{position:relative; width:38px; height:22px; flex:none}
+  .switch input{opacity:0; width:100%; height:100%; position:absolute; margin:0; cursor:pointer}
+  .switch .tr{position:absolute; inset:0; background:var(--line); border-radius:99px; transition:background .2s var(--eo); pointer-events:none}
+  .switch .tr::after{content:""; position:absolute; left:3px; top:3px; width:16px; height:16px; border-radius:50%; background:#fff; transition:transform .2s var(--eo); box-shadow:0 1px 2px rgba(16,34,43,.25)}
+  .switch input:checked + .tr{background:var(--bassin)}
+  .switch input:checked + .tr::after{transform:translateX(16px)}
+  .switch input:focus-visible + .tr{outline:2px solid var(--bassin); outline-offset:2px}
+
+  /* ---- Versements / répartition ---- */
+  .vers{display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--craie); font-size:13px}
+  .vers:last-child{border-bottom:none}
+  .vers .v-ic{width:30px; height:30px; border-radius:8px; background:color-mix(in srgb,var(--bassin) 11%,transparent); display:flex; align-items:center; justify-content:center; flex:none}
+  .vers .v-ic svg{width:15px; height:15px; stroke:var(--bassin)}
+  .vers .v-body{flex:1}
+  .vers small{display:block; color:var(--brume); font-size:11px}
+  .vers .v-amt{font-weight:600; font-variant-numeric:tabular-nums; text-align:right}
+  .vers .v-amt small{font-weight:600; text-transform:uppercase; letter-spacing:.04em; font-size:9.5px}
+  .split{padding:4px 0 8px}
+  .split .sp-row{display:flex; align-items:center; gap:12px; margin:12px 0}
+  .split .sp-lbl{min-width:150px; font-size:12.5px; font-weight:500}
+  .split .sp-lbl small{display:block; color:var(--brume); font-size:11px; font-weight:400}
+  .split .sp-bar{flex:1; height:8px; background:var(--craie); border-radius:99px; overflow:hidden}
+  .split .sp-bar i{display:block; height:100%; border-radius:99px}
+  .split .sp-val{min-width:52px; text-align:right; font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums}
+
+  /* ---- Messages (2 volets) ---- */
+  .chat{display:grid; grid-template-columns:300px 1fr; min-height:460px}
+  @media (max-width:860px){ .chat{grid-template-columns:1fr} .chat .thread{display:none} .chat.open .list{display:none} .chat.open .thread{display:flex} }
+  .chat .list{border-right:1px solid var(--craie); overflow-y:auto}
+  .conv{display:flex; gap:11px; padding:14px 16px; border-bottom:1px solid var(--craie); cursor:pointer; transition:background .15s var(--eo); border-left:3px solid transparent; background:none; width:100%; text-align:left; font-family:var(--sans)}
+  .conv:hover{background:var(--craie-2)}
+  .conv.sel{background:var(--craie-2); border-left-color:var(--bassin)}
+  .conv .m-av{width:36px; height:36px; border-radius:50%; background:var(--craie); font-family:var(--serif); font-size:15px; display:flex; align-items:center; justify-content:center; flex:none; position:relative}
+  .conv.unread .m-av::after{content:""; position:absolute; top:-1px; right:-1px; width:9px; height:9px; border-radius:50%; background:var(--solaire); border:2px solid var(--blanc)}
+  .conv .c-b{flex:1; min-width:0}
+  .conv b{font-size:13px}
+  .conv.unread b{font-weight:700}
+  .conv .m-time{font-size:10.5px; color:var(--brume); float:right}
+  .conv p{margin:2px 0 0; font-size:12px; color:var(--brume); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .thread{display:flex; flex-direction:column}
+  .thread .th-head{display:flex; align-items:center; gap:11px; padding:13px 18px; border-bottom:1px solid var(--craie)}
+  .thread .th-head b{font-size:14px}
+  .thread .th-head small{display:block; font-size:11px; color:var(--brume)}
+  .thread .th-body{flex:1; padding:18px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; background:var(--craie-2)}
+  .bulle{max-width:75%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.5}
+  .bulle small{display:block; font-size:10px; color:var(--brume); margin-top:3px}
+  .bulle.eux{background:var(--blanc); border:1px solid var(--line); border-bottom-left-radius:4px; align-self:flex-start}
+  .bulle.moi{background:var(--bassin); color:#F2F1EA; border-bottom-right-radius:4px; align-self:flex-end}
+  .bulle.moi small{color:rgba(242,241,234,.7)}
+  .bulle .masked{background:var(--craie); border-radius:4px; padding:0 5px; letter-spacing:.06em}
+  .sysline{align-self:center; font-size:10.5px; color:var(--brume); background:var(--blanc); border:1px solid var(--line); border-radius:99px; padding:4px 13px; text-align:center}
+  .th-input{display:flex; gap:9px; padding:13px 16px; border-top:1px solid var(--craie)}
+  .th-input input{flex:1; border:1px solid var(--line); border-radius:9px; padding:11px 14px; font-family:var(--sans); font-size:13.5px; background:var(--craie-2)}
+  .th-input input:focus{outline:none; border-color:var(--bassin); background:#fff}
+  .th-input button{border:none; border-radius:9px; background:var(--encre); color:#F2F1EA; padding:0 18px; font-weight:600; font-size:13px}
+
+  /* ---- Conformité ---- */
+  .prog{padding:14px 20px 0}
+  .prog .pr-row{display:flex; justify-content:space-between; font-size:11.5px; color:var(--brume); margin-bottom:6px}
+  .prog .pr-row b{color:var(--encre); font-variant-numeric:tabular-nums}
+  .prog .pr-bar{height:5px; background:var(--craie); border-radius:99px; overflow:hidden}
+  .prog .pr-bar i{display:block; height:100%; width:92%; background:linear-gradient(90deg,var(--bassin),color-mix(in srgb,var(--bassin) 70%,var(--solaire))); border-radius:99px; transition:width .5s var(--eo)}
+  .conf{display:flex; align-items:flex-start; gap:11px; padding:12px 0; border-bottom:1px solid var(--craie); font-size:13px}
+  .conf:last-child{border-bottom:none}
+  .conf svg{width:17px; height:17px; flex:none; margin-top:1px}
+  .conf small{display:block; color:var(--brume); font-size:11.5px}
+  .conf .todo-btn{margin-left:auto; font-size:11.5px; font-weight:600; border:1px solid var(--line); background:var(--craie-2); border-radius:7px; padding:6px 11px; white-space:nowrap; transition:all .18s var(--eo)}
+  .conf .todo-btn:hover{border-color:var(--bassin); color:var(--bassin)}
+  .conf a.doc{margin-left:auto; font-size:11.5px; font-weight:600; text-decoration:none; white-space:nowrap}
+  table.log{width:100%; border-collapse:collapse; font-size:12.5px}
+  table.log th{text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--brume); font-weight:600; padding:8px 0; border-bottom:1px solid var(--craie)}
+  table.log td{padding:9px 0; border-bottom:1px solid var(--craie); font-variant-numeric:tabular-nums}
+  table.log tr:last-child td{border-bottom:none}
+  table.log .okv{color:var(--bassin); font-weight:600}
+
+  /* ---- Mon annonce ---- */
+  .an-status{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .an-status .grow{flex:1}
+  .an-photos{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; padding:4px 0 8px}
+  @media (max-width:700px){ .an-photos{grid-template-columns:repeat(3,1fr)} .an-photos a:nth-child(n+4){display:none} }
+  .an-photos a{border-radius:8px; overflow:hidden; aspect-ratio:4/3; position:relative; display:block}
+  .an-photos img{width:100%; height:100%; object-fit:cover; transition:transform .4s var(--eo)}
+  .an-photos a:hover img{transform:scale(1.05)}
+  .an-photos .cover-tag{position:absolute; left:7px; top:7px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; background:rgba(250,249,244,.92); border-radius:99px; padding:2px 8px}
+  .an-row{display:flex; justify-content:space-between; gap:14px; font-size:13.5px; padding:10px 0; border-bottom:1px solid var(--craie)}
+  .an-row:last-child{border-bottom:none}
+  .an-row .lbl{color:var(--brume)}
+  .an-row .val{font-weight:600; text-align:right; font-variant-numeric:tabular-nums}
+
+  /* ---- IA ---- */
+  .ai-card{display:flex; gap:12px; align-items:flex-start; background:linear-gradient(135deg, color-mix(in srgb,var(--solaire) 7%,var(--blanc)), var(--blanc)); border:1px solid color-mix(in srgb,var(--solaire) 35%,transparent); border-radius:11px; padding:14px 16px; margin:12px 0 4px}
+  .ai-card .ai-ic{width:28px; height:28px; border-radius:8px; background:color-mix(in srgb,var(--solaire) 16%,transparent); display:flex; align-items:center; justify-content:center; flex:none}
+  .ai-card .ai-ic svg{width:14px; height:14px; fill:var(--solaire)}
+  .ai-card .ai-b{flex:1; min-width:0}
+  .ai-card b{font-size:12.5px; display:block; margin-bottom:2px}
+  .ai-card p{margin:0 0 10px; font-size:12.5px; color:var(--brume); line-height:1.55}
+  .ai-card .ai-actions{display:flex; gap:8px}
+  .ai-inline{color:var(--solaire-ink); font-weight:600}
+  .ai-spin{display:inline-block; width:12px; height:12px; border:2px solid color-mix(in srgb,var(--solaire) 30%,transparent); border-top-color:var(--solaire); border-radius:50%; animation:spin .7s linear infinite; vertical-align:-2px; margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---- Chat : détails ---- */
+  .datesep{align-self:center; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--brume); padding:2px 0}
+  .bulle .ticks{color:inherit; opacity:.75; margin-left:5px; font-size:10px; letter-spacing:-.08em}
+  .th-head .th-actions{margin-left:auto; display:flex; gap:6px}
+  .quickbar{display:flex; gap:7px; padding:10px 16px 0; flex-wrap:wrap}
+  .qchip{border:1px solid var(--line); background:var(--blanc); border-radius:99px; padding:7px 13px; font-size:12px; font-weight:500; color:var(--encre); transition:all .18s var(--eo); white-space:nowrap}
+  .qchip:hover{border-color:var(--bassin); color:var(--bassin)}
+  .qchip.ai{border-color:color-mix(in srgb,var(--solaire) 45%,transparent); color:var(--solaire-ink); background:color-mix(in srgb,var(--solaire) 7%,var(--blanc))}
+  .qchip.ai:hover{border-color:var(--solaire)}
+  .th-input{position:relative}
+  .plus-btn{border:1px solid var(--line); background:var(--craie-2); border-radius:9px; width:42px; flex:none; font-size:19px; color:var(--bassin); transition:all .18s var(--eo)}
+  .plus-btn:hover{border-color:var(--bassin)}
+  .plus-menu{position:absolute; left:16px; bottom:62px; background:var(--blanc); border:1px solid var(--line); border-radius:11px; box-shadow:var(--shadow-2); padding:6px; display:none; min-width:210px; z-index:5}
+  .plus-menu.open{display:block; animation:view-in .2s var(--eo)}
+  .plus-menu button{display:flex; align-items:center; gap:10px; width:100%; border:none; background:none; text-align:left; padding:9px 11px; border-radius:7px; font-size:12.5px; font-weight:500; color:var(--encre)}
+  .plus-menu button:hover{background:var(--craie-2)}
+  .plus-menu button svg{width:15px; height:15px; stroke:var(--bassin); flex:none}
+
+  /* ---- Assistant (bot) ---- */
+  .fab{position:fixed; right:20px; bottom:20px; z-index:90; width:54px; height:54px; border-radius:50%; border:none; background:var(--encre); box-shadow:0 8px 24px rgba(6,14,18,.35); display:flex; align-items:center; justify-content:center; transition:transform .2s var(--eo)}
+  .fab:hover{transform:scale(1.06)}
+  .fab svg{width:22px; height:22px; fill:var(--solaire)}
+  @media (max-width:900px){ .fab{bottom:86px} }
+  .bot{position:fixed; right:20px; bottom:86px; z-index:95; width:min(350px, calc(100vw - 32px)); background:var(--blanc); border:1px solid var(--line); border-radius:16px; box-shadow:0 18px 50px rgba(6,14,18,.28); display:none; flex-direction:column; overflow:hidden; max-height:min(520px, calc(100vh - 120px))}
+  .bot.open{display:flex; animation:view-in .25s var(--eo)}
+  @media (max-width:900px){ .bot{bottom:152px} }
+  .bot .b-head{background:var(--encre-2); color:#F2F1EA; padding:14px 17px; display:flex; align-items:center; gap:11px}
+  .bot .b-head .ai-ic{width:30px; height:30px; border-radius:9px; background:rgba(185,138,70,.2); display:flex; align-items:center; justify-content:center; flex:none}
+  .bot .b-head .ai-ic svg{width:15px; height:15px; fill:var(--solaire)}
+  .bot .b-head b{font-size:13.5px; display:block}
+  .bot .b-head small{font-size:11px; color:rgba(242,241,234,.6)}
+  .bot .b-close{margin-left:auto; border:none; background:none; color:rgba(242,241,234,.7); font-size:19px; line-height:1; padding:4px}
+  .bot .b-close:hover{color:#fff}
+  .bot .b-body{flex:1; overflow-y:auto; padding:15px; display:flex; flex-direction:column; gap:9px; background:var(--craie-2); min-height:180px}
+  .bot .bulle{font-size:12.5px; max-width:85%}
+  .bot .b-quick{display:flex; flex-wrap:wrap; gap:6px; padding:11px 14px; border-top:1px solid var(--craie); background:var(--blanc)}
+  .bot .qchip{font-size:11.5px; padding:6px 11px}
+  .typing{display:inline-flex; gap:4px; padding:11px 14px; background:var(--blanc); border:1px solid var(--line); border-radius:12px; border-bottom-left-radius:4px; align-self:flex-start}
+  .typing i{width:5px; height:5px; border-radius:50%; background:var(--brume); animation:blink 1.1s infinite}
+  .typing i:nth-child(2){animation-delay:.18s}
+  .typing i:nth-child(3){animation-delay:.36s}
+  @keyframes blink{0%,70%,100%{opacity:.25}35%{opacity:1}}
+  .bulle.streaming::after{content:""; display:inline-block; width:2px; height:1em; margin-left:2px; background:currentColor; vertical-align:-2px; animation:caret .8s step-end infinite}
+  @keyframes caret{50%{opacity:0}}
+  .b-action{align-self:flex-start; border:1px solid var(--bassin); background:color-mix(in srgb,var(--bassin) 8%,#fff); color:var(--bassin); border-radius:99px; padding:7px 14px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); transition:all .18s var(--eo)}
+  .b-action:hover{background:var(--bassin); color:#F2F1EA}
+  .btn-wa{display:inline-flex; align-items:center; gap:7px; background:var(--bassin); color:#F2F1EA; border-radius:8px; padding:9px 14px; font-size:12.5px; font-weight:600; text-decoration:none; margin-top:8px}
+  .btn-wa svg{width:14px; height:14px; stroke:currentColor}
+  @media (prefers-reduced-motion: reduce){ .typing i{animation:none} .ai-spin{animation:none} .bulle.streaming::after{animation:none} }
+
+  /* ---- Bannière & paywall Assistant ---- */
+  .upsell{display:flex; align-items:center; gap:13px; background:linear-gradient(120deg, color-mix(in srgb,var(--solaire) 9%,var(--blanc)), var(--blanc)); border:1px solid color-mix(in srgb,var(--solaire) 40%,transparent); border-radius:12px; padding:13px 17px; margin-bottom:18px}
+  .upsell .ai-ic{width:32px; height:32px; border-radius:9px; background:color-mix(in srgb,var(--solaire) 16%,transparent); display:flex; align-items:center; justify-content:center; flex:none}
+  .upsell .ai-ic svg{width:16px; height:16px; fill:var(--solaire)}
+  .upsell .u-b{flex:1; min-width:0}
+  .upsell b{font-size:13.5px; display:block}
+  .upsell p{margin:1px 0 0; font-size:12px; color:var(--brume)}
+  .upsell .btn{padding:9px 16px; font-size:12.5px; white-space:nowrap}
+  @media (max-width:700px){ .upsell{flex-wrap:wrap} }
+  .paywall{position:fixed; inset:0; z-index:120; background:rgba(11,24,31,.55); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; padding:20px}
+  .paywall.open{display:flex; animation:view-in .25s var(--eo)}
+  .pw-card{background:var(--blanc); border-radius:18px; width:min(420px, 100%); overflow:hidden; box-shadow:0 24px 70px rgba(6,14,18,.4); max-height:calc(100vh - 40px); display:flex; flex-direction:column}
+  .pw-head{background:var(--encre-2); color:#F2F1EA; padding:22px 26px 20px; position:relative}
+  .pw-head .ai-ic{width:38px; height:38px; border-radius:11px; background:rgba(185,138,70,.2); display:flex; align-items:center; justify-content:center; margin-bottom:12px}
+  .pw-head .ai-ic svg{width:19px; height:19px; fill:var(--solaire)}
+  .pw-head h3{font-family:var(--serif); font-weight:500; font-size:22px; margin:0 0 3px}
+  .pw-head p{margin:0; font-size:12.5px; color:rgba(242,241,234,.65)}
+  .pw-close{position:absolute; top:14px; right:16px; border:none; background:none; color:rgba(242,241,234,.6); font-size:21px; line-height:1; padding:4px; cursor:pointer}
+  .pw-close:hover{color:#fff}
+  .pw-body{padding:18px 26px 8px; overflow-y:auto}
+  .pw-item{display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--craie); align-items:flex-start}
+  .pw-item:last-child{border-bottom:none}
+  .pw-item svg{width:17px; height:17px; stroke:var(--bassin); flex:none; margin-top:2px}
+  .pw-item b{font-size:13px; display:block}
+  .pw-item small{font-size:11.5px; color:var(--brume); line-height:1.5}
+  .pw-foot{padding:14px 26px 22px}
+  .pw-price{display:flex; align-items:baseline; gap:8px; margin-bottom:12px; justify-content:center}
+  .pw-price b{font-family:var(--serif); font-weight:500; font-size:30px; font-variant-numeric:tabular-nums}
+  .pw-price span{font-size:12.5px; color:var(--brume)}
+  .pw-foot .btn{width:100%; padding:13px; font-size:14.5px}
+  .pw-foot .pw-later{display:block; text-align:center; margin-top:11px; font-size:12px; color:var(--brume); background:none; border:none; cursor:pointer; width:100%}
+  .pw-foot .pw-later:hover{color:var(--encre)}
+
+  /* ---- Toast ---- */
+  #toasts{position:fixed; right:20px; bottom:20px; z-index:100; display:flex; flex-direction:column; gap:8px; align-items:flex-end}
+  @media (max-width:900px){ #toasts{bottom:88px} }
+  .toast{display:flex; align-items:center; gap:9px; background:var(--encre); color:#F2F1EA; font-size:13px; font-weight:500; border-radius:9px; padding:11px 16px; box-shadow:0 8px 24px rgba(6,14,18,.3); animation:toast-in .3s var(--eo)}
+  .toast svg{width:15px; height:15px; stroke:#7FBFA5; flex:none}
+  .toast.out{animation:toast-out .3s var(--eo) forwards}
+  @keyframes toast-in{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+  @keyframes toast-out{to{opacity:0; transform:translateY(6px)}}
+  @media (prefers-reduced-motion: reduce){ .toast{animation:none} .pill-status::before{animation:none} }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="side" aria-label="Navigation espace hôte">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <span>loue ta piscine</span>
+    </a>
+    <a href="#/dashboard" class="item" data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="7" height="9" rx="1.5"/><rect x="13" y="4" width="7" height="5" rx="1.5"/><rect x="13" y="11" width="7" height="9" rx="1.5"/><rect x="4" y="15" width="7" height="5" rx="1.5"/></svg>Tableau de bord</a>
+    <a href="#/annonce" class="item" data-view="annonce"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M3 15q2.3 1.9 4.5 0t4.5 0q2.3 1.9 4.5 0t4.5 0" stroke-linecap="round"/><path d="M8 15V6.5A2.5 2.5 0 0 1 13 6M15 15V6.5A2.5 2.5 0 0 1 20 6" stroke-linecap="round"/></svg>Mon annonce</a>
+    <a href="#/calendrier" class="item" data-view="calendrier"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>Calendrier</a>
+    <a href="#/revenus" class="item" data-view="revenus"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 17l4-6 4 3 4-7 4 5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21h16" stroke-linecap="round"/></svg>Revenus</a>
+    <a href="#/messages" class="item" data-view="messages"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v10H9l-5 4z" stroke-linejoin="round"/></svg>Messages<span class="count" id="msg-count">1</span></a>
+    <a href="#/conformite" class="item" data-view="conformite"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z" stroke-linejoin="round"/><path d="M9 11.5l2.2 2.2L15.5 9" stroke-linecap="round" stroke-linejoin="round"/></svg>Conformité</a>
+    <div class="spacer"></div>
+    <div class="me">
+      <div class="avatar" aria-hidden="true">C</div>
+      <div><b>Claire</b><small>Hôte vérifiée · 4,93 ★</small></div>
+    </div>
+    <div class="wa-box">
+      <b>Un souci, une question ?</b>
+      Un humain répond sur WhatsApp, 7 j/7 en saison.
+      <a href="#">Ouvrir WhatsApp →</a>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div class="t-left">
+        <h1 id="view-title">Bonjour Claire</h1>
+        <small id="view-sub">Samedi 19 juillet — 3 séances aujourd'hui</small>
+      </div>
+      <div class="bien-select">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M3 15q2.3 1.9 4.5 0t4.5 0q2.3 1.9 4.5 0t4.5 0" stroke-linecap="round"/><path d="M8 15V6.5A2.5 2.5 0 0 1 13 6M15 15V6.5A2.5 2.5 0 0 1 20 6" stroke-linecap="round"/></svg>
+        <select aria-label="Choisir le bien affiché">
+          <option selected>Le bassin des Micocouliers</option>
+          <option>+ Ajouter un spa ou un sauna</option>
+        </select>
+      </div>
+      <span class="pill-status">En ligne</span>
+      <a class="btn btn-ligne" href="fiche.html">Voir mon annonce</a>
+    </div>
+
+    <!-- ================= VUE : TABLEAU DE BORD ================= -->
+    <section class="view" id="v-dashboard">
+      <div class="cards">
+        <div class="kpi">
+          <p class="k-lbl">Revenus de juillet</p>
+          <p class="k-val">1 284 €</p>
+          <p class="k-sub up"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" aria-hidden="true"><path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>+22 % vs juin</p>
+          <div class="spark" aria-hidden="true"><i style="height:35%"></i><i style="height:45%"></i><i style="height:40%"></i><i style="height:62%"></i><i style="height:74%"></i><i style="height:100%"></i></div>
+        </div>
+        <div class="kpi"><p class="k-lbl">Prochain versement</p><p class="k-val">216 €</p><p class="k-sub">lundi — automatique, sous 48 h</p></div>
+        <div class="kpi"><p class="k-lbl">Occupation juillet</p><p class="k-val">68 %</p><p class="k-sub">des places en séance ouverte réservées</p></div>
+        <div class="kpi"><p class="k-lbl">Note</p><p class="k-val">4,93 ★</p><p class="k-sub">41 avis · 100 % recommandent</p></div>
+      </div>
+
+      <div class="cols">
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Cette semaine<small>4 réservations</small></h2><a class="p-link" href="#/calendrier">Tout le calendrier →</a></div>
+            <div class="p-body">
+              <div class="resa">
+                <div class="r-when">Sam 9 h – 11 h<small>séance ouverte</small></div>
+                <div class="r-who">2 foyers · 4 baigneurs<small>Mélanie (2) · Thomas (2)</small></div>
+                <span class="s-tag tag-open">4/12</span>
+                <div class="r-amt">32 €<small class="st-avenir">à venir</small></div>
+              </div>
+              <div class="resa">
+                <div class="r-when">Sam 13 h 30<small>demi-journée · 4 h</small></div>
+                <div class="r-who">Famille Bencheikh · 11 baigneurs<small>anniversaire — barbecue réservé</small></div>
+                <span class="s-tag tag-priv">Privatisé</span>
+                <div class="r-amt">139 €<small class="st-avenir">à venir</small></div>
+              </div>
+              <div class="resa">
+                <div class="r-when">Sam 19 h 30<small>l'heure bleue</small></div>
+                <div class="r-who">6 baigneurs · 3 réservations<small>4 places restantes</small></div>
+                <span class="s-tag tag-open">6/10</span>
+                <div class="r-amt">72 €<small class="st-avenir">à venir</small></div>
+              </div>
+              <div class="resa" id="resa-sarah">
+                <div class="r-when">Jeu 17 h – 19 h<small>séance ouverte</small></div>
+                <div class="r-who">Sarah · 3 baigneurs<small>demande reçue il y a 2 h — répond avant demain 17 h</small></div>
+                <div class="r-actions">
+                  <button class="btn-xs ok" type="button" id="accept-sarah">Accepter</button>
+                  <button class="btn-xs no" type="button" id="refuse-sarah">Refuser</button>
+                </div>
+                <div class="r-amt">21 €<small class="st-attente">à confirmer</small></div>
+              </div>
+            </div>
+            <div class="p-foot"><span>Attendu cette semaine</span><b id="week-total">243 €</b></div>
+          </div>
+
+          <div class="panel">
+            <div class="p-head"><h2>Messages<small>1 non lu</small></h2><a class="p-link" href="#/messages">Ouvrir la messagerie →</a></div>
+            <div class="p-body" id="dash-msgs"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Revenus<small>12 mois</small></h2><a class="p-link" href="#/revenus">Le détail →</a></div>
+            <div class="p-body">
+              <div class="chart" role="img" aria-label="Revenus mensuels, pic en été">
+                <div class="bar" style="height:26%" data-val="242 €"><span>Août</span></div>
+                <div class="bar" style="height:14%" data-val="128 €"><span>Sep</span></div>
+                <div class="bar" style="height:9%" data-val="84 €"><span>Oct</span></div>
+                <div class="bar" style="height:8%" data-val="72 €"><span>Nov</span></div>
+                <div class="bar" style="height:10%" data-val="96 €"><span>Déc</span></div>
+                <div class="bar" style="height:7%" data-val="62 €"><span>Jan</span></div>
+                <div class="bar" style="height:8%" data-val="74 €"><span>Fév</span></div>
+                <div class="bar" style="height:12%" data-val="110 €"><span>Mar</span></div>
+                <div class="bar" style="height:22%" data-val="205 €"><span>Avr</span></div>
+                <div class="bar" style="height:44%" data-val="412 €"><span>Mai</span></div>
+                <div class="bar" style="height:74%" data-val="689 €"><span>Juin</span></div>
+                <div class="bar hot" style="height:100%" data-val="1 284 €"><span>Juil</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-card">
+            <div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+            <div class="ai-b">
+              <b>Conseil de l'assistant</b>
+              <p>Votre créneau du samedi 17 h – 19 h est vide depuis 3 semaines, alors que le 9 h – 11 h se remplit à 80 %. Passer le prix de 8 € à 7 €/pers. sur ce seul créneau devrait le remplir sans toucher au reste.</p>
+              <div class="ai-actions">
+                <button class="btn-xs ok" type="button" id="ai-apply-1">Appliquer 7 €</button>
+                <button class="btn-xs no" type="button" id="ai-later-1">Plus tard</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="p-head"><h2>Conformité</h2><a class="p-link" href="#/conformite">Le dossier →</a></div>
+            <div class="prog">
+              <div class="pr-row"><span>Profil conforme</span><b class="prog-val">92 %</b></div>
+              <div class="pr-bar"><i class="prog-bar"></i></div>
+            </div>
+            <div class="p-body">
+              <div class="conf" style="border:none; padding-top:14px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#B98A46" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="#B98A46" stroke="none"/></svg>
+                <div>Analyse d'eau à consigner<small>avant le 26/07 — 2 minutes</small></div>
+                <a class="doc" href="#/conformite">Consigner →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="p-head"><h2>Prix &amp; extras</h2><a class="p-link" href="#">Simulateur →</a></div>
+            <div class="p-body">
+              <div class="field-row"><label>Séance ouverte<small>par personne, 2 h — <span class="ai-inline">✦ le samedi matin supporte 9 €</span></small></label><span class="money"><input type="text" inputmode="numeric" value="8" data-name="Séance ouverte" aria-label="Prix séance ouverte"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Privatisation 2 h<small>tous les jours · l'heure bleue à 105 €</small></label><span class="money"><input type="text" inputmode="numeric" value="68" data-name="Privatisation" aria-label="Prix privatisation"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Demi-journée privatisée<small>4 h · dégressif</small></label><span class="money"><input type="text" inputmode="numeric" value="139" data-name="Demi-journée" aria-label="Prix demi-journée"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Journée privatisée<small>9 h – 19 h · rapporte plus qu'une journée de séances</small></label><span class="money"><input type="text" inputmode="numeric" value="290" data-name="Journée" aria-label="Prix journée"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Barbecue<small>+15 € par séance</small></label><span class="switch"><input type="checkbox" checked data-name="Barbecue" aria-label="Activer le barbecue"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Serviettes — lot de 4<small>+6 €</small></label><span class="switch"><input type="checkbox" checked data-name="Serviettes" aria-label="Activer les serviettes"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Goûter maison<small>+18 € — 6 pers.</small></label><span class="switch"><input type="checkbox" data-name="Goûter maison" aria-label="Activer le goûter"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Réservation instantanée<small>sans validation manuelle</small></label><span class="switch"><input type="checkbox" checked data-name="Réservation instantanée" aria-label="Activer la réservation instantanée"><span class="tr"></span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VUE : MON ANNONCE ================= -->
+    <section class="view" id="v-annonce">
+      <div class="cols">
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Photos<small>12 en ligne</small></h2><a class="p-link" href="#">Réorganiser →</a></div>
+            <div class="p-body">
+              <div class="an-photos">
+                <a href="fiche.html"><span class="cover-tag">Couverture</span><img src="img/provencale.webp" alt="Le bassin à l'heure dorée" width="900" height="600"></a>
+                <a href="fiche.html"><img src="img/bassin-2.webp" alt="Côté transats et douche" width="1100" height="734"></a>
+                <a href="fiche.html"><img src="img/margelle.webp" alt="La margelle au soir" width="1000" height="667"></a>
+                <a href="fiche.html"><img src="img/hero-bleue.webp" alt="Le bassin à l'heure bleue" width="1800" height="1200"></a>
+                <a href="fiche.html"><img src="img/portillon.webp" alt="Le portillon d'accès" width="900" height="600"></a>
+              </div>
+              <p class="chart-note" style="margin-top:6px">Le grading de la charte est appliqué automatiquement à l'upload — vos photos gardent l'image de la plateforme.</p>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="p-head"><h2>L'annonce</h2><a class="p-link" href="fiche.html">Voir la page publique →</a></div>
+            <div class="p-body">
+              <div class="an-row"><span class="lbl">Titre</span><span class="val">Le bassin des Micocouliers</span></div>
+              <div class="an-row"><span class="lbl">Localisation</span><span class="val">Aix-en-Provence — quartier des Micocouliers</span></div>
+              <div class="an-row"><span class="lbl">Dimensions</span><span class="val">10 × 5 m · 1,20 – 2 m</span></div>
+              <div class="an-row"><span class="lbl">Jauge maximale</span><span class="val">15 baigneurs</span></div>
+              <div class="an-row"><span class="lbl">La Visite</span><span class="val">12/12 — le 12 mai 2026</span></div>
+              <div class="an-row"><span class="lbl">Note</span><span class="val">4,93 ★ · 41 avis</span></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="p-head"><h2>Description</h2></div>
+            <div class="p-body">
+              <p class="chart-note" id="an-desc" style="margin:8px 0 12px; color:var(--encre); font-size:13px">Un bassin de pierre des années 60, restauré, au fond d'un jardin de lavandes et de micocouliers. L'eau est chauffée d'avril à octobre, la douche est au mur, les transats à l'ombre du grand arbre.</p>
+              <div class="ai-actions" style="display:flex; gap:8px">
+                <button class="btn-xs ok" type="button" id="ai-rewrite" style="background:var(--solaire)">✦ Réécrire avec l'assistant</button>
+                <button class="btn-xs no" type="button">Modifier moi-même</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Statut</h2></div>
+            <div class="p-body">
+              <div class="field-row"><label>Annonce en ligne<small>visible dans la recherche</small></label><span class="switch"><input type="checkbox" checked id="an-live" aria-label="Annonce en ligne"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Réservation instantanée<small>recommandée en été</small></label><span class="switch"><input type="checkbox" checked data-name="Réservation instantanée" aria-label="Réservation instantanée"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Séances ouvertes<small>votre différenciateur — 58 % de vos revenus</small></label><span class="switch"><input type="checkbox" checked data-name="Séances ouvertes" aria-label="Séances ouvertes"><span class="tr"></span></span></div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="p-head"><h2>Le règlement</h2><a class="p-link" href="#">Modifier →</a></div>
+            <div class="p-body">
+              <p class="chart-note" style="margin:8px 0 4px">Enfants accompagnés · musique jusqu'à 20 h · pas d'animaux dans le bassin · pas de verre · maillot obligatoire · portillon fermé. <br>Affiché et accepté avant chaque paiement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VUE : CALENDRIER ================= -->
+    <section class="view" id="v-calendrier">
+      <div class="panel">
+        <div class="p-head"><h2>Semaine du 25 au 31 juillet</h2><a class="p-link" href="#">Semaine suivante →</a></div>
+        <div class="p-body">
+          <div class="week" id="week"></div>
+          <div class="legend">
+            <span><i style="background:color-mix(in srgb,var(--bassin) 10%,#fff); border-color:color-mix(in srgb,var(--bassin) 35%,transparent)"></i>Séance ouverte</span>
+            <span><i style="background:color-mix(in srgb,var(--bassin) 30%,#fff); border-color:var(--bassin)"></i>Complète</span>
+            <span><i style="background:var(--encre); border-color:var(--encre)"></i>Privatisé</span>
+            <span><i style="border-style:dashed; background:transparent"></i>Libre</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <div class="p-head"><h2>Régimes du samedi<small>récurrents</small></h2></div>
+          <div class="p-body">
+            <div class="cren">
+              <span class="c-time">9 h – 13 h<small>2 résas en cours</small></span>
+              <select aria-label="Régime du créneau du matin" disabled><option selected>Séance ouverte</option></select>
+              <span class="c-lock">verrouillé — résas en cours</span>
+            </div>
+            <div class="cren" data-label="13 h 30 – 16 h 30">
+              <span class="c-time">13 h 30 – 16 h 30</span>
+              <select aria-label="Régime de l'après-midi" class="regime"><option>Séance ouverte</option><option selected>Privatisation</option><option>Fermé</option></select>
+              <span class="c-jauge">jusqu'à <b>15</b></span>
+            </div>
+            <div class="cren" data-label="17 h – 19 h">
+              <span class="c-time">17 h – 19 h</span>
+              <select aria-label="Régime de fin de journée" class="regime"><option selected>Séance ouverte</option><option>Privatisation</option><option>Fermé</option></select>
+              <span class="c-jauge">jauge <b>12</b></span>
+            </div>
+            <div class="cren" data-label="19 h 30 – 21 h 30">
+              <span class="c-time">19 h 30 – 21 h 30<small>l'heure bleue · +4 €</small></span>
+              <select aria-label="Régime du soir" class="regime"><option selected>Séance ouverte</option><option>Privatisation</option><option>Fermé</option></select>
+              <span class="c-jauge">jauge <b>10</b></span>
+            </div>
+            <p class="chart-note">Un créneau avec des réservations en cours ne change pas de régime — il se libère à l'annulation ou après la séance. Le tampon de rotation (30 min) s'insère automatiquement.</p>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="p-head"><h2>Fermetures &amp; exceptions</h2><a class="p-link" href="#">Ajouter →</a></div>
+          <div class="p-body">
+            <div class="resa">
+              <div class="r-when">3 – 10 août<small>vacances</small></div>
+              <div class="r-who">Bassin fermé<small>aucune réservation possible</small></div>
+              <span class="s-tag" style="background:var(--craie); color:var(--brume)">Fermé</span>
+            </div>
+            <div class="resa">
+              <div class="r-when">Mer 29 juil.<small>après-midi</small></div>
+              <div class="r-who">Journée privée famille<small>bloquée par vous</small></div>
+              <span class="s-tag tag-priv">Bloqué</span>
+            </div>
+            <div class="ai-card">
+              <div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+              <div class="ai-b">
+                <b>Créneaux dormants repérés</b>
+                <p>Lundi et jeudi matin sont libres depuis 4 semaines. Les ouvrir en séance à 6 €/pers. attirerait les nageurs réguliers — revenu estimé : +140 €/mois sans aucune gêne le week-end.</p>
+                <div class="ai-actions">
+                  <button class="btn-xs ok" type="button" id="ai-apply-3">Ouvrir à 6 €</button>
+                  <button class="btn-xs no" type="button" id="ai-later-3">Ignorer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VUE : REVENUS ================= -->
+    <section class="view" id="v-revenus">
+      <div class="cards">
+        <div class="kpi"><p class="k-lbl">Juillet</p><p class="k-val">1 284 €</p><p class="k-sub up"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" aria-hidden="true"><path d="M5 15l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>+22 % vs juin</p></div>
+        <div class="kpi"><p class="k-lbl">12 derniers mois</p><p class="k-val">8 460 €</p><p class="k-sub">78 % entre mai et août</p></div>
+        <div class="kpi"><p class="k-lbl">Panier moyen</p><p class="k-val">46 €</p><p class="k-sub">extras compris</p></div>
+        <div class="kpi"><p class="k-lbl">Versé sous</p><p class="k-val">48 h</p><p class="k-sub">après chaque séance, automatique</p></div>
+      </div>
+
+      <div class="panel">
+        <div class="p-head"><h2>Mois par mois</h2><a class="p-link" href="#">Exporter (CSV) →</a></div>
+        <div class="p-body">
+          <div class="chart tall" role="img" aria-label="Revenus mensuels sur douze mois">
+            <div class="bar" style="height:26%" data-val="242 €"><span>Août</span></div>
+            <div class="bar" style="height:14%" data-val="128 €"><span>Sep</span></div>
+            <div class="bar" style="height:9%" data-val="84 €"><span>Oct</span></div>
+            <div class="bar" style="height:8%" data-val="72 €"><span>Nov</span></div>
+            <div class="bar" style="height:10%" data-val="96 €"><span>Déc</span></div>
+            <div class="bar" style="height:7%" data-val="62 €"><span>Jan</span></div>
+            <div class="bar" style="height:8%" data-val="74 €"><span>Fév</span></div>
+            <div class="bar" style="height:12%" data-val="110 €"><span>Mar</span></div>
+            <div class="bar" style="height:22%" data-val="205 €"><span>Avr</span></div>
+            <div class="bar" style="height:44%" data-val="412 €"><span>Mai</span></div>
+            <div class="bar" style="height:74%" data-val="689 €"><span>Juin</span></div>
+            <div class="bar hot" style="height:100%" data-val="1 284 €"><span>Juil</span></div>
+          </div>
+          <div class="ai-card">
+            <div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+            <div class="ai-b">
+              <b>Analyse de l'assistant</b>
+              <p>Vos mois d'hiver plafonnent à ~90 € quand les hôtes équipés d'un spa maintiennent 300-500 €/mois. Autre levier immédiat : l'heure bleue du samedi affiche complet 4 semaines sur 5 — elle supporte +2 € sans perdre de réservations (+96 € estimés sur août).</p>
+              <div class="ai-actions">
+                <button class="btn-xs ok" type="button" id="ai-apply-2">Heure bleue à 14 €</button>
+                <a class="btn-xs no" href="#" style="text-decoration:none">Étudier le spa</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="panel">
+          <div class="p-head"><h2>D'où viennent vos revenus<small>juillet</small></h2></div>
+          <div class="p-body split">
+            <div class="sp-row">
+              <span class="sp-lbl">Séances ouvertes<small>remplissent la semaine</small></span>
+              <div class="sp-bar"><i style="width:58%; background:var(--bassin)"></i></div>
+              <span class="sp-val">745 €</span>
+            </div>
+            <div class="sp-row">
+              <span class="sp-lbl">Privatisations<small>week-ends et soirées</small></span>
+              <div class="sp-bar"><i style="width:31%; background:color-mix(in srgb,var(--bassin) 55%,var(--encre))"></i></div>
+              <span class="sp-val">398 €</span>
+            </div>
+            <div class="sp-row">
+              <span class="sp-lbl">Extras<small>barbecue, serviettes, goûters</small></span>
+              <div class="sp-bar"><i style="width:11%; background:var(--solaire)"></i></div>
+              <span class="sp-val">141 €</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="p-head"><h2>Versements</h2><a class="p-link" href="#">Tout l'historique →</a></div>
+          <div class="p-body">
+            <div class="vers">
+              <div class="v-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2.5" stroke-linecap="round"/></svg></div>
+              <div class="v-body">Lundi — programmé<small>3 séances du week-end</small></div>
+              <div class="v-amt">216 €<small class="st-attente">programmé</small></div>
+            </div>
+            <div class="vers">
+              <div class="v-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16v10H4z"/><path d="M4 11h16" stroke-linecap="round"/></svg></div>
+              <div class="v-body">15 juillet<small>4 séances · 12 – 14 juillet</small></div>
+              <div class="v-amt">214 €<small class="st-verse">versé</small></div>
+            </div>
+            <div class="vers">
+              <div class="v-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16v10H4z"/><path d="M4 11h16" stroke-linecap="round"/></svg></div>
+              <div class="v-body">8 juillet<small>5 séances · 4 – 6 juillet</small></div>
+              <div class="v-amt">262 €<small class="st-verse">versé</small></div>
+            </div>
+            <div class="vers">
+              <div class="v-ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16v10H4z"/><path d="M4 11h16" stroke-linecap="round"/></svg></div>
+              <div class="v-body">1 juillet<small>6 séances · 27 – 29 juin</small></div>
+              <div class="v-amt">301 €<small class="st-verse">versé</small></div>
+            </div>
+            <p class="chart-note">Virements automatiques sur votre compte ••7842 — <a href="#">modifier l'IBAN</a>. Aucun versement tant qu'un litige est ouvert : c'est ce qui protège vos clients, et votre note.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VUE : MESSAGES ================= -->
+    <section class="view" id="v-messages">
+      <div class="panel" style="margin-bottom:0">
+        <div class="chat" id="chat">
+          <div class="list" id="conv-list"></div>
+          <div class="thread" id="thread"></div>
+        </div>
+      </div>
+      <p class="chart-note" style="padding:12px 4px 0">Les coordonnées sont masquées automatiquement avant réservation, révélées des deux côtés au paiement. Tout est journalisé — en cas de litige, l'arbitrage se fait sur pièces.</p>
+    </section>
+
+    <!-- ================= VUE : CONFORMITÉ ================= -->
+    <section class="view" id="v-conformite">
+      <div class="cols">
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Votre dossier</h2></div>
+            <div class="prog">
+              <div class="pr-row"><span>Profil conforme</span><b class="prog-val">92 %</b></div>
+              <div class="pr-bar"><i class="prog-bar"></i></div>
+            </div>
+            <div class="p-body">
+              <div class="conf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F5D54" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.4 2.4 4.6-5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>Dispositif de sécurité attesté<small>barrière NF P90-306 — photo validée le 12/05</small></div>
+                <a class="doc" href="#">Voir l'attestation →</a>
+              </div>
+              <div class="conf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F5D54" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.4 2.4 4.6-5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>Assurance active<small>couvre chaque réservation — RC baigneurs incluse</small></div>
+                <a class="doc" href="#">Voir le certificat →</a>
+              </div>
+              <div class="conf" id="conf-eau">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#B98A46" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="#B98A46" stroke="none"/></svg>
+                <div>Analyse d'eau hebdomadaire<small>à consigner avant le 26/07</small></div>
+                <button class="todo-btn" type="button" id="consigner">Consigner</button>
+              </div>
+              <div class="conf">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2F5D54" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.4 2.4 4.6-5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div>Fiscalité<small>842 € encaissés en 2026 — déclaration DAC7 automatique dès 2 000 € ou 30 locations/an</small></div>
+                <a class="doc" href="#">Récapitulatif →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="p-head"><h2>Carnet sanitaire<small>fourni par la plateforme</small></h2><a class="p-link" href="#">Télécharger (PDF) →</a></div>
+            <div class="p-body">
+              <table class="log">
+                <thead><tr><th>Date</th><th>pH</th><th>Chlore</th><th>Verdict</th></tr></thead>
+                <tbody id="log-body">
+                  <tr><td>12/07</td><td>7,2</td><td>1,4 mg/l</td><td class="okv">Conforme</td></tr>
+                  <tr><td>05/07</td><td>7,3</td><td>1,2 mg/l</td><td class="okv">Conforme</td></tr>
+                  <tr><td>28/06</td><td>7,1</td><td>1,5 mg/l</td><td class="okv">Conforme</td></tr>
+                  <tr><td>21/06</td><td>7,4</td><td>1,1 mg/l</td><td class="okv">Conforme</td></tr>
+                </tbody>
+              </table>
+              <p class="chart-note">Bandelettes de test offertes à l'activation. Le carnet tenu à jour est votre meilleure défense — et un argument dans votre annonce.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="paywall" id="paywall" role="dialog" aria-modal="true" aria-label="Activer l'Assistant">
+  <div class="pw-card">
+    <div class="pw-head">
+      <button class="pw-close" id="pw-close" type="button" aria-label="Fermer">×</button>
+      <div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+      <h3>L'Assistant</h3>
+      <p>Votre bassin travaille — lui aussi.</p>
+    </div>
+    <div class="pw-body">
+      <div class="pw-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16v10H9l-5 4z" stroke-linejoin="round"/></svg>
+        <div><b>Vos réponses, rédigées</b><small>Il lit la conversation et écrit la réponse — vous validez, c'est envoyé. Répondre vite fait monter votre annonce.</small></div>
+      </div>
+      <div class="pw-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 17l4-6 4 3 4-7 4 5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21h16" stroke-linecap="round"/></svg>
+        <div><b>Vos prix, ajustés au bon moment</b><small>L'heure bleue qui affiche complet monte, le créneau qui dort baisse — en un clic, jamais dans votre dos.</small></div>
+      </div>
+      <div class="pw-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>
+        <div><b>Vos créneaux vides, remplis</b><small>Il repère les matinées qui dorment et propose une séance à petit prix — du revenu qui n'existait pas.</small></div>
+      </div>
+      <div class="pw-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M9 9h6M9 13h6M9 17h3" stroke-linecap="round"/></svg>
+        <div><b>Votre annonce, réécrite</b><small>Description travaillée, sans clichés, relue avant publication — c'est elle qui donne envie de réserver.</small></div>
+      </div>
+      <div class="pw-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 3a7 7 0 0 1 7 7c0 3-2 4.5-2 7H7c0-2.5-2-4-2-7a7 7 0 0 1 7-7z" stroke-linejoin="round"/><path d="M10 21h4" stroke-linecap="round"/></svg>
+        <div><b>Il répond quand vous dormez</b><small>Température, horaires, accès : les questions simples des baigneurs sont traitées la nuit. Vous gardez la main sur le reste.</small></div>
+      </div>
+    </div>
+    <div class="pw-foot">
+      <div class="pw-price"><b>9 €</b><span>/ mois · sans engagement · résiliable en un clic</span></div>
+      <button class="btn btn-bassin" id="pw-activate" type="button">Activer l'Assistant</button>
+      <button class="pw-later" id="pw-later" type="button">Plus tard</button>
+    </div>
+  </div>
+</div>
+
+<button class="fab" id="fab" type="button" aria-label="Ouvrir l'assistant" aria-expanded="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg>
+</button>
+
+<div class="bot" id="bot" role="dialog" aria-label="Assistant Loue ta piscine">
+  <div class="b-head">
+    <div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>
+    <div><b>L'assistant</b><small>répond tout de suite — ou un humain sur WhatsApp</small></div>
+    <button class="b-close" id="bot-close" type="button" aria-label="Fermer l'assistant">×</button>
+  </div>
+  <div class="b-body" id="bot-body"></div>
+  <div class="b-quick" id="bot-quick"></div>
+  <form class="th-input" id="bot-form" style="background:var(--blanc); border-top:1px solid var(--craie)">
+    <input type="text" placeholder="Ou posez votre question librement…" aria-label="Votre question à l'assistant">
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+<div id="toasts" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ Toasts ============ */
+  var toasts = document.getElementById('toasts');
+  function toast(msg){
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>' + msg;
+    toasts.appendChild(t);
+    setTimeout(function(){ t.classList.add('out'); setTimeout(function(){ t.remove(); }, 320); }, 2600);
+  }
+
+  /* ============ Router de vues ============ */
+  var TITLES = {
+    dashboard:['Bonjour Claire','Samedi 19 juillet — 3 séances aujourd’hui'],
+    annonce:['Mon annonce','Le bassin des Micocouliers — en ligne'],
+    calendrier:['Calendrier','Semaine du 25 au 31 juillet'],
+    revenus:['Revenus','8 460 € sur les 12 derniers mois'],
+    messages:['Messages','1 conversation non lue'],
+    conformite:['Conformité','Profil conforme à 92 %']
+  };
+  function setView(name){
+    if(!TITLES[name]) name = 'dashboard';
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.toggle('active', v.id === 'v-'+name); });
+    document.querySelectorAll('.side a.item').forEach(function(a){
+      var on = a.dataset.view === name;
+      a.classList.toggle('active', on);
+      if(on) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    document.getElementById('view-title').textContent = TITLES[name][0];
+    document.getElementById('view-sub').textContent = TITLES[name][1];
+    window.scrollTo({top:0});
+  }
+  function fromHash(){ setView((location.hash || '#/dashboard').replace('#/','')); }
+  window.addEventListener('hashchange', fromHash);
+
+  /* ============ Demande de Sarah ============ */
+  var accept = document.getElementById('accept-sarah'), refuse = document.getElementById('refuse-sarah');
+  var resaSarah = document.getElementById('resa-sarah');
+  if(accept) accept.addEventListener('click', function(){
+    resaSarah.querySelector('.r-actions').outerHTML = '<span class="s-tag tag-open">3/12</span>';
+    resaSarah.querySelector('.r-amt small').textContent = 'à venir';
+    resaSarah.querySelector('.r-amt small').className = 'st-avenir';
+    resaSarah.querySelector('.r-who small').textContent = 'confirmée — Sarah a reçu votre numéro';
+    document.getElementById('week-total').textContent = '264 €';
+    toast('Réservation de Sarah confirmée — 21 €');
+  });
+  if(refuse) refuse.addEventListener('click', function(){
+    resaSarah.style.opacity = '.45';
+    resaSarah.querySelector('.r-actions').outerHTML = '<span class="s-tag" style="background:var(--craie); color:var(--brume)">Refusée</span>';
+    resaSarah.querySelector('.r-amt small').textContent = 'refusée';
+    resaSarah.querySelector('.r-amt small').className = 'st-verse';
+    toast('Demande refusée — Sarah est remboursée intégralement');
+  });
+
+  /* ============ Régimes / prix / switches ============ */
+  document.querySelectorAll('select.regime').forEach(function(sel){
+    sel.addEventListener('change', function(){
+      var cren = sel.closest('.cren');
+      var jauge = cren.querySelector('.c-jauge');
+      cren.classList.toggle('closed', sel.value === 'Fermé');
+      if(jauge){
+        if(sel.value === 'Séance ouverte') jauge.innerHTML = 'jauge <b>12</b>';
+        else if(sel.value === 'Privatisation') jauge.innerHTML = 'jusqu’à <b>15</b>';
+        else jauge.innerHTML = '—';
+      }
+      toast(cren.dataset.label + ' : ' + sel.value.toLowerCase());
+    });
+  });
+  document.querySelectorAll('.money input').forEach(function(inp){
+    inp.addEventListener('change', function(){ toast(inp.dataset.name + ' : ' + inp.value + ' € — enregistré'); });
+  });
+  document.querySelectorAll('.switch input[data-name]').forEach(function(sw){
+    sw.addEventListener('change', function(){ toast(sw.dataset.name + (sw.checked ? ' : activé' : ' : désactivé')); });
+  });
+  var anLive = document.getElementById('an-live');
+  if(anLive) anLive.addEventListener('change', function(){
+    document.querySelector('.pill-status').textContent = anLive.checked ? 'En ligne' : 'En pause';
+    toast(anLive.checked ? 'Annonce remise en ligne' : 'Annonce mise en pause — plus visible dans la recherche');
+  });
+
+  /* ============ Calendrier semaine ============ */
+  var WEEK = [
+    {d:['Sam','25'], today:true, cells:[['9 h – 11 h','4/12 · 32 €','open'],['11 h – 13 h','Complet','full'],['13 h 30 – 17 h 30','Bencheikh · demi-journée 139 €','priv'],['17 h – 19 h','Libre','libre'],['19 h 30 – 21 h 30','6/10 · 72 €','open']]},
+    {d:['Dim','26'], cells:[['9 h – 11 h','2/12','open'],['11 h – 13 h','5/12','open'],['14 h – 18 h','Demi-journée · 139 €','priv'],['19 h 30 – 21 h 30','Libre','libre']]},
+    {d:['Lun','27'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','3/12','open'],['17 h – 19 h','Libre','libre'],['19 h 30 – 21 h 30','Libre','libre']]},
+    {d:['Mar','28'], cells:[['9 h – 11 h','1/12','open'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','4/12','open'],['19 h 30 – 21 h 30','2/10','open']]},
+    {d:['Mer','29'], cells:[['9 h – 11 h','6/12','open'],['11 h – 13 h','8/12','open'],['14 h – 21 h','Journée privée','priv']]},
+    {d:['Jeu','30'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','Sarah · 3/12','open'],['19 h 30 – 21 h 30','3/10','open']]},
+    {d:['Ven','31'], cells:[['9 h – 11 h','2/12','open'],['11 h – 13 h','7/12','open'],['14 h – 16 h','5/12','open'],['17 h – 19 h','9/12','open'],['19 h 30 – 21 h 30','8/10','open']]}
+  ];
+  var weekEl = document.getElementById('week');
+  WEEK.forEach(function(day){
+    var col = document.createElement('div');
+    col.className = 'wd' + (day.today ? ' today' : '');
+    var cells = day.cells.map(function(c){
+      return '<div class="cell '+c[2]+'" title="'+c[0]+' — '+c[1]+'"><b>'+c[0]+'</b>'+c[1]+'</div>';
+    }).join('');
+    col.innerHTML = '<div class="wd-head"><small>'+day.d[0]+'</small><b>'+day.d[1]+'</b></div><div class="wd-col">'+cells+'</div>';
+    weekEl.appendChild(col);
+  });
+
+  /* ============ Messagerie ============ */
+  var CONVS = [
+    {id:'sarah', name:'Sarah', time:'il y a 2 h', unread:true, preview:'Bonjour, le créneau de jeudi est-il calme pour nager ?',
+      sub:'demande en attente · jeudi 17 h – 19 h',
+      thread:[
+        {who:'eux', txt:'Bonjour ! Le créneau de jeudi 17 h est-il calme pour nager ? Nous serions 3, dont ma mère qui nage tous les jours.', t:'14 h 02'},
+        {who:'sys', txt:'Demande de réservation — jeudi 17 h – 19 h · 3 baigneurs · 21 €'}
+      ]},
+    {id:'thomas', name:'Thomas', time:'hier', preview:'Mon numéro : ●● ●● ●● ●● ●● — masqué avant réservation',
+      sub:'réservation confirmée · samedi 9 h – 11 h',
+      thread:[
+        {who:'eux', txt:'Parfait pour samedi matin ! Mon numéro si besoin : <span class="masked">•• •• •• •• ••</span>', t:'hier · 18 h 20'},
+        {who:'sys', txt:'Numéro masqué automatiquement — les coordonnées se débloquent au paiement'},
+        {who:'sys', txt:'Réservation payée — coordonnées partagées des deux côtés'},
+        {who:'eux', txt:'06 48 21 07 93 — à samedi, merci Claire !', t:'hier · 18 h 34'},
+        {who:'moi', txt:'Reçu ! Le portillon sera ouvert dès 8 h 55. À samedi.', t:'hier · 18 h 41'}
+      ]},
+    {id:'karim', name:'Karim', time:'mar.', preview:'Merci pour samedi, mon père était ravi !',
+      sub:'séjour terminé · avis déposé ★★★★★',
+      thread:[
+        {who:'eux', txt:'Merci pour samedi, mon père était ravi ! Les transats à l’ombre, exactement ce qu’il fallait.', t:'mardi · 10 h 12'},
+        {who:'moi', txt:'Merci Karim, revenez quand vous voulez — l’heure bleue est encore plus belle en août.', t:'mardi · 11 h 05'},
+        {who:'sys', txt:'Karim a laissé un avis 5 étoiles — visible sur votre annonce'}
+      ]}
+  ];
+  /* Réponses rapides + suggestion de l'assistant, par conversation */
+  var QUICK = {
+    sarah:{ ai:'Bonjour Sarah ! Oui, le jeudi 17 h est le créneau le plus calme de la semaine — rarement plus de 4 baigneurs, votre mère pourra nager tranquillement.',
+      chips:['Oui, très calme le jeudi','Proposer un autre créneau'] },
+    thomas:{ ai:'Le portillon sera ouvert dès 8 h 55 — garez-vous le long du chemin, à samedi !',
+      chips:['Envoyer les infos d’accès','Bonne journée !'] },
+    karim:{ ai:'Merci Karim ! Revenez pour l’heure bleue d’août — je vous garde deux transats.',
+      chips:['Merci pour l’avis ★','À bientôt'] }
+  };
+  var listEl = document.getElementById('conv-list'), threadEl = document.getElementById('thread'), chatEl = document.getElementById('chat');
+  var current = 'sarah';
+  function renderList(){
+    listEl.innerHTML = '';
+    CONVS.forEach(function(c){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'conv' + (c.unread ? ' unread' : '') + (current === c.id ? ' sel' : '');
+      b.innerHTML = '<div class="m-av">'+c.name[0]+'</div><div class="c-b"><span class="m-time">'+c.time+'</span><b>'+c.name+'</b><p>'+c.preview+'</p></div>';
+      b.addEventListener('click', function(){
+        current = c.id;
+        if(c.unread){ c.unread = false; var mc = document.getElementById('msg-count'); if(mc) mc.remove(); }
+        chatEl.classList.add('open');
+        renderList(); renderThread();
+      });
+      listEl.appendChild(b);
+    });
+  }
+  function renderThread(){
+    var c = CONVS.find(function(x){ return x.id === current; });
+    var bulles = '<div class="datesep">'+(c.id==='sarah'?'Aujourd’hui':c.id==='thomas'?'Hier':'Mardi')+'</div>' + c.thread.map(function(m){
+      if(m.who === 'sys') return '<div class="sysline">'+m.txt+'</div>';
+      var ticks = m.who === 'moi' ? '<span class="ticks">✓✓</span>' : '';
+      return '<div class="bulle '+m.who+'">'+m.txt+'<small>'+(m.t||'')+ticks+'</small></div>';
+    }).join('');
+    var headActions = c.id === 'sarah'
+      ? '<div class="th-actions"><button class="btn-xs ok" type="button" id="th-accept">Accepter — 21 €</button><button class="btn-xs no" type="button" id="th-refuse">Refuser</button></div>'
+      : '';
+    var q = QUICK[c.id];
+    var chips = '<div class="quickbar"><button class="qchip ai" type="button" data-fill="'+q.ai.replace(/"/g,'&quot;')+'">✦ Réponse suggérée</button>'+
+      q.chips.map(function(t){ return '<button class="qchip" type="button" data-fill="'+t+'">'+t+'</button>'; }).join('')+'</div>';
+    threadEl.innerHTML =
+      '<div class="th-head"><div class="m-av" style="width:34px;height:34px;border-radius:50%;background:var(--craie);font-family:var(--serif);display:flex;align-items:center;justify-content:center">'+c.name[0]+'</div>'+
+      '<div><b>'+c.name+'</b><small>'+c.sub+'</small></div>'+headActions+'</div>'+
+      '<div class="th-body" id="th-body">'+bulles+'</div>'+
+      chips+
+      '<form class="th-input" id="th-form">'+
+        '<button class="plus-btn" type="button" id="plus-btn" aria-label="Options du message" aria-expanded="false">+</button>'+
+        '<div class="plus-menu" id="plus-menu">'+
+          '<button type="button" data-act="reglement"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="5" y="4" width="14" height="16" rx="1.5"/><path d="M9 9h6M9 13h6M9 17h3" stroke-linecap="round"/></svg>Envoyer le règlement</button>'+
+          '<button type="button" data-act="creneau"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>Proposer un créneau</button>'+
+          '<button type="button" data-act="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="6" width="16" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M9 6l1.2-2h3.6L15 6" stroke-linejoin="round"/></svg>Joindre une photo</button>'+
+          '<button type="button" data-act="signaler"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 21V4l12 4.5L6 13" stroke-linejoin="round" stroke-linecap="round"/></svg>Signaler à la plateforme</button>'+
+        '</div>'+
+        '<input type="text" placeholder="Écrire à '+c.name+'…" aria-label="Votre message"><button type="submit">Envoyer</button></form>';
+
+    var body = document.getElementById('th-body');
+    var form = document.getElementById('th-form');
+    var inp = form.querySelector('input[type="text"]');
+    body.scrollTop = body.scrollHeight;
+
+    /* Accepter / refuser depuis le fil */
+    var thA = document.getElementById('th-accept'), thR = document.getElementById('th-refuse');
+    if(thA) thA.addEventListener('click', function(){
+      body.insertAdjacentHTML('beforeend', '<div class="sysline">Demande acceptée — Sarah a payé, vos numéros sont partagés</div>');
+      body.scrollTop = body.scrollHeight;
+      document.querySelector('.th-actions').innerHTML = '<span class="s-tag tag-open">Confirmée · 21 €</span>';
+      c.sub = 'réservation confirmée · jeudi 17 h – 19 h';
+      toast('Réservation de Sarah confirmée — 21 €');
+    });
+    if(thR) thR.addEventListener('click', function(){
+      body.insertAdjacentHTML('beforeend', '<div class="sysline">Demande refusée — Sarah est remboursée intégralement</div>');
+      body.scrollTop = body.scrollHeight;
+      document.querySelector('.th-actions').innerHTML = '<span class="s-tag" style="background:var(--craie); color:var(--brume)">Refusée</span>';
+      toast('Demande refusée — remboursement automatique');
+    });
+
+    /* Réponses rapides → remplissent le champ ; la chip ✦ interroge l'IA avec le fil réel */
+    threadEl.querySelectorAll('.qchip').forEach(function(ch){
+      ch.addEventListener('click', function(){
+        if(!ch.classList.contains('ai')){ inp.value = ch.dataset.fill; inp.focus(); return; }
+        if(!iaOn){ openPaywall(); return; }
+        var hist = c.thread.filter(function(m){ return m.who !== 'sys'; }).slice(-6).map(function(m){
+          return {role: m.who === 'moi' ? 'assistant' : 'user', content: m.txt.replace(/<[^>]+>/g,'')};
+        });
+        ch.disabled = true; ch.textContent = '✦ L’assistant écrit…';
+        aiCall('suggest', hist)
+          .then(function(text){ inp.value = text; })
+          .catch(function(){ inp.value = ch.dataset.fill; })
+          .then(function(){ ch.disabled = false; ch.textContent = '✦ Réponse suggérée'; inp.focus(); });
+      });
+    });
+
+    /* Menu + */
+    var plusBtn = document.getElementById('plus-btn'), plusMenu = document.getElementById('plus-menu');
+    plusBtn.addEventListener('click', function(){
+      var open = plusMenu.classList.toggle('open');
+      plusBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    plusMenu.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        plusMenu.classList.remove('open');
+        var act = b.dataset.act;
+        if(act === 'reglement'){
+          body.insertAdjacentHTML('beforeend', '<div class="sysline">Règlement du bassin envoyé à '+c.name+' — 6 règles</div>');
+          toast('Règlement envoyé');
+        } else if(act === 'creneau'){
+          body.insertAdjacentHTML('beforeend', '<div class="bulle moi">Je vous propose samedi 17 h – 19 h, il reste 12 places.<small>à l’instant<span class="ticks">✓✓</span></small></div>');
+          toast('Créneau proposé');
+        } else if(act === 'photo'){
+          toast('Sélection de photo — démo');
+        } else {
+          toast('Signalement transmis — un humain vous répond sous 2 h');
+        }
+        body.scrollTop = body.scrollHeight;
+      });
+    });
+
+    /* Envoi */
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var val = inp.value.trim();
+      if(!val) return;
+      var safe = val.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      var masked = safe.replace(/(\+?\d[\d .-]{7,})/g, '<span class="masked">•• •• •• •• ••</span>');
+      body.insertAdjacentHTML('beforeend', '<div class="bulle moi">'+masked+'<small>à l’instant<span class="ticks">✓✓</span></small></div>');
+      if(masked !== safe) body.insertAdjacentHTML('beforeend', '<div class="sysline">Numéro masqué automatiquement — visible après réservation</div>');
+      body.scrollTop = body.scrollHeight;
+      inp.value = '';
+      toast('Message envoyé à ' + c.name);
+    });
+  }
+  renderList(); renderThread();
+
+  /* ============ Conformité ============ */
+  var btn = document.getElementById('consigner');
+  if(btn) btn.addEventListener('click', function(){
+    var conf = document.getElementById('conf-eau');
+    conf.querySelector('small').textContent = 'consignée à l’instant — prochaine : 26/07';
+    conf.querySelector('svg').outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#2F5D54" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.4 2.4 4.6-5.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.remove();
+    document.querySelectorAll('.prog-val').forEach(function(el){ el.textContent = '100 %'; });
+    document.querySelectorAll('.prog-bar').forEach(function(el){ el.style.width = '100%'; });
+    var log = document.getElementById('log-body');
+    if(log) log.insertAdjacentHTML('afterbegin', '<tr><td>19/07</td><td>7,2</td><td>1,3 mg/l</td><td class="okv">Conforme</td></tr>');
+    toast('Analyse d’eau consignée — profil conforme à 100 %');
+  });
+
+  /* ============ Dashboard : aperçu messages ============ */
+  var dash = document.getElementById('dash-msgs');
+  if(dash){
+    dash.innerHTML = CONVS.map(function(c){
+      return '<a class="conv'+(c.unread?' unread':'')+'" style="border-left:none; padding:12px 4px" href="#/messages">'+
+        '<div class="m-av">'+c.name[0]+'</div><div class="c-b"><span class="m-time">'+c.time+'</span><b>'+c.name+'</b><p>'+c.preview+'</p></div></a>';
+    }).join('');
+  }
+
+  /* ============ Appel IA (fonction serverless — la clé ne quitte jamais le serveur) ============ */
+  function aiCall(task, messages, context){
+    return fetch('/api/assistant', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({task:task, messages:messages, context:context||''})
+    }).then(function(r){
+      if(!r.ok) throw new Error('http '+r.status);
+      return r.json();
+    }).then(function(d){
+      if(!d.text) throw new Error('vide');
+      return d.text;
+    });
+  }
+  function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  var CAN_STREAM = !!(window.ReadableStream && window.TextDecoder);
+  /* Flux mot à mot ; onDelta reçoit le texte accumulé. Repli sur aiCall si le navigateur ne suit pas. */
+  function aiStream(task, messages, context, onDelta){
+    if(!CAN_STREAM) return aiCall(task, messages, context);
+    return fetch('/api/assistant', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({task:task, messages:messages, context:context||'', stream:true})
+    }).then(function(r){
+      if(!r.ok) throw new Error('http '+r.status);
+      var reader = r.body.getReader(), dec = new TextDecoder(), full = '';
+      return (function pump(){
+        return reader.read().then(function(res){
+          if(res.done) return full;
+          full += dec.decode(res.value, {stream:true});
+          if(onDelta) onDelta(full);
+          return pump();
+        });
+      })();
+    }).then(function(full){ if(!full || !full.trim()) throw new Error('vide'); return full; });
+  }
+  /* Pendant le flux : les balises [[action:…]] restent invisibles, même à moitié écrites */
+  function displayText(t){
+    t = t.replace(/\[\[action:\w+\]\]/g, '');
+    var i = t.lastIndexOf('[[');
+    if(i !== -1 && t.indexOf(']]', i) === -1) t = t.slice(0, i);
+    return t.replace(/\[$/, '').trim();
+  }
+
+  /* ============ Abonnement Assistant — 9 €/mois ============ */
+  var iaOn = localStorage.getItem('ltp-ia') === '1';
+  var paywall = document.getElementById('paywall');
+  function openPaywall(){ paywall.classList.add('open'); }
+  function closePaywall(){ paywall.classList.remove('open'); }
+  function gate(fn){
+    return function(){
+      if(!iaOn){ openPaywall(); return; }
+      fn.apply(this, arguments);
+    };
+  }
+  document.getElementById('pw-close').addEventListener('click', closePaywall);
+  document.getElementById('pw-later').addEventListener('click', closePaywall);
+  paywall.addEventListener('click', function(ev){ if(ev.target === paywall) closePaywall(); });
+  document.getElementById('pw-activate').addEventListener('click', function(){
+    iaOn = true;
+    localStorage.setItem('ltp-ia', '1');
+    closePaywall();
+    var up = document.getElementById('upsell'); if(up) up.remove();
+    toast('L’Assistant est activé — 9 €/mois, résiliable à tout moment');
+  });
+  /* Bannière d'appel dans le tableau de bord tant que l'hôte n'est pas abonnée */
+  if(!iaOn){
+    document.getElementById('v-dashboard').insertAdjacentHTML('afterbegin',
+      '<div class="upsell" id="upsell">'+
+        '<div class="ai-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></svg></div>'+
+        '<div class="u-b"><b>L’Assistant — vos prix ajustés, vos réponses rédigées, vos créneaux remplis</b>'+
+        '<p>Les hôtes qui l’utilisent gagnent en moyenne 1 h et 30 € par semaine.</p></div>'+
+        '<button class="btn btn-bassin" id="upsell-cta" type="button">Découvrir — 9 €/mois</button>'+
+      '</div>');
+    document.getElementById('upsell-cta').addEventListener('click', openPaywall);
+  }
+  /* ?pw=1 → ouvre le paywall à l'arrivée (démo RDV) */
+  if(new URLSearchParams(location.search).get('pw') === '1') openPaywall();
+
+  /* ============ Boutons IA ============ */
+  function aiBind(id, fn){ var el = document.getElementById(id); if(el) el.addEventListener('click', fn); }
+  aiBind('ai-apply-1', gate(function(){
+    this.closest('.ai-card').style.opacity = '.5'; this.disabled = true; this.textContent = 'Appliqué ✓';
+    toast('Samedi 17 h – 19 h : séance ouverte à 7 €/pers.');
+  }));
+  aiBind('ai-later-1', function(){ this.closest('.ai-card').remove(); toast('Conseil masqué — il reviendra si le créneau reste vide'); });
+  aiBind('ai-apply-2', gate(function(){
+    this.disabled = true; this.textContent = 'Appliqué ✓';
+    toast('L’heure bleue du samedi passe à 14 €/pers.');
+  }));
+  aiBind('ai-apply-3', gate(function(){
+    this.disabled = true; this.textContent = 'Ouverts ✓';
+    toast('Lundi et jeudi matin ouverts en séance à 6 €/pers.');
+  }));
+  aiBind('ai-later-3', function(){ this.closest('.ai-card').remove(); });
+  var REWRITE_FALLBACK = 'Derrière le portillon de pierres sèches, un bassin des années 60 restauré attend au milieu des lavandes. L’eau tient 27 °C d’avril à octobre, la douche est au mur, et les transats vivent à l’ombre du grand micocoulier. On arrive par le jardin — jamais par la maison — et l’heure bleue, ici, se mérite : c’est le créneau que les habitués réservent en premier.';
+  aiBind('ai-rewrite', gate(function(){
+    var btn = this, desc = document.getElementById('an-desc');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="ai-spin"></span>L’assistant écrit…';
+    aiStream('rewrite', [{role:'user', content:'Réécris cette description d’annonce (bassin de pierre 10 × 5 m, Aix-en-Provence, jardin de lavandes, grand micocoulier, chauffée 27 °C d’avril à octobre, douche au mur, transats, accès par un portillon sans traverser la maison, créneau du soir « l’heure bleue ») : ' + desc.textContent}], '', function(sofar){ desc.textContent = sofar; })
+      .then(function(text){ desc.textContent = text.trim(); })
+      .catch(function(){ desc.textContent = REWRITE_FALLBACK; })
+      .then(function(){
+        btn.disabled = false;
+        btn.innerHTML = '✦ Réécrire encore';
+        toast('Description réécrite — relisez avant publication');
+      });
+  }));
+
+  /* ============ L'assistant (bot) ============ */
+  var fab = document.getElementById('fab'), bot = document.getElementById('bot'), botClose = document.getElementById('bot-close');
+  var botBody = document.getElementById('bot-body'), botQuick = document.getElementById('bot-quick');
+  var BOT = [
+    {q:'Comment fonctionne le versement ?', a:'L’argent du client est séquestré chez notre prestataire de paiement dès la réservation. Il part automatiquement vers votre compte ••7842 sous 48 h après chaque séance. Votre prochain versement : lundi, 216 €.'},
+    {q:'Modifier ma caution', a:'Votre caution actuelle est de 200 € par empreinte bancaire — jamais débitée sans état des lieux photo. Vous pouvez l’ajuster dans <a href="#/annonce">Mon annonce</a>, section Règlement.'},
+    {q:'Un baigneur a annulé', a:'Plus de 48 h avant la séance : remboursement automatique et votre créneau se remet en vente aussitôt. À moins de 48 h : vous êtes payée intégralement. Rien à faire de votre côté.'},
+    {q:'Parler à un humain', a:'Je vous passe l’équipe — un humain répond sur WhatsApp, 7 j/7 en saison, généralement en moins d’une heure.', wa:true}
+  ];
+  var botStarted = false;
+  var botHist = [];
+  var WA_BTN = '<br><a class="btn-wa" href="#"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" stroke-linejoin="round"/></svg>Continuer sur WhatsApp</a>';
+  function botMsg(html, who){
+    var d = document.createElement('div');
+    d.className = 'bulle ' + (who || 'eux');
+    d.innerHTML = html;
+    botBody.appendChild(d);
+    botBody.scrollTop = botBody.scrollHeight;
+    return d;
+  }
+  function botTyping(){
+    var t = document.createElement('div');
+    t.className = 'typing';
+    t.innerHTML = '<i></i><i></i><i></i>';
+    botBody.appendChild(t);
+    botBody.scrollTop = botBody.scrollHeight;
+    return t;
+  }
+  function botAnswer(item){
+    botMsg(item.q, 'moi');
+    botHist.push({role:'user', content:item.q});
+    var typing = botTyping();
+    setTimeout(function(){
+      typing.remove();
+      botMsg(item.a + (item.wa ? WA_BTN : ''));
+      botHist.push({role:'assistant', content:item.a});
+    }, 900);
+  }
+  /* Texte libre → Mistral via la fonction serverless, repli WhatsApp si indisponible */
+  var BOT_ACTIONS = {
+    calendrier:{lbl:'Ouvrir le calendrier', run:function(){ location.hash = '#/calendrier'; bot.classList.remove('open'); }},
+    revenus:{lbl:'Voir mes revenus', run:function(){ location.hash = '#/revenus'; bot.classList.remove('open'); }},
+    annonce:{lbl:'Ouvrir mon annonce', run:function(){ location.hash = '#/annonce'; bot.classList.remove('open'); }},
+    conformite:{lbl:'Voir la conformité', run:function(){ location.hash = '#/conformite'; bot.classList.remove('open'); }},
+    whatsapp:{lbl:'Continuer sur WhatsApp', run:function(){ toast('Ouverture de WhatsApp — démo'); }}
+  };
+  /* Fin de flux : texte propre figé, balise action → bouton */
+  function finishAnswer(full, bulle){
+    var act = null;
+    var clean = full.replace(/\[\[action:(\w+)\]\]/g, function(_, name){ if(BOT_ACTIONS[name]) act = BOT_ACTIONS[name]; return ''; }).trim();
+    bulle.classList.remove('streaming');
+    bulle.innerHTML = esc(clean).replace(/\n/g,'<br>');
+    if(act){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'b-action'; b.textContent = act.lbl + ' →';
+      b.addEventListener('click', act.run);
+      botBody.appendChild(b);
+    }
+    botBody.scrollTop = botBody.scrollHeight;
+    return clean;
+  }
+  function botAsk(text){
+    botMsg(esc(text), 'moi');
+    botHist.push({role:'user', content:text});
+    var typing = botTyping(), bulle = null;
+    function ensureBulle(){
+      if(!bulle){
+        typing.remove();
+        bulle = botMsg('', 'eux');
+        bulle.classList.add('streaming');
+      }
+      return bulle;
+    }
+    var view = (location.hash || '#/dashboard').replace('#/','');
+    var ctx = 'Claire est sur la vue « ' + (TITLES[view] ? TITLES[view][0] : 'Tableau de bord') + ' » de son espace hôte.';
+    aiStream('bot', botHist.slice(-8), ctx, function(sofar){
+      ensureBulle().innerHTML = esc(displayText(sofar)).replace(/\n/g,'<br>');
+      botBody.scrollTop = botBody.scrollHeight;
+    })
+      .then(function(full){
+        botHist.push({role:'assistant', content:finishAnswer(full, ensureBulle())});
+      })
+      .catch(function(){
+        if(bulle && bulle.textContent){
+          botHist.push({role:'assistant', content:finishAnswer(bulle.textContent, bulle)});
+          return;
+        }
+        typing.remove();
+        botMsg('Je n’arrive pas à joindre l’assistant pour le moment — l’équipe prend le relais sur WhatsApp, 7 j/7 en saison.' + WA_BTN);
+      });
+  }
+  function botInit(){
+    if(botStarted) return;
+    botStarted = true;
+    botMsg('Bonjour Claire ! Je réponds tout de suite aux questions sur vos réservations, versements et réglages. Pour le reste, l’équipe est sur WhatsApp — à vous de choisir.');
+    BOT.forEach(function(item){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'qchip';
+      b.textContent = item.q;
+      b.addEventListener('click', function(){ botAnswer(item); });
+      botQuick.appendChild(b);
+    });
+  }
+  fab.addEventListener('click', function(){
+    var open = bot.classList.toggle('open');
+    fab.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){
+      botInit();
+      /* pas d'autofocus sur mobile — le clavier masquerait le fil */
+      if(window.matchMedia('(min-width:720px)').matches){
+        setTimeout(function(){ var i = document.querySelector('#bot-form input'); if(i) i.focus(); }, 250);
+      }
+    }
+  });
+  botClose.addEventListener('click', function(){ bot.classList.remove('open'); fab.setAttribute('aria-expanded','false'); });
+  document.getElementById('bot-form').addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var inp = ev.target.querySelector('input');
+    var val = inp.value.trim();
+    if(!val) return;
+    inp.value = '';
+    botAsk(val);
+  });
+
+  fromHash();
+
+  /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
+  document.addEventListener('click', function(ev){
+    var dead = ev.target.closest('a[href="#"]');
+    if(dead) ev.preventDefault();
+  });
+})();
+</script>
+</body>
+</html>
