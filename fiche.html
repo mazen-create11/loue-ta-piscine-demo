@@ -17,7 +17,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"Le bassin des Micocouliers","description":"Piscine de pierre 10 × 5 m à Aix-en-Provence, eau chauffée à 27 °C, séance ouverte ou privatisation.","image":"https://loue-ta-piscine-demo.netlify.app/img/provencale.webp","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.93","reviewCount":"41"},"offers":{"@type":"AggregateOffer","lowPrice":"7","highPrice":"290","priceCurrency":"EUR"}}
 </script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15.2' fill='%2310222B'/%3E%3Ccircle cx='21.8' cy='9.4' r='2.3' fill='%23B98A46'/%3E%3Cpath d='M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.9' fill='none' stroke-linecap='round'/%3E%3Cpath d='M7.4 22.6q2.8 -2.1 5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/base.css">
 <link rel="preload" href="img/provencale.webp" as="image">
 <style>
@@ -115,12 +115,17 @@
   .day.active small,.day.active b{color:#F2F1EA}
   .day:disabled{opacity:.4; cursor:default}
   .slots{display:flex; flex-direction:column; gap:6px; margin-bottom:4px}
-  .slot{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:8px; padding:9px 12px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo)}
-  .slot:not(:disabled):hover{border-color:var(--bassin)}
+  .slot{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:9px; padding:9px 12px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo), transform .18s var(--eo), box-shadow .18s var(--eo)}
+  .slot:not(:disabled):hover{border-color:var(--bassin); transform:translateY(-1px); box-shadow:var(--shadow-1)}
   .slot.selected{border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 6%,#fff); box-shadow:inset 3px 0 0 var(--bassin)}
   .slot:disabled{cursor:default; opacity:.5; background:var(--craie-2)}
   .slot .s-time{font-variant-numeric:tabular-nums; font-weight:600; font-size:12.5px; min-width:78px}
-  .slot .s-info{flex:1; font-size:11.5px; color:var(--brume)}
+  .slot .s-info{flex:1; font-size:11.5px; color:var(--brume); display:flex; align-items:center}
+  .slot .gauge{width:32px; height:4px; border-radius:99px; background:var(--line); margin-right:8px; overflow:hidden; flex:none}
+  .slot .gauge b{display:block; height:100%; border-radius:99px; background:var(--bassin)}
+  .slot:disabled .gauge b{background:var(--brume)}
+  .slot .s-price{font-weight:600; font-variant-numeric:tabular-nums; font-size:12.5px; white-space:nowrap}
+  .slot .s-price small{font-weight:400; color:var(--brume); font-size:10.5px}
   .slot .s-tag{font-size:10px; font-weight:600; padding:2px 8px; border-radius:99px; white-space:nowrap}
   .tag-open{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
   .tag-full{background:var(--line); color:var(--brume)}
@@ -151,8 +156,11 @@
   .privat.off{opacity:.55}
   .t-row{display:flex; justify-content:space-between; font-size:12.5px; color:var(--brume); margin-bottom:4px}
   .t-row .amt{font-variant-numeric:tabular-nums}
-  .t-row.grand{font-size:15px; color:var(--encre); font-weight:600; margin:8px 0 12px}
-  .bk-cta{width:100%; font-size:14.5px; padding:12px}
+  .t-row.grand{font-size:14px; color:var(--encre); font-weight:600; margin:8px 0 12px; align-items:baseline}
+  .t-row.grand .amt{font-family:var(--serif); font-weight:500; font-size:24px; letter-spacing:-.01em}
+  .bk-recap{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; font-weight:600; color:var(--brume); margin:0 0 11px}
+  .bk-total{border-top:1px dashed var(--line); margin-top:12px; padding-top:12px}
+  .bk-cta{width:100%; font-size:14.5px; padding:13px 12px}
   .t-small{font-size:10.5px; color:var(--brume); text-align:center; margin:9px 0 0; line-height:1.5}
   .bk-msg{display:block; text-align:center; font-size:12px; margin-top:12px}
   .bk-empty{color:var(--brume); font-size:12.5px; text-align:center; padding:10px 6px 4px; line-height:1.55}
@@ -199,8 +207,10 @@
   <div class="h-inner">
     <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#10222B" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#10222B" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="15.2" fill="#10222B"/>
+        <circle cx="21.8" cy="9.4" r="2.3" fill="#B98A46"/>
+        <path d="M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0" stroke="#F2F1EA" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+        <path d="M7.4 22.6q2.8 -2.1 5.6 0t5.6 0" stroke="#F2F1EA" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".55"/>
       </svg>
       <span>loue ta piscine</span>
     </a>
@@ -342,8 +352,10 @@
     <div>
       <div class="f-brand">
         <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
-          <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="15.2" fill="#F2F1EA"/>
+          <circle cx="21.8" cy="9.4" r="2.3" fill="#B98A46"/>
+          <path d="M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0" stroke="#10222B" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+          <path d="M7.4 22.6q2.8 -2.1 5.6 0t5.6 0" stroke="#10222B" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".55"/>
         </svg>
         <span>loue ta piscine</span>
       </div>
@@ -438,11 +450,12 @@
         btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Réservé</span><span class="s-tag tag-priv">Privatisé</span>';
       } else {
         var left = s.cap - s.booked;
+        var fill = Math.round(s.booked / s.cap * 100);
         if(left <= 0){
           btn.disabled = true;
-          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Complet — '+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
+          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:100%"></b></i>'+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
         } else {
-          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">'+euro(s.priceP)+'/pers · '+left+' pl.</span><span class="s-tag tag-open">Ouverte</span>';
+          btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:'+fill+'%"></b></i>'+left+' place'+(left>1?'s':'')+'</span><span class="s-price">'+euro(s.priceP)+'<small>/pers</small></span><span class="s-tag tag-open">Ouverte</span>';
           btn.addEventListener('click', function(){
             state.slot = i; state.privatise = false;
             if(state.persons > left) state.persons = left;
@@ -475,6 +488,7 @@
     var total = base + extrasTotal;
     cfgEl.innerHTML =
       '<div class="bk-config">'+
+      '<p class="bk-recap">'+DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' juillet · '+s.t+' · '+(state.privatise ? 'privatisé' : 'séance ouverte')+'</p>'+
       '<div class="persons"><span class="p-lbl">Baigneurs</span><div class="stepper">'+
         '<button type="button" id="p-minus" aria-label="Moins"'+(state.persons<=1?' disabled':'')+'>−</button>'+
         '<span class="p-num">'+state.persons+'</span>'+
@@ -486,12 +500,12 @@
         '<small>'+(canPriv?'Possible tant que personne n’a réservé.':s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label>'+
       '</div>'+
       extrasRows+
-      '<div style="border-top:1px solid var(--line); margin-top:12px; padding-top:12px">'+
+      '<div class="bk-total">'+
         '<div class="t-row"><span>'+(state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(base)+'</span></div>'+
         (extrasTotal ? '<div class="t-row"><span>Extras</span><span class="amt">'+euro(extrasTotal)+'</span></div>' : '')+
         '<div class="t-row"><span>Frais de service</span><span class="amt">inclus</span></div>'+
-        '<div class="t-row grand"><span>Total</span><span class="amt">'+euro(total)+'</span></div>'+
-        '<a class="btn btn-encre bk-cta" href="confirmation.html" style="display:flex">Réserver — '+DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' juil., '+s.t+'</a>'+
+        '<div class="t-row grand"><span>Total — tout compris</span><span class="amt">'+euro(total)+'</span></div>'+
+        '<a class="btn btn-encre bk-cta" href="confirmation.html" style="display:flex">Réserver '+DAYS[state.day].lbl[0].toLowerCase()+' '+DAYS[state.day].lbl[1]+' juil., '+s.t+' →</a>'+
         '<p class="t-small">Plusieurs heures ? Demi-journée privatisée 139 € · journée complète 290 €.<br>Annulation gratuite jusqu’à 48 h avant. Rien à payer sur place.<br>Le numéro de Claire vous est envoyé à la confirmation.</p>'+
       '</div></div>';
     var minus = document.getElementById('p-minus'), plus = document.getElementById('p-plus');

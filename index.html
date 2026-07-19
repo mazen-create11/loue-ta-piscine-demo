@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Loue ta piscine">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5 A13.5 13.5 0 1 1 4.3 9.2' stroke='%232F5D54' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0' stroke='%232F5D54' stroke-width='2.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15.2' fill='%2310222B'/%3E%3Ccircle cx='21.8' cy='9.4' r='2.3' fill='%23B98A46'/%3E%3Cpath d='M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.9' fill='none' stroke-linecap='round'/%3E%3Cpath d='M7.4 22.6q2.8 -2.1 5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/sentient-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/hero-bleue.webp" as="image">
@@ -40,7 +40,9 @@
     --shadow-2:0 10px 30px rgba(16,34,43,.10);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth; text-rendering:optimizeLegibility; font-synthesis:none}
+  b,strong{font-weight:600}
+  ::selection{background:var(--bassin); color:var(--craie)}
   body{margin:0; background:var(--craie); color:var(--encre); font-family:var(--sans); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
   img{max-width:100%; display:block}
   a{color:var(--bassin)}
@@ -54,8 +56,10 @@
   header.solid{background:var(--craie); box-shadow:0 1px 0 var(--line)}
   .logo{display:flex; align-items:center; gap:10px; text-decoration:none}
   .logo svg{width:29px; height:29px}
-  .logo .ring{stroke:#F2F1EA; transition:stroke .25s var(--eo)}
-  header.solid .logo .ring{stroke:var(--encre)}
+  .logo .lg-disc{fill:#F2F1EA; transition:fill .25s var(--eo)}
+  .logo .lg-wave{stroke:#10222B; transition:stroke .25s var(--eo)}
+  header.solid .logo .lg-disc{fill:var(--encre)}
+  header.solid .logo .lg-wave{stroke:var(--craie)}
   .logo span{font-family:var(--serif); font-weight:500; font-size:19px; color:#F2F1EA; transition:color .25s var(--eo)}
   header.solid .logo span{color:var(--encre)}
   .nav{margin-left:auto; display:flex; gap:24px; align-items:center}
@@ -63,11 +67,11 @@
   .nav a:hover{color:#fff}
   header.solid .nav a{color:var(--brume)}
   header.solid .nav a:hover{color:var(--encre)}
-  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius:8px; padding:13px 20px; font-size:14px; font-weight:600; text-decoration:none; transition:filter .15s var(--eo), transform .15s var(--eo), box-shadow .2s var(--eo)}
-  .btn:hover{filter:brightness(1.07)}
-  .btn:active{transform:scale(.985)}
-  .btn-bassin{background:var(--bassin); color:#F2F1EA}
-  .btn-encre{background:var(--encre); color:#F2F1EA}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius:9px; padding:13px 20px; font-size:14px; font-weight:600; letter-spacing:.01em; text-decoration:none; transition:filter .15s var(--eo), transform .15s var(--eo), box-shadow .2s var(--eo)}
+  .btn:hover{filter:brightness(1.06); transform:translateY(-1px)}
+  .btn:active{transform:translateY(0) scale(.985)}
+  .btn-bassin{background:linear-gradient(180deg,#376C62,var(--bassin)); color:#F2F1EA; box-shadow:0 1px 2px rgba(16,34,43,.15), 0 8px 20px -8px rgba(47,93,84,.55)}
+  .btn-encre{background:linear-gradient(180deg,#1B3340,var(--encre)); color:#F2F1EA; box-shadow:0 1px 2px rgba(16,34,43,.15), 0 8px 20px -8px rgba(16,34,43,.5)}
   .btn-hote{background:transparent; color:#F2F1EA; border:1px solid rgba(242,241,234,.5)}
   header.solid .btn-hote{color:var(--encre); border-color:var(--encre)}
   @media (max-width:820px){ .nav a.hideable{display:none} }
@@ -85,8 +89,8 @@
   .search .field + .field{border-left:1px solid var(--line)}
   .search .f-label{display:block; font-size:10.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--solaire-ink); font-weight:600; margin-bottom:1px}
   .search .f-val{font-size:14.5px; color:var(--encre); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block}
-  .search .go{background:var(--bassin); color:#F2F1EA; border:none; padding:0 28px; font-size:15px; font-weight:600; transition:filter .15s var(--eo)}
-  .search .go:hover{filter:brightness(1.12)}
+  .search .go{background:linear-gradient(180deg,#376C62,var(--bassin)); color:#F2F1EA; border:none; padding:0 28px; font-size:15px; font-weight:600; letter-spacing:.01em; transition:filter .15s var(--eo)}
+  .search .go:hover{filter:brightness(1.1)}
   @media (max-width:640px){
     .search{flex-direction:column}
     .search .field + .field{border-left:none; border-top:1px solid var(--line)}
@@ -155,12 +159,17 @@
   .day-tab{border:1px solid var(--line); background:var(--craie-2); border-radius:7px; padding:7px 15px; font-size:13px; font-weight:500; color:var(--brume); transition:all .18s var(--eo)}
   .day-tab.active{background:var(--encre); color:#F2F1EA; border-color:var(--encre)}
   .slots{display:flex; flex-direction:column; gap:7px}
-  .slot{display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:9px; padding:11px 14px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo)}
-  .slot:not(:disabled):hover{border-color:var(--bassin)}
+  .slot{display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:10px; padding:11px 14px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo), transform .18s var(--eo), box-shadow .18s var(--eo)}
+  .slot:not(:disabled):hover{border-color:var(--bassin); transform:translateY(-1px); box-shadow:var(--shadow-1)}
   .slot.selected{border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 6%,#fff); box-shadow:inset 3px 0 0 var(--bassin)}
   .slot:disabled{cursor:default; opacity:.5; background:var(--craie-2)}
   .slot .s-time{font-variant-numeric:tabular-nums; font-weight:600; font-size:14px; min-width:92px}
-  .slot .s-info{flex:1; font-size:12.5px; color:var(--brume)}
+  .slot .s-info{flex:1; font-size:12.5px; color:var(--brume); display:flex; align-items:center}
+  .slot .gauge{width:36px; height:4px; border-radius:99px; background:var(--line); margin-right:9px; overflow:hidden; flex:none}
+  .slot .gauge b{display:block; height:100%; border-radius:99px; background:var(--bassin)}
+  .slot:disabled .gauge b{background:var(--brume)}
+  .slot .s-price{font-weight:600; font-variant-numeric:tabular-nums; font-size:13.5px; white-space:nowrap}
+  .slot .s-price small{font-weight:400; color:var(--brume); font-size:11px}
   .slot .s-tag{font-size:11px; font-weight:600; padding:3px 10px; border-radius:99px; white-space:nowrap}
   .tag-open{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
   .tag-full{background:var(--line); color:var(--brume)}
@@ -247,8 +256,10 @@
   <div class="h-inner">
     <a class="logo" href="#" aria-label="Loue ta piscine — accueil">
       <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <path class="ring" d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke-width="2.6" stroke-linecap="round"/>
-        <path class="ring" d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke-width="2.2" stroke-linecap="round"/>
+        <circle class="lg-disc" cx="16" cy="16" r="15.2"/>
+        <circle cx="21.8" cy="9.4" r="2.3" fill="#B98A46"/>
+        <path class="lg-wave" d="M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+        <path class="lg-wave" d="M7.4 22.6q2.8 -2.1 5.6 0t5.6 0" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".55"/>
       </svg>
       <span>loue ta piscine</span>
     </a>
@@ -487,8 +498,10 @@
     <div>
       <div class="f-brand">
         <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M16 2.5 A13.5 13.5 0 1 1 4.3 9.2" stroke="#F2F1EA" stroke-width="2.6" stroke-linecap="round"/>
-          <path d="M3 13 q2.2 1.8 4.4 0 q2.2 -1.8 4.4 0" stroke="#F2F1EA" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="16" cy="16" r="15.2" fill="#F2F1EA"/>
+          <circle cx="21.8" cy="9.4" r="2.3" fill="#B98A46"/>
+          <path d="M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0" stroke="#10222B" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+          <path d="M7.4 22.6q2.8 -2.1 5.6 0t5.6 0" stroke="#10222B" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".55"/>
         </svg>
         <span>loue ta piscine</span>
       </div>
@@ -598,9 +611,10 @@
         btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Réservé — un seul groupe</span><span class="s-tag tag-priv">Privatisé</span>';
       } else if(left <= 0){
         btn.disabled = true;
-        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Séance complète — '+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:100%"></b></i>'+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
       } else {
-        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">'+euro(s.priceP)+'/pers · '+left+' place'+(left>1?'s':'')+'</span><span class="s-tag tag-open">Séance ouverte</span>';
+        var fill = Math.round(s.booked / s.cap * 100);
+        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:'+fill+'%"></b></i>'+left+' place'+(left>1?'s':'')+'</span><span class="s-price">'+euro(s.priceP)+'<small>/pers</small></span><span class="s-tag tag-open">Séance ouverte</span>';
         btn.addEventListener('click', function(){
           state.slot = i; state.privatise = false;
           var cs = DAYS[state.day][i];
