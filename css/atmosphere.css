@@ -61,9 +61,8 @@ body.confirmation-app{
 .home-app header .h-inner{max-width:1320px;padding:16px 28px}
 .home-app .logo span,.universe .logo span{font-family:var(--sans);font-weight:600;letter-spacing:-.025em}
 .home-app header.solid{background:rgba(245,250,248,.94);box-shadow:0 1px 0 rgba(12,45,58,.08);backdrop-filter:blur(18px) saturate(1.2)}
-.home-app .btn-hote{min-height:44px;padding:10px 16px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.42);color:#fff;box-shadow:0 8px 22px -15px rgba(0,0,0,.5)}
-.home-app .btn-hote::before{content:"+";display:grid;place-items:center;width:19px;height:19px;border-radius:6px;background:rgba(255,255,255,.16);font-size:15px;line-height:1}
-.home-app header.solid .btn-hote{background:var(--bassin);border-color:var(--bassin);color:#fff;box-shadow:0 10px 22px -14px rgba(8,127,158,.85)}
+.home-app .btn-message{min-height:44px;padding:10px 16px;border-radius:14px}
+.home-app .btn-message::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--solaire);box-shadow:0 0 0 4px color-mix(in srgb,var(--solaire) 18%,transparent)}
 .home-app .hero{height:min(86vh,760px);min-height:600px;overflow:visible}
 .home-app .hero .veil{background:linear-gradient(90deg,rgba(6,31,40,.74),rgba(6,31,40,.35) 50%,rgba(6,31,40,.12)),linear-gradient(0deg,rgba(6,31,40,.5),transparent 60%)}
 .home-app .hero .h-content{z-index:50;max-width:1320px;padding-inline:28px;padding-bottom:72px}
@@ -218,15 +217,6 @@ body.confirmation-app{
 .listing-app .bk-cta{min-height:49px;border-radius:14px;background:linear-gradient(135deg,var(--bassin-vif),var(--bassin));box-shadow:0 12px 24px -13px rgba(8,127,158,.8)}
 .listing-app .mobile-bookbar{background:rgba(245,250,248,.95);border-color:rgba(12,45,58,.1);box-shadow:0 -12px 34px rgba(12,45,58,.08)}
 
-.home-app .hosts .h-veil{background:linear-gradient(90deg,rgba(4,31,40,.88),rgba(4,31,40,.5) 58%,rgba(4,31,40,.2))}
-.home-app .hosts .h-inner2{padding-block:76px}
-.home-app .host-panel{width:min(540px,100%);padding:34px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:rgba(6,36,45,.72);box-shadow:0 24px 60px rgba(3,24,31,.22);backdrop-filter:blur(16px)}
-.home-app .host-kicker{display:block;margin-bottom:10px;color:#8FE1E4;font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase}
-.home-app .hosts h2{font-family:var(--sans);font-weight:600;font-size:clamp(31px,4vw,48px);letter-spacing:-.045em;line-height:1;margin:0;max-width:12ch}
-.home-app .host-panel p{margin:15px 0 23px;color:rgba(255,255,255,.76);font-size:14px;max-width:42ch}
-.home-app .host-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.home-app .host-actions .btn{background:var(--solaire);color:#fff;box-shadow:0 12px 24px -13px rgba(242,110,85,.85)}
-.home-app .hosts .wa{margin-left:0}
 
 @media(max-width:640px){
   .home-app .hero::after,.universe .u-hero::after{width:42px;height:42px;right:18px;bottom:24px;box-shadow:0 0 0 8px rgba(242,241,234,.08)}
@@ -238,12 +228,11 @@ body.confirmation-app{
   .home-app .map-panel{min-height:64vh;border-radius:18px 18px 6px 18px}
   .home-app .map-preview{left:10px;bottom:10px;width:calc(100% - 20px);grid-template-columns:94px 1fr}
   .home-app .map-preview img{width:94px;height:82px}
-  .home-app header .h-inner{padding:12px 16px}.home-app .logo span{font-size:15px}.home-app .btn-hote{min-height:40px;padding:8px 11px;font-size:12px}.home-app .btn-hote::before{display:none}
+  .home-app header .h-inner{padding:12px 16px}.home-app .logo span{font-size:15px}.home-app .btn-message{min-height:40px;padding:8px 11px;font-size:12px}
   .home-app .hero{min-height:670px}.home-app .hero .h-content{padding:0 16px 32px}.home-app .hero .h-content::before{display:none}.home-app .hero h1{font-size:clamp(39px,12vw,54px)}
   .home-app .search{display:grid;grid-template-columns:1fr 1fr;padding:6px;border-radius:19px}.home-app .search .field{min-height:58px;padding:9px 12px}.home-app .search .field:nth-child(3){grid-column:1/2}.home-app .search .go{grid-column:2/3;min-width:0;min-height:58px;padding:0 12px;border-radius:14px}.home-app .search .go span{display:inline}
   .home-app .search-popover,.home-app .search-popover.date-popover,.home-app .search-popover.guest-popover{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto;max-height:min(78vh,680px);overflow:auto;border-radius:22px}
   body.home-app.search-open{overflow:hidden}
   body.home-app.search-open::after{content:"";position:fixed;inset:0;z-index:45;background:rgba(4,31,40,.48);backdrop-filter:blur(3px)}
   .home-app .chipbar{top:64px}.home-app .chipbar .c-inner{padding:9px 16px}.home-app .chip{min-height:40px;padding:8px 12px}
-  .home-app .host-panel{padding:26px 22px}.home-app .hosts .h-inner2{padding:54px 16px}
 }

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Messages — Loue ta piscine</title>
+  <meta name="description" content="Échangez avec vos hôtes et retrouvez le contexte de chaque réservation.">
+  <meta name="theme-color" content="#F5FAF8">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/messages.css">
+</head>
+<body class="messages-app">
+<header class="page messages-header">
+  <div class="h-inner">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="15.2" fill="#0C2D3A"/><circle cx="21.8" cy="9.4" r="2.3" fill="#F26E55"/><path d="M4.8 18.2q2.8-2.4 5.6 0t5.6 0t5.6 0t5.6 0M7.4 22.6q2.8-2.1 5.6 0t5.6 0" stroke="#F5FAF8" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>loue ta piscine</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a class="hideable" href="piscines.html">Explorer</a>
+      <a class="hideable" href="confirmation.html">Réservations</a>
+      <a class="btn btn-message active" href="messages.html" aria-current="page">Messages</a>
+    </nav>
+  </div>
+</header>
+
+<main class="message-page">
+  <div class="message-shell">
+    <aside class="conversation-pane" aria-label="Liste des conversations">
+      <div class="conversation-title">
+        <div><p>Votre espace</p><h1>Messages</h1></div>
+        <span class="unread-total" id="unread-total" aria-label="Messages non lus">0</span>
+      </div>
+      <label class="conversation-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4" stroke-linecap="round"/></svg>
+        <input id="conversation-search" type="search" placeholder="Rechercher un hôte ou un lieu" autocomplete="off">
+      </label>
+      <div class="conversation-filters" role="tablist" aria-label="Filtrer les conversations">
+        <button class="active" type="button" data-filter="all" role="tab" aria-selected="true">Toutes</button>
+        <button type="button" data-filter="active" role="tab" aria-selected="false">Réservations</button>
+      </div>
+      <div class="conversation-list" id="conversation-list"></div>
+      <div class="conversation-help"><span>?</span><div><b>Besoin d’aide ?</b><small>Une équipe vous répond 7 j/7</small></div><button type="button" id="help-button">Contacter</button></div>
+    </aside>
+
+    <section class="thread-pane" aria-label="Conversation active">
+      <header class="thread-head">
+        <button class="thread-back" id="thread-back" type="button" aria-label="Retour aux conversations">‹</button>
+        <div class="thread-avatar" id="thread-avatar">C</div>
+        <div class="thread-identity"><div><b id="thread-name">Claire</b><span class="verified" aria-label="Hôte vérifiée">✓</span></div><small id="thread-listing">La piscine des Micocouliers · Aix-en-Provence</small></div>
+        <a class="thread-booking-link" href="fiche.html">Voir l’annonce</a>
+        <button class="thread-more" id="thread-more" type="button" aria-label="Plus d’options">•••</button>
+      </header>
+
+      <div class="booking-context" id="booking-context">
+        <div class="booking-date"><span id="booking-day">25</span><small id="booking-month">JUIL.</small></div>
+        <div class="booking-main"><span class="booking-status" id="booking-status">Demande en cours</span><b id="booking-title">Samedi 25 juillet · 9 h – 11 h</b><small id="booking-meta">4 baigneurs · séance ouverte</small></div>
+        <div class="booking-total"><small>Total</small><b id="booking-total">28 €</b></div>
+        <a class="booking-action" id="booking-action" href="fiche.html">Gérer</a>
+      </div>
+
+      <div class="privacy-note" id="privacy-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <span>Vos coordonnées restent masquées jusqu’à la réservation confirmée.</span>
+      </div>
+
+      <div class="message-stream" id="message-stream" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+      <div class="composer-zone">
+        <div class="quick-replies" id="quick-replies" aria-label="Réponses rapides">
+          <button type="button">Bonjour 👋</button><button type="button">L’accès est-il indépendant ?</button><button type="button">Merci !</button>
+        </div>
+        <form class="message-composer" id="message-form">
+          <button class="composer-plus" id="composer-plus" type="button" aria-label="Ajouter une pièce jointe" aria-expanded="false">+</button>
+          <div class="composer-menu" id="composer-menu" hidden>
+            <button type="button" data-action="photo">Ajouter une photo</button>
+            <button type="button" data-action="rules">Voir le règlement</button>
+            <button type="button" data-action="report">Signaler un problème</button>
+          </div>
+          <input id="message-input" type="text" maxlength="500" placeholder="Écrire à votre hôte…" autocomplete="off" aria-label="Votre message">
+          <button class="send-button" id="send-button" type="submit" aria-label="Envoyer le message" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m4 5 16 7-16 7 3-7-3-7z" stroke-linejoin="round"/><path d="M7 12h13"/></svg></button>
+        </form>
+        <p class="composer-hint" id="composer-hint">Les coordonnées personnelles sont protégées automatiquement.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="message-toast" id="message-toast" role="status" aria-live="polite"></div>
+<script src="js/messages.js"></script>
+</body>
+</html>

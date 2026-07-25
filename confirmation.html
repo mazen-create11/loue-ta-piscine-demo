@@ -91,7 +91,7 @@
     </svg>
   </div>
   <h1>C'est réservé.</h1>
-  <p class="sub" id="booking-summary">Samedi 25 juillet, 9 h – 11 h · séance ouverte · <b>2 baigneurs</b><br>Le bassin des Micocouliers, Aix-en-Provence</p>
+  <p class="sub" id="booking-summary">Samedi 25 juillet, 9 h – 11 h · séance ouverte · <b>2 baigneurs</b><br>La piscine des Micocouliers, Aix-en-Provence</p>
 
   <div class="card reveal-card">
     <div class="c-head">Vos coordonnées sont maintenant partagées</div>
@@ -105,7 +105,7 @@
         </div>
         <div class="c-actions">
           <a class="btn btn-bassin" href="#">Appeler</a>
-          <a class="btn btn-ligne" href="#">Message</a>
+          <a class="btn btn-ligne" href="messages.html?conversation=claire">Message</a>
         </div>
       </div>
       <p class="sym" id="contact-rule">Symétrique et au même moment : <b>Claire vient de recevoir votre numéro</b>. Avant le paiement, la messagerie masquait les coordonnées des deux côtés — c'est ce qui protège la réservation.</p>
@@ -162,7 +162,7 @@
       var total = Number(params.get('total') || 16);
       var totalLabel = total.toFixed(2).replace('.', ',') + ' €';
       document.getElementById('total-value').textContent = totalLabel;
-      if(day) document.getElementById('booking-summary').innerHTML = 'Samedi 25 juillet, 9 h – 19 h · journée privée · <b>jusqu’à 15 personnes</b><br>Le bassin des Micocouliers, Aix-en-Provence';
+      if(day) document.getElementById('booking-summary').innerHTML = 'Samedi 25 juillet, 9 h – 19 h · journée privée · <b>jusqu’à 15 personnes</b><br>La piscine des Micocouliers, Aix-en-Provence';
       if(onsite){
         document.getElementById('contact-rule').innerHTML = 'La réservation est confirmée : <b>Claire vient de recevoir votre numéro</b>. Vos coordonnées restent protégées jusqu’à cette étape.';
         document.getElementById('money-title').textContent = 'Votre paiement sur place';
@@ -173,7 +173,7 @@
       }
       var ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Loue ta piscine//FR','BEGIN:VEVENT',
         'UID:demo-2857@louetapiscine','DTSTART:'+(day?'20260725T070000Z':'20260725T070000Z'),'DTEND:'+(day?'20260725T170000Z':'20260725T090000Z'),
-        'SUMMARY:Le bassin des Micocouliers — '+(day?'journée privée':'séance ouverte (2 baigneurs)'),
+        'SUMMARY:La piscine des Micocouliers — '+(day?'journée privée':'séance ouverte (2 baigneurs)'),
         'LOCATION:14 chemin des Micocouliers\\, 13090 Aix-en-Provence',
         'DESCRIPTION:'+(onsite?totalLabel+' à régler sur place':'Payé '+totalLabel+' tout compris')+'. Hôte : Claire — 06 12 48 73 59. Entrée par le portillon.',
         'END:VEVENT','END:VCALENDAR'].join('\r\n');
