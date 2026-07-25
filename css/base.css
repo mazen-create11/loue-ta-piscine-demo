@@ -44,10 +44,17 @@ header.page .h-inner{max-width:1220px; margin:0 auto; padding:14px 24px; display
 .btn-ligne{background:var(--bassin); color:#fff; border:1px solid var(--bassin); box-shadow:0 9px 22px -13px rgba(8,127,158,.8)}
 .nav a.btn-ligne,.nav a.btn-ligne:hover{color:#fff}
 .nav .btn-ligne::before{content:"+";display:grid;place-items:center;width:19px;height:19px;border-radius:6px;background:rgba(255,255,255,.16);font-size:15px;line-height:1}
-.btn-message{position:relative;background:#fff;color:var(--encre);border:1px solid var(--line);box-shadow:0 9px 22px -16px rgba(12,45,58,.32)}
+.btn-message{position:relative;min-height:40px;padding:8px 10px;background:transparent;color:var(--encre);border:0;box-shadow:none}
 .nav a.btn-message,.nav a.btn-message:hover{color:var(--encre)}
-.btn-message::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--solaire);box-shadow:0 0 0 4px color-mix(in srgb,var(--solaire) 14%,transparent)}
+.btn-message::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--solaire)}
+.host-entry{min-height:42px;padding:9px 14px;border-radius:12px;background:var(--encre);color:#fff;box-shadow:0 10px 22px -14px rgba(12,45,58,.7)}
+.nav a.host-entry,.nav a.host-entry:hover{color:#fff}
+.host-entry::after{content:"→";font-size:14px;transition:transform .18s var(--eo)}
+.host-entry:hover::after{transform:translateX(2px)}
+.host-entry-short{display:none}
 @media (max-width:820px){ .nav a.hideable{display:none} }
+@media (max-width:620px){.nav{gap:8px}.host-entry-long{display:none}.host-entry-short{display:inline}.host-entry{padding-inline:12px}.btn-message{padding-inline:7px}}
+@media (max-width:380px){.btn-message{font-size:0}.btn-message::before{width:9px;height:9px}.host-entry::after{display:none}}
 
 h1,h2,h3{text-wrap:balance}
 

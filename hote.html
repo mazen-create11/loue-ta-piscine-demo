@@ -1721,6 +1721,14 @@
 
   fromHash();
 
+  if(new URLSearchParams(location.search).get('onboarding') === 'done'){
+    try{
+      var hostDraft = JSON.parse(localStorage.getItem('ltp-host-onboarding-v1') || '{}');
+      if(hostDraft.first_name) document.getElementById('view-title').textContent = 'Bonjour ' + hostDraft.first_name;
+    }catch(e){}
+    toast('Votre compte hôte est créé — complétez maintenant votre annonce');
+  }
+
   /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
   document.addEventListener('click', function(ev){
     var dead = ev.target.closest('a[href="#"]');

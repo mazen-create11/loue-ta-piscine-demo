@@ -61,8 +61,14 @@ body.confirmation-app{
 .home-app header .h-inner{max-width:1320px;padding:16px 28px}
 .home-app .logo span,.universe .logo span{font-family:var(--sans);font-weight:600;letter-spacing:-.025em}
 .home-app header.solid{background:rgba(245,250,248,.94);box-shadow:0 1px 0 rgba(12,45,58,.08);backdrop-filter:blur(18px) saturate(1.2)}
-.home-app .btn-message{min-height:44px;padding:10px 16px;border-radius:14px}
-.home-app .btn-message::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--solaire);box-shadow:0 0 0 4px color-mix(in srgb,var(--solaire) 18%,transparent)}
+.home-app .btn-message{min-height:40px;padding:8px 9px;border:0;border-radius:10px;background:transparent;color:#fff;box-shadow:none;backdrop-filter:none}
+.home-app .btn-message::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--solaire);box-shadow:none}
+.home-app .host-entry{min-height:42px;padding:9px 14px;border-radius:12px;background:rgba(255,255,255,.95);color:var(--encre);box-shadow:0 10px 26px -15px rgba(0,0,0,.65)}
+.home-app .nav a.host-entry,.home-app .nav a.host-entry:hover{color:var(--encre)}
+.home-app .host-entry-short{display:none}
+.home-app .host-entry::after{content:"→";font-size:14px}
+.home-app header.solid .btn-message{color:var(--encre)}
+.home-app header.solid .host-entry{background:var(--encre);color:#fff}.home-app header.solid .nav a.host-entry{color:#fff}
 .home-app .hero{height:min(86vh,760px);min-height:600px;overflow:visible}
 .home-app .hero .veil{background:linear-gradient(90deg,rgba(6,31,40,.74),rgba(6,31,40,.35) 50%,rgba(6,31,40,.12)),linear-gradient(0deg,rgba(6,31,40,.5),transparent 60%)}
 .home-app .hero .h-content{z-index:50;max-width:1320px;padding-inline:28px;padding-bottom:72px}
@@ -228,7 +234,7 @@ body.confirmation-app{
   .home-app .map-panel{min-height:64vh;border-radius:18px 18px 6px 18px}
   .home-app .map-preview{left:10px;bottom:10px;width:calc(100% - 20px);grid-template-columns:94px 1fr}
   .home-app .map-preview img{width:94px;height:82px}
-  .home-app header .h-inner{padding:12px 16px}.home-app .logo span{font-size:15px}.home-app .btn-message{min-height:40px;padding:8px 11px;font-size:12px}
+  .home-app header .h-inner{padding:12px 16px}.home-app .logo span{font-size:15px}.home-app .btn-message{min-height:40px;padding:8px 7px;font-size:12px}.home-app .host-entry{min-height:40px;padding:8px 11px;font-size:12px}.home-app .host-entry-long{display:none}.home-app .host-entry-short{display:inline}
   .home-app .hero{min-height:670px}.home-app .hero .h-content{padding:0 16px 32px}.home-app .hero .h-content::before{display:none}.home-app .hero h1{font-size:clamp(39px,12vw,54px)}
   .home-app .search{display:grid;grid-template-columns:1fr 1fr;padding:6px;border-radius:19px}.home-app .search .field{min-height:58px;padding:9px 12px}.home-app .search .field:nth-child(3){grid-column:1/2}.home-app .search .go{grid-column:2/3;min-width:0;min-height:58px;padding:0 12px;border-radius:14px}.home-app .search .go span{display:inline}
   .home-app .search-popover,.home-app .search-popover.date-popover,.home-app .search-popover.guest-popover{position:fixed;left:16px;right:16px;top:auto;bottom:16px;width:auto;max-height:min(78vh,680px);overflow:auto;border-radius:22px}

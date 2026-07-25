@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Proposer mon espace — Loue ta piscine</title>
+  <meta name="description" content="Créez votre compte hôte et publiez votre piscine, jacuzzi ou sauna.">
+  <meta name="theme-color" content="#F5FAF8">
+  <link rel="canonical" href="https://mazen-create11.github.io/loue-ta-piscine-demo/devenir-hote.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/host-onboarding.css">
+</head>
+<body class="host-signup">
+<header class="page signup-header">
+  <div class="h-inner">
+    <a class="logo" href="index.html" aria-label="Loue ta piscine — accueil">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="15.2" fill="#0C2D3A"/><circle cx="21.8" cy="9.4" r="2.3" fill="#F26E55"/><path d="M4.8 18.2q2.8-2.4 5.6 0t5.6 0t5.6 0t5.6 0M7.4 22.6q2.8-2.1 5.6 0t5.6 0" stroke="#F5FAF8" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span>loue ta piscine</span>
+    </a>
+    <div class="signup-login"><span>Déjà hôte ?</span><a href="hote.html">Se connecter</a></div>
+  </div>
+</header>
+
+<main class="signup-layout">
+  <aside class="signup-rail">
+    <img src="img/provencale.webp" alt="Piscine privée dans un jardin provençal" width="900" height="600">
+    <div class="rail-veil"></div>
+    <div class="rail-copy">
+      <p class="eyebrow">Espace hôte</p>
+      <h1>Votre lieu.<br>Votre rythme.</h1>
+      <p>Vous gardez la main sur les horaires, les prix et le mode de réservation.</p>
+      <div class="rail-proof"><span>✓</span><div><b>Inscription gratuite</b><small>Vous publiez seulement quand tout est prêt.</small></div></div>
+      <div class="rail-proof"><span>✓</span><div><b>Prix toujours validés par vous</b><small>Séance ouverte, privatisation ou journée.</small></div></div>
+      <div class="rail-proof"><span>✓</span><div><b>Adresse protégée</b><small>Jamais affichée avant une réservation confirmée.</small></div></div>
+    </div>
+  </aside>
+
+  <section class="signup-workspace">
+    <div class="signup-progress">
+      <div class="progress-top"><span id="progress-label">Étape 1 sur 4</span><b id="progress-percent">25 %</b></div>
+      <div class="progress-line"><i id="progress-bar"></i></div>
+      <ol aria-label="Progression de l’inscription">
+        <li class="active"><span>1</span><small>Votre lieu</small></li>
+        <li><span>2</span><small>Offre &amp; prix</small></li>
+        <li><span>3</span><small>Disponibilités</small></li>
+        <li><span>4</span><small>Votre compte</small></li>
+      </ol>
+    </div>
+
+    <form class="signup-form" id="host-form" novalidate>
+      <div class="form-alert" id="form-alert" role="alert" aria-live="polite" hidden></div>
+
+      <section class="form-step active" data-step="1">
+        <p class="step-kicker">Commençons simplement</p>
+        <h2>Quel espace proposez-vous ?</h2>
+        <p class="step-intro">Choisissez le lieu principal. Vous pourrez ajouter d’autres équipements ensuite.</p>
+        <div class="place-types" role="radiogroup" aria-label="Type d’espace">
+          <label><input type="radio" name="place_type" value="piscine" required><span class="place-icon">≈</span><b>Piscine</b><small>Enterrée ou hors-sol</small></label>
+          <label><input type="radio" name="place_type" value="jacuzzi"><span class="place-icon">○</span><b>Jacuzzi</b><small>Intérieur ou extérieur</small></label>
+          <label><input type="radio" name="place_type" value="sauna"><span class="place-icon">≋</span><b>Sauna</b><small>Traditionnel ou infrarouge</small></label>
+        </div>
+        <div class="field-grid two">
+          <label class="field"><span>Adresse exacte <em>privée</em></span><input name="address" type="text" autocomplete="street-address" placeholder="14 chemin des Micocouliers" required></label>
+          <label class="field city-field"><span>Ville ou village</span><input id="host-city" name="city" type="search" autocomplete="off" placeholder="Aix-en-Provence" required aria-autocomplete="list" aria-controls="city-results"><div class="city-results" id="city-results" role="listbox" hidden></div></label>
+        </div>
+        <p class="privacy-copy">L’adresse exacte ne sera communiquée qu’après confirmation de la réservation.</p>
+      </section>
+
+      <section class="form-step" data-step="2" hidden>
+        <p class="step-kicker">Votre offre</p>
+        <h2>Comment souhaitez-vous louer ?</h2>
+        <p class="step-intro">Activez uniquement les formats que vous voulez proposer. Les minimums protègent la valeur de votre lieu.</p>
+        <label class="field compact"><span>Capacité maximale</span><span class="number-field"><input name="capacity" type="number" min="1" max="30" value="8" required><i>personnes</i></span></label>
+        <div class="format-list">
+          <label class="format-row"><input type="checkbox" name="formats" value="open" checked><span class="format-check">✓</span><span class="format-copy"><b>Séance ouverte</b><small>Plusieurs réservations sur un même créneau, dans la limite de votre jauge.</small></span><span class="price-field"><input name="price_open" type="number" min="6" value="8"><i>€ / pers.</i></span></label>
+          <label class="format-row"><input type="checkbox" name="formats" value="private" checked><span class="format-check">✓</span><span class="format-copy"><b>Privatisation à l’heure</b><small>Un seul groupe réserve tout l’espace.</small></span><span class="price-field"><input name="price_private" type="number" min="40" value="68"><i>€ / 2 h</i></span></label>
+          <label class="format-row"><input type="checkbox" name="formats" value="half"><span class="format-check">✓</span><span class="format-copy"><b>Demi-journée</b><small>Un forfait simple pour 4 à 5 heures.</small></span><span class="price-field"><input name="price_half" type="number" min="90" value="139"><i>€</i></span></label>
+          <label class="format-row"><input type="checkbox" name="formats" value="day" checked><span class="format-check">✓</span><span class="format-copy"><b>Journée complète</b><small>Votre lieu est réservé au même groupe.</small></span><span class="price-field"><input name="price_day" type="number" min="120" value="290"><i>€</i></span></label>
+        </div>
+      </section>
+
+      <section class="form-step" data-step="3" hidden>
+        <p class="step-kicker">Votre calendrier</p>
+        <h2>Quand êtes-vous disponible ?</h2>
+        <p class="step-intro">Créez une base simple. Vous pourrez modifier chaque journée depuis votre calendrier hôte.</p>
+        <fieldset class="day-picker"><legend>Jours habituels</legend>
+          <label><input type="checkbox" name="days" value="lun"><span>Lun</span></label><label><input type="checkbox" name="days" value="mar"><span>Mar</span></label><label><input type="checkbox" name="days" value="mer" checked><span>Mer</span></label><label><input type="checkbox" name="days" value="jeu"><span>Jeu</span></label><label><input type="checkbox" name="days" value="ven" checked><span>Ven</span></label><label><input type="checkbox" name="days" value="sam" checked><span>Sam</span></label><label><input type="checkbox" name="days" value="dim" checked><span>Dim</span></label>
+        </fieldset>
+        <div class="field-grid three">
+          <label class="field"><span>Ouverture</span><input name="start_time" type="time" value="09:00" required></label>
+          <label class="field"><span>Fermeture</span><input name="end_time" type="time" value="19:00" required></label>
+          <label class="field"><span>Rotation entre groupes</span><select name="buffer"><option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">1 heure</option></select></label>
+        </div>
+        <label class="switch-row"><input type="checkbox" name="instant" checked><span class="switch-ui"></span><span><b>Réservation instantanée</b><small>Les demandes conformes à vos règles sont confirmées automatiquement.</small></span></label>
+      </section>
+
+      <section class="form-step" data-step="4" hidden>
+        <p class="step-kicker">Dernière étape</p>
+        <h2>Créez votre compte hôte</h2>
+        <p class="step-intro">Ces informations restent privées et servent à sécuriser les réservations et les versements.</p>
+        <div class="field-grid two">
+          <label class="field"><span>Prénom</span><input name="first_name" type="text" autocomplete="given-name" required></label>
+          <label class="field"><span>Nom</span><input name="last_name" type="text" autocomplete="family-name" required></label>
+          <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr" required></label>
+          <label class="field"><span>Téléphone</span><input name="phone" type="tel" autocomplete="tel" placeholder="06 12 34 56 78" pattern="(?:\+33|0)[1-9](?:(?:\s|\.|-)?\d{2}){4}" required></label>
+          <label class="field"><span>Mot de passe</span><input name="password" type="password" autocomplete="new-password" minlength="8" required><small>8 caractères minimum</small></label>
+          <label class="field"><span>Sécurité du lieu</span><select name="safety" required><option value="">Choisir</option><option>Barrière</option><option>Alarme</option><option>Couverture</option><option>Abri</option><option>Non concerné — spa/sauna</option></select></label>
+        </div>
+        <div class="identity-note"><span>◎</span><div><b>Vérification sécurisée après l’inscription</b><small>Votre identité et vos justificatifs seront vérifiés par notre partenaire. Aucune pièce d’identité n’est stockée par Loue ta piscine.</small></div></div>
+        <label class="legal-check"><input type="checkbox" name="terms" required><span>Je certifie être autorisé à louer ce lieu et j’accepte les conditions hôtes.</span></label>
+      </section>
+
+      <section class="signup-success" id="signup-success" hidden>
+        <div class="success-mark">✓</div>
+        <p class="step-kicker">Compte créé</p>
+        <h2>Bienvenue parmi les hôtes.</h2>
+        <p>Votre brouillon est enregistré. Ajoutez vos photos et vos justificatifs depuis votre espace avant la mise en ligne.</p>
+        <div class="success-next"><span>1</span><div><b>Compléter l’annonce</b><small>Photos, équipements et règlement.</small></div><i>→</i></div>
+        <div class="success-next"><span>2</span><div><b>Vérifier votre identité</b><small>Contrôle sécurisé et confidentiel.</small></div><i>→</i></div>
+        <a class="btn btn-bassin success-cta" href="hote.html?onboarding=done">Ouvrir mon espace hôte →</a>
+      </section>
+
+      <div class="form-actions" id="form-actions">
+        <button class="back-button" id="back-button" type="button" hidden>Retour</button>
+        <span class="draft-state" id="draft-state">Brouillon enregistré</span>
+        <button class="next-button" id="next-button" type="button">Continuer <span>→</span></button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<script src="js/host-onboarding.js"></script>
+</body>
+</html>

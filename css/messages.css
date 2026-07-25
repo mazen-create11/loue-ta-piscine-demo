@@ -1,7 +1,7 @@
 body.messages-app{min-height:100vh;background:#EAF4F2;overflow-x:hidden}
 .messages-header{z-index:80}
-.messages-header .btn-message.active{background:var(--encre);border-color:var(--encre);color:#fff}
-.messages-header .btn-message.active::before{background:#72D5B1;box-shadow:0 0 0 4px rgba(114,213,177,.14)}
+.messages-header .btn-message.active{background:#EAF4F2;color:var(--encre)}
+.messages-header .btn-message.active::before{background:#72CDA9}
 .message-page{max-width:1380px;margin:0 auto;padding:24px}
 .message-shell{height:calc(100vh - 112px);min-height:650px;display:grid;grid-template-columns:350px minmax(0,1fr);overflow:hidden;border:1px solid rgba(12,45,58,.12);border-radius:24px;background:#fff;box-shadow:0 28px 80px rgba(12,45,58,.13)}
 .conversation-pane{display:flex;min-width:0;flex-direction:column;border-right:1px solid var(--line);background:#F8FCFB}
