@@ -505,7 +505,7 @@
           </div>
 
           <div class="panel">
-            <div class="p-head"><h2>Messages<small>1 non lu</small></h2><a class="p-link" href="#/messages">Ouvrir la messagerie →</a></div>
+            <div class="p-head"><h2>Messages<small id="dash-msg-badge">1 non lu</small></h2><a class="p-link" href="#/messages">Ouvrir la messagerie →</a></div>
             <div class="p-body" id="dash-msgs"></div>
           </div>
         </div>
@@ -968,24 +968,40 @@
   function fromHash(){ setView((location.hash || '#/dashboard').replace('#/','')); }
   window.addEventListener('hashchange', fromHash);
 
-  /* ============ Demande de Sarah ============ */
+  /* ============ Demande de Sarah — état unique, propagé partout ============ */
   var accept = document.getElementById('accept-sarah'), refuse = document.getElementById('refuse-sarah');
   var resaSarah = document.getElementById('resa-sarah');
-  if(accept) accept.addEventListener('click', function(){
-    resaSarah.querySelector('.r-actions').outerHTML = '<span class="s-tag tag-open">3/12</span>';
-    resaSarah.querySelector('.r-amt small').textContent = 'à venir';
-    resaSarah.querySelector('.r-amt small').className = 'st-avenir';
-    resaSarah.querySelector('.r-who small').textContent = 'confirmée — Sarah a reçu votre numéro';
-    document.getElementById('week-total').textContent = '264 €';
-    toast('Réservation de Sarah confirmée — 21 €');
-  });
-  if(refuse) refuse.addEventListener('click', function(){
-    resaSarah.style.opacity = '.45';
-    resaSarah.querySelector('.r-actions').outerHTML = '<span class="s-tag" style="background:var(--craie); color:var(--brume)">Refusée</span>';
-    resaSarah.querySelector('.r-amt small').textContent = 'refusée';
-    resaSarah.querySelector('.r-amt small').className = 'st-verse';
-    toast('Demande refusée — Sarah est remboursée intégralement');
-  });
+  function decideSarah(ok){
+    var sc = CONVS.find(function(x){ return x.id === 'sarah'; });
+    if(sc.state !== 'pending') return;
+    sc.state = ok ? 'ok' : 'no';
+    sc.sub = ok ? 'réservation confirmée · jeudi 17 h – 19 h' : 'demande refusée · Sarah remboursée';
+    /* dashboard */
+    if(resaSarah){
+      var act = resaSarah.querySelector('.r-actions');
+      var amt = resaSarah.querySelector('.r-amt small');
+      if(ok){
+        if(act) act.outerHTML = '<span class="s-tag tag-open">3/12</span>';
+        amt.textContent = 'à venir'; amt.className = 'st-avenir';
+        resaSarah.querySelector('.r-who small').textContent = 'confirmée — Sarah a reçu votre numéro';
+        document.getElementById('week-total').textContent = '264 €';
+      } else {
+        resaSarah.style.opacity = '.45';
+        if(act) act.outerHTML = '<span class="s-tag" style="background:var(--craie); color:var(--brume)">Refusée</span>';
+        amt.textContent = 'refusée'; amt.className = 'st-verse';
+      }
+    }
+    /* calendrier */
+    var cell = document.getElementById('cell-sarah');
+    if(cell){
+      cell.className = 'cell ' + (ok ? 'open' : 'libre');
+      cell.innerHTML = '<b>17 h – 19 h</b>' + (ok ? 'Sarah · 3/12' : 'Libre');
+      cell.title = '17 h – 19 h — ' + (ok ? 'Sarah · 3/12' : 'Libre');
+    }
+    toast(ok ? 'Réservation de Sarah confirmée — 21 €' : 'Demande refusée — Sarah est remboursée intégralement');
+  }
+  if(accept) accept.addEventListener('click', function(){ decideSarah(true); if(typeof renderThread === 'function' && current === 'sarah') renderThread(); });
+  if(refuse) refuse.addEventListener('click', function(){ decideSarah(false); if(typeof renderThread === 'function' && current === 'sarah') renderThread(); });
 
   /* ============ Régimes / prix / switches ============ */
   document.querySelectorAll('select.regime').forEach(function(sel){
@@ -1020,7 +1036,7 @@
     {d:['Lun','27'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','3/12','open'],['17 h – 19 h','Libre','libre'],['19 h 30 – 21 h 30','Libre','libre']]},
     {d:['Mar','28'], cells:[['9 h – 11 h','1/12','open'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','4/12','open'],['19 h 30 – 21 h 30','2/10','open']]},
     {d:['Mer','29'], cells:[['9 h – 11 h','6/12','open'],['11 h – 13 h','8/12','open'],['14 h – 21 h','Journée privée','priv']]},
-    {d:['Jeu','30'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','Sarah · 3/12','open'],['19 h 30 – 21 h 30','3/10','open']]},
+    {d:['Jeu','30'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','Demande · 3 baigneurs','libre','cell-sarah'],['19 h 30 – 21 h 30','3/10','open']]},
     {d:['Ven','31'], cells:[['9 h – 11 h','2/12','open'],['11 h – 13 h','7/12','open'],['14 h – 16 h','5/12','open'],['17 h – 19 h','9/12','open'],['19 h 30 – 21 h 30','8/10','open']]}
   ];
   var weekEl = document.getElementById('week');
@@ -1028,7 +1044,7 @@
     var col = document.createElement('div');
     col.className = 'wd' + (day.today ? ' today' : '');
     var cells = day.cells.map(function(c){
-      return '<div class="cell '+c[2]+'" title="'+c[0]+' — '+c[1]+'"><b>'+c[0]+'</b>'+c[1]+'</div>';
+      return '<div class="cell '+c[2]+'"'+(c[3] ? ' id="'+c[3]+'"' : '')+' title="'+c[0]+' — '+c[1]+'"><b>'+c[0]+'</b>'+c[1]+'</div>';
     }).join('');
     col.innerHTML = '<div class="wd-head"><small>'+day.d[0]+'</small><b>'+day.d[1]+'</b></div><div class="wd-col">'+cells+'</div>';
     weekEl.appendChild(col);
@@ -1036,7 +1052,7 @@
 
   /* ============ Messagerie ============ */
   var CONVS = [
-    {id:'sarah', name:'Sarah', time:'il y a 2 h', unread:true, preview:'Bonjour, le créneau de jeudi est-il calme pour nager ?',
+    {id:'sarah', name:'Sarah', time:'il y a 2 h', unread:true, state:'pending', preview:'Bonjour, le créneau de jeudi est-il calme pour nager ?',
       sub:'demande en attente · jeudi 17 h – 19 h',
       thread:[
         {who:'eux', txt:'Bonjour ! Le créneau de jeudi 17 h est-il calme pour nager ? Nous serions 3, dont ma mère qui nage tous les jours.', t:'14 h 02'},
@@ -1087,7 +1103,15 @@
       b.innerHTML = '<div class="m-av">'+c.name[0]+'</div><div class="c-b"><span class="m-time">'+c.time+'</span><b>'+c.name+'</b><p>'+c.preview+'</p></div>';
       b.addEventListener('click', function(){
         current = c.id;
-        if(c.unread){ c.unread = false; var mc = document.getElementById('msg-count'); if(mc) mc.remove(); }
+        if(c.unread){
+          c.unread = false;
+          var mc = document.getElementById('msg-count'); if(mc) mc.remove();
+          if(!CONVS.some(function(x){ return x.unread; })){
+            TITLES.messages[1] = 'Toutes vos conversations sont lues';
+            if(document.getElementById('v-messages').classList.contains('active')) document.getElementById('view-sub').textContent = TITLES.messages[1];
+            var db = document.getElementById('dash-msg-badge'); if(db) db.textContent = 'tout est lu';
+          }
+        }
         chatEl.classList.add('open');
         renderList(); renderThread();
       });
@@ -1104,20 +1128,26 @@
     var lockline = '<div class="lockline"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke-linecap="round"/></svg>'+
       'Coordonnées masquées avant paiement, révélées des deux côtés après. Tout est journalisé — en cas de litige, l\'arbitrage se fait sur pièces.</div>';
     var bulles = lockline + '<div class="datesep">'+(c.id==='sarah'?'Aujourd’hui':c.id==='thomas'?'Hier':'Mardi')+'</div>' + c.thread.map(function(m){
-      if(m.who === 'resa') return '<div class="resa-card" id="resa-card">'+
+      if(m.who === 'resa'){
+        var foot = c.state === 'ok' ? '<span class="rc-done ok">Acceptée — Sarah a payé, vos numéros sont partagés</span>'
+          : c.state === 'no' ? '<span class="rc-done no">Refusée — Sarah est remboursée intégralement</span>'
+          : '<div class="rc-actions" id="rc-actions"><button class="btn-xs ok" type="button" id="th-accept">Accepter — 21 €</button><button class="btn-xs no" type="button" id="th-refuse">Refuser</button></div>';
+        return '<div class="resa-card" id="resa-card">'+
         '<div class="rc-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>Demande de réservation</div>'+
         '<div class="rc-body">'+
           '<div class="rc-row"><span>Créneau</span><b>Jeudi 17 h – 19 h</b></div>'+
           '<div class="rc-row"><span>Baigneurs</span><b>3 · séance ouverte</b></div>'+
           '<div class="rc-row"><span>Vous recevez</span><b>21 €</b></div>'+
-        '</div>'+
-        '<div class="rc-actions" id="rc-actions"><button class="btn-xs ok" type="button" id="th-accept">Accepter — 21 €</button><button class="btn-xs no" type="button" id="th-refuse">Refuser</button></div></div>';
+        '</div>'+foot+'</div>';
+      }
       if(m.who === 'sys') return '<div class="sysline">'+m.txt+'</div>';
       var ticks = m.who === 'moi' ? '<span class="ticks">✓✓</span>' : '';
       return '<div class="bulle '+m.who+'">'+m.txt+'<small>'+(m.t||'')+ticks+'</small></div>';
     }).join('');
     var headActions = c.id === 'sarah'
-      ? '<div class="th-actions"><span class="s-tag tag-open" id="th-status">En attente — 21 €</span></div>'
+      ? '<div class="th-actions">' + (c.state === 'ok' ? '<span class="s-tag tag-open" id="th-status">Confirmée · 21 €</span>'
+        : c.state === 'no' ? '<span class="s-tag" id="th-status" style="background:var(--craie); color:var(--brume)">Refusée</span>'
+        : '<span class="s-tag tag-open" id="th-status">En attente — 21 €</span>') + '</div>'
       : '';
     var q = QUICK[c.id];
     var chips = '<div class="quickbar"><button class="qchip ai" type="button" data-fill="'+q.ai.replace(/"/g,'&quot;')+'">✦ Réponse suggérée</button>'+
@@ -1153,19 +1183,18 @@
     var thA = document.getElementById('th-accept'), thR = document.getElementById('th-refuse');
     var rcActions = document.getElementById('rc-actions'), thStatus = document.getElementById('th-status');
     if(thA) thA.addEventListener('click', function(){
+      decideSarah(true);
       rcActions.outerHTML = '<span class="rc-done ok">Acceptée — Sarah a payé, vos numéros sont partagés</span>';
       body.insertAdjacentHTML('beforeend', '<div class="sysline pop">Réservation confirmée — 21 € en séquestre, versés 24 h après la séance</div>');
       body.scrollTop = body.scrollHeight;
       if(thStatus) thStatus.textContent = 'Confirmée · 21 €';
-      c.sub = 'réservation confirmée · jeudi 17 h – 19 h';
-      toast('Réservation de Sarah confirmée — 21 €');
     });
     if(thR) thR.addEventListener('click', function(){
+      decideSarah(false);
       rcActions.outerHTML = '<span class="rc-done no">Refusée — Sarah est remboursée intégralement</span>';
       body.insertAdjacentHTML('beforeend', '<div class="sysline pop">Demande refusée — remboursement automatique</div>');
       body.scrollTop = body.scrollHeight;
       if(thStatus){ thStatus.textContent = 'Refusée'; thStatus.className = 's-tag'; thStatus.style.cssText = 'background:var(--craie); color:var(--brume)'; }
-      toast('Demande refusée — remboursement automatique');
     });
 
     /* Réponses rapides → remplissent le champ ; la chip ✦ interroge l'IA avec le fil réel */
