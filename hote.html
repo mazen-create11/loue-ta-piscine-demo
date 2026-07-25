@@ -10,7 +10,6 @@
 <style>
   body{background:var(--craie)}
   .shell{display:grid; grid-template-columns:236px 1fr; min-height:100vh}
-  @media (max-width:900px){ .shell{grid-template-columns:1fr} aside.side{position:fixed; inset:auto 0 0 0; height:auto; flex-direction:row; padding:8px 10px; z-index:60; border-top:1px solid rgba(242,241,234,.1); overflow-x:auto} .side .logo,.side .me,.side .wa-box,.side .spacer{display:none} .side a.item{flex:none} .content{padding-bottom:110px} }
 
   /* ============ Sidebar ============ */
   aside.side{background:var(--encre-2); color:rgba(242,241,234,.75); padding:22px 14px; display:flex; flex-direction:column; gap:3px; position:sticky; top:0; height:100vh}
@@ -34,6 +33,8 @@
 
   /* ============ Contenu / vues ============ */
   .content{padding:24px 30px 64px; max-width:1080px}
+  /* Mobile : ce bloc doit rester APRÈS les définitions de .side/.content qu'il écrase */
+  @media (max-width:900px){ .shell{grid-template-columns:1fr} aside.side{position:fixed; inset:auto 0 0 0; height:auto; flex-direction:row; padding:8px 10px; z-index:60; border-top:1px solid rgba(242,241,234,.1); overflow-x:auto} .side .logo,.side .me,.side .wa-box,.side .spacer{display:none} .side a.item{flex:none} .content{padding-bottom:110px} }
   .view{display:none}
   .view.active{display:block; animation:view-in .32s var(--eo)}
   @keyframes view-in{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
@@ -178,10 +179,10 @@
   .split .sp-val{min-width:52px; text-align:right; font-size:12.5px; font-weight:600; font-variant-numeric:tabular-nums}
 
   /* ---- Messages (2 volets) ---- */
-  .chat{display:grid; grid-template-columns:300px 1fr; min-height:460px}
+  .chat{display:grid; grid-template-columns:320px 1fr; height:100%; min-height:0}
   @media (max-width:860px){ .chat{grid-template-columns:1fr} .chat .thread{display:none} .chat.open .list{display:none} .chat.open .thread{display:flex} }
-  .chat .list{border-right:1px solid var(--craie); overflow-y:auto}
-  .conv{display:flex; gap:11px; padding:14px 16px; border-bottom:1px solid var(--craie); cursor:pointer; transition:background .15s var(--eo); border-left:3px solid transparent; background:none; width:100%; text-align:left; font-family:var(--sans)}
+  .chat .list{border-right:1px solid var(--craie); overflow-y:auto; background:var(--blanc); min-height:0}
+  .conv{display:flex; gap:11px; padding:13px 16px; border:0; border-bottom:1px solid var(--craie); cursor:pointer; transition:background .15s var(--eo); border-left:3px solid transparent; background:none; width:100%; text-align:left; font-family:var(--sans)}
   .conv:hover{background:var(--craie-2)}
   .conv.sel{background:var(--craie-2); border-left-color:var(--bassin)}
   .conv .m-av{width:36px; height:36px; border-radius:50%; background:var(--craie); font-family:var(--serif); font-size:15px; display:flex; align-items:center; justify-content:center; flex:none; position:relative}
@@ -191,11 +192,11 @@
   .conv.unread b{font-weight:700}
   .conv .m-time{font-size:10.5px; color:var(--brume); float:right}
   .conv p{margin:2px 0 0; font-size:12px; color:var(--brume); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .thread{display:flex; flex-direction:column}
-  .thread .th-head{display:flex; align-items:center; gap:11px; padding:13px 18px; border-bottom:1px solid var(--craie)}
+  .thread{display:flex; flex-direction:column; min-height:0}
+  .thread .th-head{display:flex; align-items:center; gap:11px; padding:12px 18px; border-bottom:1px solid var(--craie); background:var(--blanc)}
   .thread .th-head b{font-size:14px}
   .thread .th-head small{display:block; font-size:11px; color:var(--brume)}
-  .thread .th-body{flex:1; padding:18px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; background:var(--craie-2)}
+  .thread .th-body{flex:1; min-height:0; padding:20px 22px; display:flex; flex-direction:column; gap:10px; overflow-y:auto; background-color:var(--craie-2); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320' viewBox='0 0 320 320'%3E%3Cg fill='none' stroke='%2310222B' stroke-opacity='.022' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M20 80q30-24 60 0t60 0t60 0t60 0'/%3E%3Cpath d='M60 190q30-24 60 0t60 0t60 0'/%3E%3Cpath d='M10 290q30-24 60 0t60 0t60 0t60 0'/%3E%3C/g%3E%3C/svg%3E")}
   .bulle{max-width:75%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.5}
   .bulle small{display:block; font-size:10px; color:var(--brume); margin-top:3px}
   .bulle.eux{background:var(--blanc); border:1px solid var(--line); border-bottom-left-radius:4px; align-self:flex-start}
@@ -270,6 +271,46 @@
   .plus-menu button{display:flex; align-items:center; gap:10px; width:100%; border:none; background:none; text-align:left; padding:9px 11px; border-radius:7px; font-size:12.5px; font-weight:500; color:var(--encre)}
   .plus-menu button:hover{background:var(--craie-2)}
   .plus-menu button svg{width:15px; height:15px; stroke:var(--bassin); flex:none}
+
+  /* ---- Chat v2 : messagerie pleine hauteur ---- */
+  #v-messages .panel{margin-bottom:0; display:flex; flex-direction:column; height:calc(100vh - 168px); min-height:520px}
+  @media (max-width:900px){ #v-messages .panel{height:calc(100vh - 252px); min-height:440px} }
+  .list-head{position:sticky; top:0; z-index:2; background:var(--blanc); padding:12px 14px 11px; border-bottom:1px solid var(--craie)}
+  .list-search{display:flex; align-items:center; gap:8px; background:var(--craie-2); border:1px solid var(--line); border-radius:999px; padding:8px 13px; transition:border-color .18s var(--eo)}
+  .list-search:focus-within{border-color:var(--bassin); background:#fff}
+  .list-search svg{width:14px; height:14px; stroke:var(--brume); flex:none}
+  .list-search input{border:none; background:none; font-family:var(--sans); font-size:12.5px; width:100%; color:var(--encre)}
+  .list-search input:focus{outline:none}
+  .list-empty{padding:26px 16px; text-align:center; font-size:12.5px; color:var(--brume)}
+  .conv .m-av{background:color-mix(in srgb,var(--bassin) 14%,var(--craie)); color:var(--bassin)}
+  .conv.unread p{color:var(--encre); font-weight:600}
+  .th-av{width:34px; height:34px; border-radius:50%; background:color-mix(in srgb,var(--bassin) 14%,var(--craie)); color:var(--bassin); font-family:var(--serif); font-size:14px; display:flex; align-items:center; justify-content:center; flex:none}
+  .th-back{display:none; border:0; background:none; padding:6px; margin:0 -2px 0 -8px; color:var(--encre); cursor:pointer}
+  .th-back svg{width:18px; height:18px; stroke:currentColor}
+  @media (max-width:860px){ .th-back{display:flex} }
+  .lockline{align-self:center; display:flex; align-items:center; gap:8px; text-align:left; font-size:10.5px; color:var(--solaire-ink); background:color-mix(in srgb,var(--solaire) 8%,var(--blanc)); border:1px solid color-mix(in srgb,var(--solaire) 28%,transparent); border-radius:11px; padding:8px 14px; max-width:430px; line-height:1.5; margin-bottom:4px}
+  .lockline svg{width:14px; height:14px; stroke:var(--solaire-ink); flex:none}
+  #th-body .bulle{border-radius:15px; font-size:13.5px}
+  #th-body .bulle.eux{border-bottom-left-radius:5px; box-shadow:var(--shadow-1)}
+  #th-body .bulle.moi{border-bottom-right-radius:5px}
+  #th-body .bulle.moi small{text-align:right}
+  .resa-card{align-self:center; width:min(330px, 94%); background:var(--blanc); border:1px solid var(--line); border-radius:13px; box-shadow:var(--shadow-1); overflow:hidden; margin:2px 0}
+  .resa-card .rc-head{display:flex; align-items:center; gap:9px; padding:10px 14px; background:color-mix(in srgb,var(--bassin) 8%,var(--blanc)); border-bottom:1px solid var(--craie); font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--bassin)}
+  .resa-card .rc-head svg{width:14px; height:14px; stroke:var(--bassin); flex:none}
+  .resa-card .rc-body{padding:11px 14px 4px}
+  .rc-row{display:flex; justify-content:space-between; gap:12px; padding:5px 0; font-size:12.5px; color:var(--brume)}
+  .rc-row b{color:var(--encre); font-variant-numeric:tabular-nums; text-align:right}
+  .rc-actions{display:flex; gap:8px; padding:10px 14px 13px}
+  .rc-actions .btn-xs{flex:1; padding:9px 12px}
+  .rc-done{display:block; text-align:center; font-size:12px; font-weight:600; padding:11px 14px 13px}
+  .rc-done.ok{color:var(--bassin)} .rc-done.no{color:var(--brume)}
+  #thread .quickbar{background:var(--blanc); border-top:1px solid var(--craie); padding:11px 14px 0}
+  #thread .th-input{background:var(--blanc); border-top:0; padding:11px 14px 14px}
+  #thread .th-input input{border-radius:999px}
+  #thread .plus-btn{border-radius:50%; width:42px; height:42px}
+  #thread .th-input button[type="submit"]{width:42px; height:42px; padding:0; border-radius:50%; background:var(--bassin); display:flex; align-items:center; justify-content:center; flex:none; transition:filter .15s var(--eo)}
+  #thread .th-input button[type="submit"]:hover{filter:brightness(1.1)}
+  #thread .th-input button[type="submit"] svg{width:17px; height:17px; stroke:#F2F1EA; fill:none}
 
   /* ---- Assistant (bot) ---- */
   .fab{position:fixed; right:20px; bottom:20px; z-index:90; width:54px; height:54px; border-radius:50%; border:none; background:var(--encre); box-shadow:0 8px 24px rgba(6,14,18,.35); display:flex; align-items:center; justify-content:center; transition:transform .2s var(--eo)}
@@ -741,13 +782,20 @@
 
     <!-- ================= VUE : MESSAGES ================= -->
     <section class="view" id="v-messages">
-      <div class="panel" style="margin-bottom:0">
+      <div class="panel">
         <div class="chat" id="chat">
-          <div class="list" id="conv-list"></div>
+          <div class="list">
+            <div class="list-head">
+              <label class="list-search">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.9" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L20 20" stroke-linecap="round"/></svg>
+                <input type="text" id="conv-search" placeholder="Rechercher une conversation" aria-label="Rechercher une conversation">
+              </label>
+            </div>
+            <div id="conv-list"></div>
+          </div>
           <div class="thread" id="thread"></div>
         </div>
       </div>
-      <p class="chart-note" style="padding:12px 4px 0">Les coordonnées sont masquées automatiquement avant réservation, révélées des deux côtés au paiement. Tout est journalisé — en cas de litige, l'arbitrage se fait sur pièces.</p>
     </section>
 
     <!-- ================= VUE : CONFORMITÉ ================= -->
@@ -974,7 +1022,7 @@
       sub:'demande en attente · jeudi 17 h – 19 h',
       thread:[
         {who:'eux', txt:'Bonjour ! Le créneau de jeudi 17 h est-il calme pour nager ? Nous serions 3, dont ma mère qui nage tous les jours.', t:'14 h 02'},
-        {who:'sys', txt:'Demande de réservation — jeudi 17 h – 19 h · 3 baigneurs · 21 €'}
+        {who:'resa'}
       ]},
     {id:'thomas', name:'Thomas', time:'hier', preview:'Mon numéro : ●● ●● ●● ●● ●● — masqué avant réservation',
       sub:'réservation confirmée · samedi 9 h – 11 h',
@@ -1003,10 +1051,18 @@
       chips:['Merci pour l’avis ★','À bientôt'] }
   };
   var listEl = document.getElementById('conv-list'), threadEl = document.getElementById('thread'), chatEl = document.getElementById('chat');
-  var current = 'sarah';
+  var current = 'sarah', convFilter = '';
   function renderList(){
     listEl.innerHTML = '';
-    CONVS.forEach(function(c){
+    var shown = CONVS.filter(function(c){
+      if(!convFilter) return true;
+      return (c.name + ' ' + c.preview).toLowerCase().indexOf(convFilter) !== -1;
+    });
+    if(!shown.length){
+      listEl.innerHTML = '<div class="list-empty">Aucune conversation ne correspond.</div>';
+      return;
+    }
+    shown.forEach(function(c){
       var b = document.createElement('button');
       b.type = 'button';
       b.className = 'conv' + (c.unread ? ' unread' : '') + (current === c.id ? ' sel' : '');
@@ -1020,21 +1076,38 @@
       listEl.appendChild(b);
     });
   }
+  var convSearch = document.getElementById('conv-search');
+  if(convSearch) convSearch.addEventListener('input', function(){
+    convFilter = convSearch.value.trim().toLowerCase();
+    renderList();
+  });
   function renderThread(){
     var c = CONVS.find(function(x){ return x.id === current; });
-    var bulles = '<div class="datesep">'+(c.id==='sarah'?'Aujourd’hui':c.id==='thomas'?'Hier':'Mardi')+'</div>' + c.thread.map(function(m){
+    var lockline = '<div class="lockline"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke-linecap="round"/></svg>'+
+      'Coordonnées masquées avant paiement, révélées des deux côtés après. Tout est journalisé — en cas de litige, l\'arbitrage se fait sur pièces.</div>';
+    var bulles = lockline + '<div class="datesep">'+(c.id==='sarah'?'Aujourd’hui':c.id==='thomas'?'Hier':'Mardi')+'</div>' + c.thread.map(function(m){
+      if(m.who === 'resa') return '<div class="resa-card" id="resa-card">'+
+        '<div class="rc-head"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4" stroke-linecap="round"/></svg>Demande de réservation</div>'+
+        '<div class="rc-body">'+
+          '<div class="rc-row"><span>Créneau</span><b>Jeudi 17 h – 19 h</b></div>'+
+          '<div class="rc-row"><span>Baigneurs</span><b>3 · séance ouverte</b></div>'+
+          '<div class="rc-row"><span>Vous recevez</span><b>21 €</b></div>'+
+        '</div>'+
+        '<div class="rc-actions" id="rc-actions"><button class="btn-xs ok" type="button" id="th-accept">Accepter — 21 €</button><button class="btn-xs no" type="button" id="th-refuse">Refuser</button></div></div>';
       if(m.who === 'sys') return '<div class="sysline">'+m.txt+'</div>';
       var ticks = m.who === 'moi' ? '<span class="ticks">✓✓</span>' : '';
       return '<div class="bulle '+m.who+'">'+m.txt+'<small>'+(m.t||'')+ticks+'</small></div>';
     }).join('');
     var headActions = c.id === 'sarah'
-      ? '<div class="th-actions"><button class="btn-xs ok" type="button" id="th-accept">Accepter — 21 €</button><button class="btn-xs no" type="button" id="th-refuse">Refuser</button></div>'
+      ? '<div class="th-actions"><span class="s-tag tag-open" id="th-status">En attente — 21 €</span></div>'
       : '';
     var q = QUICK[c.id];
     var chips = '<div class="quickbar"><button class="qchip ai" type="button" data-fill="'+q.ai.replace(/"/g,'&quot;')+'">✦ Réponse suggérée</button>'+
       q.chips.map(function(t){ return '<button class="qchip" type="button" data-fill="'+t+'">'+t+'</button>'; }).join('')+'</div>';
     threadEl.innerHTML =
-      '<div class="th-head"><div class="m-av" style="width:34px;height:34px;border-radius:50%;background:var(--craie);font-family:var(--serif);display:flex;align-items:center;justify-content:center">'+c.name[0]+'</div>'+
+      '<div class="th-head">'+
+      '<button class="th-back" type="button" id="th-back" aria-label="Retour aux conversations"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'+
+      '<div class="th-av">'+c.name[0]+'</div>'+
       '<div><b>'+c.name+'</b><small>'+c.sub+'</small></div>'+headActions+'</div>'+
       '<div class="th-body" id="th-body">'+bulles+'</div>'+
       chips+
@@ -1046,26 +1119,34 @@
           '<button type="button" data-act="photo"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="4" y="6" width="16" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M9 6l1.2-2h3.6L15 6" stroke-linejoin="round"/></svg>Joindre une photo</button>'+
           '<button type="button" data-act="signaler"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M6 21V4l12 4.5L6 13" stroke-linejoin="round" stroke-linecap="round"/></svg>Signaler à la plateforme</button>'+
         '</div>'+
-        '<input type="text" placeholder="Écrire à '+c.name+'…" aria-label="Votre message"><button type="submit">Envoyer</button></form>';
+        '<input type="text" placeholder="Écrire à '+c.name+'…" aria-label="Votre message">'+
+        '<button type="submit" aria-label="Envoyer le message"><svg viewBox="0 0 24 24" stroke-width="1.9" aria-hidden="true"><path d="M4.5 12L20 4.5 15.5 20l-3.8-5.7L4.5 12z" stroke-linejoin="round" stroke-linecap="round"/><path d="M11.7 14.3L20 4.5" stroke-linecap="round"/></svg></button></form>';
 
     var body = document.getElementById('th-body');
     var form = document.getElementById('th-form');
     var inp = form.querySelector('input[type="text"]');
     body.scrollTop = body.scrollHeight;
 
-    /* Accepter / refuser depuis le fil */
+    /* Retour à la liste (mobile) */
+    var back = document.getElementById('th-back');
+    if(back) back.addEventListener('click', function(){ chatEl.classList.remove('open'); });
+
+    /* Accepter / refuser depuis la carte de demande */
     var thA = document.getElementById('th-accept'), thR = document.getElementById('th-refuse');
+    var rcActions = document.getElementById('rc-actions'), thStatus = document.getElementById('th-status');
     if(thA) thA.addEventListener('click', function(){
-      body.insertAdjacentHTML('beforeend', '<div class="sysline">Demande acceptée — Sarah a payé, vos numéros sont partagés</div>');
+      rcActions.outerHTML = '<span class="rc-done ok">Acceptée — Sarah a payé, vos numéros sont partagés</span>';
+      body.insertAdjacentHTML('beforeend', '<div class="sysline">Réservation confirmée — 21 € en séquestre, versés 24 h après la séance</div>');
       body.scrollTop = body.scrollHeight;
-      document.querySelector('.th-actions').innerHTML = '<span class="s-tag tag-open">Confirmée · 21 €</span>';
+      if(thStatus) thStatus.textContent = 'Confirmée · 21 €';
       c.sub = 'réservation confirmée · jeudi 17 h – 19 h';
       toast('Réservation de Sarah confirmée — 21 €');
     });
     if(thR) thR.addEventListener('click', function(){
-      body.insertAdjacentHTML('beforeend', '<div class="sysline">Demande refusée — Sarah est remboursée intégralement</div>');
+      rcActions.outerHTML = '<span class="rc-done no">Refusée — Sarah est remboursée intégralement</span>';
+      body.insertAdjacentHTML('beforeend', '<div class="sysline">Demande refusée — remboursement automatique</div>');
       body.scrollTop = body.scrollHeight;
-      document.querySelector('.th-actions').innerHTML = '<span class="s-tag" style="background:var(--craie); color:var(--brume)">Refusée</span>';
+      if(thStatus){ thStatus.textContent = 'Refusée'; thStatus.className = 's-tag'; thStatus.style.cssText = 'background:var(--craie); color:var(--brume)'; }
       toast('Demande refusée — remboursement automatique');
     });
 
