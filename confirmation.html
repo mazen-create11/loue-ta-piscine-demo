@@ -18,8 +18,6 @@
   h1{font-family:var(--serif); font-weight:500; font-size:clamp(26px,4vw,34px); text-align:center; margin:0 0 6px}
   .sub{text-align:center; color:var(--brume); font-size:14.5px; margin:0 0 34px}
   .sub b{color:var(--encre); font-weight:600}
-  .after-note{position:relative; overflow:hidden; text-align:center; margin:-16px 0 28px; padding:12px 18px; border-radius:11px; background:linear-gradient(120deg,#E3ECE4,#F4E9D7); color:var(--encre); font-family:var(--serif); font-size:16px; line-height:1.4}
-  .after-note::after{content:""; position:absolute; width:70px; height:70px; border:1px solid rgba(47,93,84,.13); border-radius:50%; right:-28px; top:-42px; box-shadow:0 0 0 13px transparent,0 0 0 14px rgba(47,93,84,.08)}
 
   .card{background:var(--blanc); border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-1); margin-bottom:16px; overflow:hidden}
   .card .c-head{padding:15px 22px; border-bottom:1px solid var(--craie); font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--solaire-ink); font-weight:600}
@@ -66,8 +64,9 @@
   .note-annul{text-align:center; font-size:12px; color:var(--brume); margin-top:16px}
   @media (prefers-reduced-motion: reduce){ .check circle,.check path{animation:none; stroke-dashoffset:0} .numero .digit{animation:none} }
 </style>
+<link rel="stylesheet" href="css/atmosphere.css">
 </head>
-<body>
+<body class="confirmation-app">
 
 <header class="page">
   <div class="h-inner">
@@ -93,7 +92,6 @@
   </div>
   <h1>C'est réservé.</h1>
   <p class="sub" id="booking-summary">Samedi 25 juillet, 9 h – 11 h · séance ouverte · <b>2 baigneurs</b><br>Le bassin des Micocouliers, Aix-en-Provence</p>
-  <p class="after-note" id="after-note">Il ne reste qu’à prendre les maillots. Votre parenthèse est prête.</p>
 
   <div class="card reveal-card">
     <div class="c-head">Vos coordonnées sont maintenant partagées</div>
@@ -164,10 +162,7 @@
       var total = Number(params.get('total') || 16);
       var totalLabel = total.toFixed(2).replace('.', ',') + ' €';
       document.getElementById('total-value').textContent = totalLabel;
-      if(day){
-        document.getElementById('booking-summary').innerHTML = 'Samedi 25 juillet, 9 h – 19 h · journée privée · <b>jusqu’à 15 personnes</b><br>Le bassin des Micocouliers, Aix-en-Provence';
-        document.getElementById('after-note').textContent = 'Le lieu est trouvé. Il ne reste qu’à réunir tout le monde et décider qui apporte le goûter.';
-      }
+      if(day) document.getElementById('booking-summary').innerHTML = 'Samedi 25 juillet, 9 h – 19 h · journée privée · <b>jusqu’à 15 personnes</b><br>Le bassin des Micocouliers, Aix-en-Provence';
       if(onsite){
         document.getElementById('contact-rule').innerHTML = 'La réservation est confirmée : <b>Claire vient de recevoir votre numéro</b>. Vos coordonnées restent protégées jusqu’à cette étape.';
         document.getElementById('money-title').textContent = 'Votre paiement sur place';

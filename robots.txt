@@ -4,4 +4,4 @@ Disallow: /hote.html
 Disallow: /admin.html
 Disallow: /confirmation.html
 
-Sitemap: https://loue-ta-piscine-demo.netlify.app/sitemap.xml
+Sitemap: https://mazen-create11.github.io/loue-ta-piscine-demo/sitemap.xml

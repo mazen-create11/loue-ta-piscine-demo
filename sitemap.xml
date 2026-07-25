@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://loue-ta-piscine-demo.netlify.app/</loc>
+    <loc>https://mazen-create11.github.io/loue-ta-piscine-demo/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://loue-ta-piscine-demo.netlify.app/fiche.html</loc>
+    <loc>https://mazen-create11.github.io/loue-ta-piscine-demo/fiche.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://loue-ta-piscine-demo.netlify.app/piscines.html</loc>
+    <loc>https://mazen-create11.github.io/loue-ta-piscine-demo/piscines.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://loue-ta-piscine-demo.netlify.app/jacuzzis.html</loc>
+    <loc>https://mazen-create11.github.io/loue-ta-piscine-demo/jacuzzis.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://loue-ta-piscine-demo.netlify.app/saunas.html</loc>
+    <loc>https://mazen-create11.github.io/loue-ta-piscine-demo/saunas.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

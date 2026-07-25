@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Loue ta piscine — piscines et spas de particuliers, à l'heure</title>
 <meta name="description" content="Réservez la piscine, le jacuzzi ou le sauna d'un particulier près de chez vous. À l'heure ou à la journée, privatisé ou en séance ouverte. Prix tout compris.">
-<link rel="canonical" href="https://loue-ta-piscine-demo.netlify.app/">
+<link rel="canonical" href="https://mazen-create11.github.io/loue-ta-piscine-demo/">
 <meta property="og:title" content="Loue ta piscine">
 <meta property="og:description" content="La piscine d'à côté, rien qu'à vous. À l'heure ou à la journée.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://loue-ta-piscine-demo.netlify.app/">
-<meta property="og:image" content="https://loue-ta-piscine-demo.netlify.app/img/famille-hero-v2.webp">
+<meta property="og:url" content="https://mazen-create11.github.io/loue-ta-piscine-demo/">
+<meta property="og:image" content="https://mazen-create11.github.io/loue-ta-piscine-demo/img/famille-hero-v2.webp">
 <meta property="og:site_name" content="Loue ta piscine">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
@@ -81,10 +81,8 @@
   .hero img.bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 62%}
   .hero .veil{position:absolute; inset:0; background:linear-gradient(to top, rgba(6,14,18,.84) 0%, rgba(6,14,18,.2) 52%, rgba(6,14,18,.38) 100%)}
   .hero .h-content{position:relative; z-index:2; width:100%; max-width:1220px; margin:0 auto; padding:0 24px 58px; color:#F2F1EA}
-  .hero-eyebrow{display:flex; align-items:center; gap:10px; margin:0 0 14px; color:#F5D69A; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.16em}
-  .hero-eyebrow::before{content:""; width:34px; border-top:1px solid currentColor}
   .hero h1{font-family:var(--serif); font-weight:500; font-size:clamp(32px,4.6vw,54px); line-height:1.07; letter-spacing:-.012em; margin:0 0 8px; max-width:18ch; text-wrap:balance}
-  .hero .sub{font-size:clamp(14.5px,1.6vw,17px); color:rgba(242,241,234,.84); margin:0 0 26px; max-width:660px}
+  .hero .sub{font-size:clamp(14.5px,1.6vw,17px); color:rgba(242,241,234,.8); margin:0 0 26px}
   .search{display:flex; background:var(--craie-2); border-radius:12px; overflow:hidden; max-width:700px; box-shadow:0 10px 36px rgba(6,14,18,.4)}
   .search .field{flex:1 1 0; padding:13px 20px; min-width:0; border:none; background:transparent; text-align:left; cursor:pointer; transition:background .18s var(--eo)}
   .search .field:hover{background:#fff}
@@ -93,18 +91,11 @@
   .search .f-val{font-size:14.5px; color:var(--encre); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block}
   .search .go{background:linear-gradient(180deg,#376C62,var(--bassin)); color:#F2F1EA; border:none; padding:0 28px; font-size:15px; font-weight:600; letter-spacing:.01em; transition:filter .15s var(--eo)}
   .search .go:hover{filter:brightness(1.1)}
-  .moment-shortcuts{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-top:13px}
-  .moment-shortcuts>span{font-size:11.5px; color:rgba(242,241,234,.72); margin-right:2px}
-  .moment-shortcuts button{border:1px solid rgba(242,241,234,.34); background:rgba(6,14,18,.24); color:#F2F1EA; border-radius:99px; padding:6px 11px; font-size:11.5px; backdrop-filter:blur(6px); transition:background .18s var(--eo),border-color .18s var(--eo),transform .18s var(--eo)}
-  .moment-shortcuts button:hover,.moment-shortcuts button.active{background:#F2F1EA; color:var(--encre); border-color:#F2F1EA; transform:translateY(-1px)}
   @media (max-width:640px){
     .search{flex-direction:column}
     .search .field + .field{border-left:none; border-top:1px solid var(--line)}
     .search .go{padding:14px}
     .hero{height:min(94vh,820px)}
-    .hero .h-content{padding-bottom:34px}
-    .moment-shortcuts{gap:6px}
-    .moment-shortcuts>span{flex-basis:100%}
   }
 
   /* ============ Chips catégories ============ */
@@ -115,29 +106,6 @@
   .chip svg{width:16px; height:16px}
   .chip:hover{border-color:var(--brume)}
   .chip.active{background:var(--encre); color:#F2F1EA; border-color:var(--encre)}
-
-  /* ============ Moments de vie ============ */
-  .moments{padding:82px 0 62px; background:linear-gradient(180deg,var(--craie),#F8F4EA)}
-  .moment-lede{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr); align-items:end; gap:44px; margin-bottom:34px}
-  .section-kicker{display:flex; align-items:center; gap:10px; margin:0 0 11px; color:var(--solaire-ink); font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.14em}
-  .section-kicker::before{content:""; width:30px; border-top:1px solid currentColor}
-  .moment-lede h2{max-width:22ch; font-size:clamp(29px,4vw,44px)}
-  .moment-lede>p{margin:0; color:var(--brume); font-size:15px; line-height:1.65; max-width:42ch}
-  .moment-grid{display:grid; grid-template-columns:1.18fr .82fr .82fr 1.18fr; gap:10px}
-  .moment-card{position:relative; min-height:260px; border:0; border-radius:18px; overflow:hidden; padding:22px; text-align:left; display:flex; flex-direction:column; justify-content:space-between; color:var(--encre); transition:transform .25s var(--eo),box-shadow .25s var(--eo)}
-  .moment-card::after{content:""; position:absolute; width:150px; height:150px; border:1px solid currentColor; opacity:.12; border-radius:50%; right:-48px; bottom:-56px; box-shadow:0 0 0 22px transparent,0 0 0 23px currentColor,0 0 0 46px transparent,0 0 0 47px currentColor}
-  .moment-card:hover,.moment-card.active{transform:translateY(-5px); box-shadow:0 16px 34px rgba(16,34,43,.13)}
-  .moment-card.family{background:#DDE9DD}
-  .moment-card.friends{background:#F1D9B9}
-  .moment-card.couple{background:#CAD8D9}
-  .moment-card.sport{background:#142B34; color:#F2F1EA}
-  .moment-card .m-num{font-family:var(--serif); font-size:16px; opacity:.55}
-  .moment-card .m-copy{position:relative; z-index:1}
-  .moment-card strong{display:block; font-family:var(--serif); font-size:clamp(20px,2vw,26px); line-height:1.08; font-weight:500; max-width:12ch; margin-bottom:9px}
-  .moment-card small{display:block; font-size:12px; line-height:1.5; opacity:.72; max-width:24ch}
-  .moment-card .m-link{display:inline-flex; margin-top:18px; font-size:11.5px; font-weight:600}
-  @media (max-width:900px){.moment-grid{grid-template-columns:1fr 1fr}.moment-card{min-height:220px}}
-  @media (max-width:640px){.moments{padding:58px 0 42px}.moment-lede{grid-template-columns:1fr;gap:14px}.moment-grid{display:flex;overflow-x:auto;margin-inline:-24px;padding:0 24px 14px;scroll-snap-type:x mandatory;scrollbar-width:none}.moment-grid::-webkit-scrollbar{display:none}.moment-card{min-width:76vw;min-height:230px;scroll-snap-align:center}}
 
   /* ============ Sections ============ */
   section{padding:72px 0; scroll-margin-top:64px}
@@ -174,7 +142,6 @@
   .card .note svg{width:12px; height:12px; fill:var(--solaire)}
   .card .note small{color:var(--brume); font-weight:400}
   .card .c-place{font-size:13px; color:var(--brume); margin:2px 0 6px}
-  .card .c-moment{font-size:10.5px; color:var(--bassin); text-transform:uppercase; letter-spacing:.075em; font-weight:600; margin:0 0 4px}
   .card .c-price{font-size:14px}
   .card .c-price b{font-weight:600}
   .card .c-price span{color:var(--brume)}
@@ -184,21 +151,6 @@
   .pay-place,.premium-proof{display:inline-flex; align-items:center; gap:4px; width:max-content; border-radius:6px; padding:3px 7px; font-size:10.5px; font-weight:600}
   .pay-place{background:color-mix(in srgb,var(--bassin) 10%,#fff); border:1px solid color-mix(in srgb,var(--bassin) 25%,var(--line)); color:var(--bassin)}
   .premium-proof{background:linear-gradient(145deg,#FAF0C8,#D3A957); color:#5D431A; box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 2px 6px rgba(138,100,48,.15)}
-
-  /* ============ Une journée à l'eau ============ */
-  .day-story{background:var(--encre-2); color:#F2F1EA; overflow:hidden; position:relative}
-  .day-story::before{content:""; position:absolute; width:520px; height:520px; border:1px solid rgba(242,241,234,.08); border-radius:50%; right:-170px; top:-270px; box-shadow:0 0 0 55px rgba(242,241,234,.025),0 0 0 110px rgba(242,241,234,.02)}
-  .story-head{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:end; margin-bottom:44px; position:relative; z-index:1}
-  .story-head h2{color:#F2F1EA; max-width:19ch}
-  .story-head p{color:rgba(242,241,234,.65); max-width:48ch; margin:0; font-size:14.5px}
-  .story-line{display:grid; grid-template-columns:repeat(4,1fr); position:relative; z-index:1}
-  .story-line::before{content:""; position:absolute; left:0; right:0; top:30px; border-top:1px solid rgba(242,241,234,.2)}
-  .story-beat{position:relative; padding:0 24px 0 0}
-  .story-beat::before{content:""; display:block; width:11px; height:11px; margin:25px 0 28px; border-radius:50%; background:var(--solaire); box-shadow:0 0 0 7px var(--encre-2),0 0 0 8px rgba(242,241,234,.22)}
-  .story-beat time{font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--solaire)}
-  .story-beat h3{font-family:var(--serif); font-size:21px; font-weight:500; line-height:1.12; margin:8px 0}
-  .story-beat p{font-size:12.5px; line-height:1.55; color:rgba(242,241,234,.62); margin:0}
-  @media (max-width:760px){.story-head{grid-template-columns:1fr;gap:12px}.story-line{grid-template-columns:1fr 1fr;gap:34px 14px}.story-line::before{display:none}.story-beat{padding-right:10px;border-top:1px solid rgba(242,241,234,.16)}.story-beat::before{margin:0 0 20px;transform:translateY(-6px)}}
 
   /* ============ Widget ============ */
   .w-sec{background:var(--craie-2); border-block:1px solid var(--line)}
@@ -259,10 +211,6 @@
   .t-small{font-size:11px; color:var(--brume); text-align:center; margin:9px 0 0; line-height:1.5}
 
   /* ============ Preuves ============ */
-  .proof-head{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:end; margin-bottom:36px}
-  .proof-head h2{max-width:20ch}
-  .proof-head p{margin:0; color:var(--brume); max-width:48ch; font-size:14.5px}
-  @media (max-width:720px){.proof-head{grid-template-columns:1fr;gap:12px}}
   .proof .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:44px}
   @media (max-width:820px){ .proof .stats{grid-template-columns:repeat(2,1fr)} }
   .stat{border-top:2px solid var(--line); padding-top:14px}
@@ -309,8 +257,9 @@
     .reveal{opacity:1; transform:none}
   }
 </style>
+<link rel="stylesheet" href="css/atmosphere.css">
 </head>
-<body>
+<body class="home-app">
 
 <header id="hdr">
   <div class="h-inner">
@@ -336,21 +285,13 @@
   <img class="bg" src="img/famille-hero-v2.webp" alt="Une famille joue dans une piscine privée sous le soleil de fin de journée" fetchpriority="high" width="1536" height="1024">
   <div class="veil"></div>
   <div class="h-content">
-    <p class="hero-eyebrow">Des lieux privés. Des moments à vous.</p>
-    <h1>Un air de vacances, juste à côté.</h1>
-    <p class="sub">Les rires des enfants, un anniversaire entre amis, deux heures à deux ou quelques longueurs au calme. Trouvez le lieu qui va avec votre moment.</p>
+    <h1>Un bassin près de chez vous.</h1>
+    <p class="sub">Piscine, jacuzzi ou sauna. À l’heure ou à la journée.</p>
     <div class="search" role="search" aria-label="Rechercher un bassin">
       <button class="field" type="button"><span class="f-label">Où</span><span class="f-val">Aix-en-Provence</span></button>
       <button class="field" type="button"><span class="f-label">Quand</span><span class="f-val">Samedi 25 juillet</span></button>
       <button class="field" type="button"><span class="f-label">Baigneurs</span><span class="f-val">4 personnes</span></button>
       <button class="go" type="button">Chercher</button>
-    </div>
-    <div class="moment-shortcuts" aria-label="Rechercher par occasion">
-      <span>J’ai envie de</span>
-      <button type="button" data-moment-filter="family">profiter en famille</button>
-      <button type="button" data-moment-filter="friends">réunir les amis</button>
-      <button type="button" data-moment-filter="couple">souffler à deux</button>
-      <button type="button" data-moment-filter="sport">nager au calme</button>
     </div>
   </div>
 </div>
@@ -374,30 +315,18 @@
 </div>
 
 <main>
-<section class="moments" id="moments">
-  <div class="wrap">
-    <div class="moment-lede reveal">
-      <div><p class="section-kicker">Choisissez d’abord l’émotion</p><h2>On ne réserve pas un bassin. On réserve ce qu’on va y vivre.</h2></div>
-      <p>Une même adresse peut accueillir une bataille d’eau, des retrouvailles, une parenthèse ou un vrai entraînement. Les annonces vous disent désormais à quels moments elles ressemblent.</p>
-    </div>
-    <div class="moment-grid" aria-label="Moments à vivre">
-      <button class="moment-card family reveal" type="button" data-moment-filter="family"><span class="m-num">01</span><span class="m-copy"><strong>Un mercredi qui sent les vacances</strong><small>Des jeux, une zone peu profonde et de la place pour que les parents soufflent.</small><span class="m-link">Voir les lieux en famille →</span></span></button>
-      <button class="moment-card friends reveal" type="button" data-moment-filter="friends"><span class="m-num">02</span><span class="m-copy"><strong>Tout le monde est enfin libre</strong><small>Anniversaire, déjeuner ou retrouvailles : une jauge claire, aucun prix surprise.</small><span class="m-link">Réunir les amis →</span></span></button>
-      <button class="moment-card couple reveal" type="button" data-moment-filter="couple"><span class="m-num">03</span><span class="m-copy"><strong>Deux heures sans regarder l’heure</strong><small>Un jacuzzi fumant, une piscine au soir ou un sauna rien que pour deux.</small><span class="m-link">Trouver une parenthèse →</span></span></button>
-      <button class="moment-card sport reveal" type="button" data-moment-filter="sport"><span class="m-num">04</span><span class="m-copy"><strong>Le bassin avant que la ville s’éveille</strong><small>Des créneaux calmes, la longueur du bassin et la température annoncées avant de partir.</small><span class="m-link">Nager au calme →</span></span></button>
-    </div>
-  </div>
-</section>
-
 <section id="annonces" style="padding-top:56px">
   <div class="wrap">
-    <div class="sec-top reveal">
-      <div><p class="section-kicker">À quelques minutes</p><h2 id="listing-title">Des lieux pour tous vos moments</h2></div>
-      <a class="sec-link" href="#">Tout voir sur la carte →</a>
+    <div class="sec-top results-head reveal">
+      <div class="results-title"><h2>Lieux disponibles</h2><p class="results-meta" id="result-count" aria-live="polite">8 lieux · autour d’Aix-en-Provence</p></div>
+      <div class="view-switch" role="group" aria-label="Affichage des résultats">
+        <button class="view-btn active" type="button" data-view="list" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14" stroke-linecap="round"/></svg>Liste</button>
+        <button class="view-btn" type="button" data-view="map" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2zM9 4v14M15 6v14" stroke-linejoin="round"/></svg>Carte</button>
+      </div>
     </div>
     <div class="grid" id="grid">
 
-      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte" data-moment="family friends">
+      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
         <div class="c-img">
           <span class="c-badge badge-premium">✦ À la une</span>
           <span class="c-badge badge-ouverte badge-secondary">Séance ouverte</span>
@@ -407,14 +336,13 @@
         <div class="c-body">
           <div class="c-row"><h3>Le bassin des Micocouliers</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93 <small>(41)</small></span></div>
           <p class="c-place">Aix-en-Provence · à 12 min</p>
-          <p class="c-moment">Maison de famille · grands groupes</p>
           <p class="c-price"><b>dès 7 €</b><span> /pers · séance 2 h — ou privatisé 68 €</span></p>
           <p class="c-day"><b>290 € la journée</b> · jusqu’à 15 personnes</p>
           <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span><span class="premium-proof">★ Hôte Premium</span></div>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="piscine" data-moment="couple friends">
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
         <div class="c-img">
           <span class="c-badge badge-neutre">Privatisé</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -423,13 +351,12 @@
         <div class="c-body">
           <div class="c-row"><h3>Le miroir des collines</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,88 <small>(26)</small></span></div>
           <p class="c-place">Cassis · à 25 min</p>
-          <p class="c-moment">À deux · déjeuner entre amis</p>
           <p class="c-price"><b>34 €</b><span> /h · 2 h minimum</span></p>
           <p class="c-day"><b>250 € la journée</b> · jusqu’à 10 personnes</p>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte" data-moment="family friends">
+      <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
         <div class="c-img">
           <span class="c-badge badge-premium">✦ À la une</span>
           <span class="c-badge badge-ouverte badge-secondary">Séance ouverte</span>
@@ -439,14 +366,13 @@
         <div class="c-body">
           <div class="c-row"><h3>La piscine du verger</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,97 <small>(58)</small></span></div>
           <p class="c-place">Pertuis · à 18 min</p>
-          <p class="c-moment">Jeux d’eau · anniversaires</p>
-          <p class="c-price"><b>dès 6 €</b><span> /pers · enfants −50 %</span></p>
+          <p class="c-price"><b>dès 6 €</b><span> /pers · séance 2 h</span></p>
           <p class="c-day"><b>180 € la journée</b> · jusqu’à 12 personnes</p>
           <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span><span class="premium-proof">★ Hôte Premium</span></div>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="piscine" data-moment="couple friends">
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
         <div class="c-img">
           <span class="c-badge badge-bleue">L'heure bleue · 19 h – 21 h</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -455,13 +381,12 @@
         <div class="c-body">
           <div class="c-row"><h3>Les margelles blondes</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,91 <small>(33)</small></span></div>
           <p class="c-place">Lourmarin · à 30 min</p>
-          <p class="c-moment">Apéritif au soir · petit groupe</p>
           <p class="c-price"><b>12 €</b><span> /pers · le créneau du soir</span></p>
           <p class="c-day"><b>220 € la journée</b> · jusqu’à 8 personnes</p>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="spa" data-moment="couple friends">
+      <a class="card reveal" href="fiche.html" data-cat="spa">
         <div class="c-img">
           <span class="c-badge badge-neutre">Privatisé</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -470,13 +395,12 @@
         <div class="c-body">
           <div class="c-row"><h3>Le rooftop des Chartreux</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,85 <small>(19)</small></span></div>
           <p class="c-place">Marseille 4ᵉ · à 8 min</p>
-          <p class="c-moment">Parenthèse à deux · soirée</p>
           <p class="c-price"><b>25 €</b><span> /h · jusqu'à 4 personnes</span></p>
           <p class="c-day"><b>160 € la journée</b> · jusqu’à 4 personnes</p>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="spa" data-moment="couple friends">
+      <a class="card reveal" href="fiche.html" data-cat="spa">
         <div class="c-img">
           <span class="c-badge badge-neutre">Privatisé</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -485,14 +409,13 @@
         <div class="c-body">
           <div class="c-row"><h3>Le bain du cabanon</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,96 <small>(47)</small></span></div>
           <p class="c-place">Luberon · à 35 min</p>
-          <p class="c-moment">Déconnexion · jusqu’à 5 amis</p>
           <p class="c-price"><b>22 €</b><span> /h · chauffé toute l'année</span></p>
           <p class="c-day"><b>140 € la journée</b> · jusqu’à 5 personnes</p>
           <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span></div>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="piscine" data-moment="family sport">
+      <a class="card reveal" href="fiche.html" data-cat="piscine">
         <div class="c-img">
           <span class="c-badge badge-neutre">Chauffée · toute l'année</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -501,13 +424,12 @@
         <div class="c-body">
           <div class="c-row"><h3>L'orangerie</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,90 <small>(24)</small></span></div>
           <p class="c-place">Avignon · à 40 min</p>
-          <p class="c-moment">Longueurs · baignade toute saison</p>
           <p class="c-price"><b>28 €</b><span> /h · intérieure, 29 °C</span></p>
           <p class="c-day"><b>240 € la journée</b> · jusqu’à 10 personnes</p>
         </div>
       </a>
 
-      <a class="card reveal" href="fiche.html" data-cat="sauna" data-moment="couple sport">
+      <a class="card reveal" href="fiche.html" data-cat="sauna">
         <div class="c-img">
           <span class="c-badge badge-neutre">Privatisé</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
@@ -516,36 +438,30 @@
         <div class="c-body">
           <div class="c-row"><h3>Le sauna de la bastide</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,94 <small>(31)</small></span></div>
           <p class="c-place">Aix-en-Provence · à 15 min</p>
-          <p class="c-moment">Récupération · rituel à deux</p>
           <p class="c-price"><b>18 €</b><span> /h · 2 à 6 personnes</span></p>
           <p class="c-day"><b>120 € la journée</b> · jusqu’à 6 personnes</p>
         </div>
       </a>
 
     </div>
-  </div>
-</section>
-
-<section class="day-story">
-  <div class="wrap">
-    <div class="story-head reveal">
-      <div><p class="section-kicker" style="color:var(--solaire)">Une journée à l’eau</p><h2>Les petits moments font les grandes journées.</h2></div>
-      <p>La plateforme organise le créneau, le prix et les règles. Vous, vous gardez ce qui compte : le sac trop rempli, les éclaboussures et le dernier « encore cinq minutes ».</p>
-    </div>
-    <div class="story-line">
-      <article class="story-beat reveal"><time>10 h 07</time><h3>Les chaussures restent au portillon.</h3><p>L’accès est expliqué, l’adresse est débloquée, tout le monde peut entrer sans traverser la maison.</p></article>
-      <article class="story-beat reveal"><time>11 h 26</time><h3>Le premier plongeon lance la journée.</h3><p>Profondeur, température et équipements étaient déjà affichés. Pas de mauvaise surprise.</p></article>
-      <article class="story-beat reveal"><time>14 h 42</time><h3>Les adultes finissent enfin leur phrase.</h3><p>Les enfants jouent, les amis s’installent, chacun trouve sa place sans dépasser la jauge.</p></article>
-      <article class="story-beat reveal"><time>18 h 51</time><h3>« Encore cinq minutes. »</h3><p>Le prix était figé avant de venir. Il ne reste qu’à sécher les serviettes et raconter la journée.</p></article>
+    <div class="map-panel" id="map-panel" hidden aria-label="Carte des lieux disponibles">
+      <button class="map-pin active" type="button" data-card="0" style="left:43%;top:38%">7 €</button>
+      <button class="map-pin" type="button" data-card="1" style="left:72%;top:61%">34 €</button>
+      <button class="map-pin" type="button" data-card="2" style="left:31%;top:67%">6 €</button>
+      <button class="map-pin" type="button" data-card="3" style="left:61%;top:29%">12 €</button>
+      <button class="map-pin" type="button" data-card="4" style="left:79%;top:39%">25 €</button>
+      <button class="map-pin" type="button" data-card="5" style="left:18%;top:46%">22 €</button>
+      <button class="map-pin" type="button" data-card="6" style="left:52%;top:75%">28 €</button>
+      <button class="map-pin" type="button" data-card="7" style="left:66%;top:82%">18 €</button>
+      <a class="map-preview" id="map-preview" href="fiche.html"><img id="map-preview-img" src="img/famille-bleue-v2.webp" alt=""><span class="map-preview-copy"><b id="map-preview-title">Le bassin des Micocouliers</b><span id="map-preview-place">Aix-en-Provence · à 12 min</span><strong id="map-preview-price">dès 7 € /pers</strong></span></a>
     </div>
   </div>
 </section>
 
 <section class="w-sec" id="creneaux">
   <div class="wrap">
-    <p class="section-kicker reveal">Votre rythme, votre budget</p>
-    <h2 class="reveal">Toute la tribu rien que pour vous. Ou une séance à partager.</h2>
-    <p class="w-intro reveal">Pour un anniversaire ou une journée de famille, privatisez. Pour quelques longueurs ou deux heures avec les enfants, rejoignez une séance ouverte à jauge limitée.</p>
+    <h2 class="reveal">Privatisez. Ou partagez la séance, et divisez le prix.</h2>
+    <p class="w-intro reveal">Choisissez un créneau, le nombre de personnes et le mode de réservation.</p>
     <div class="widget reveal" id="widget">
       <div class="w-left">
         <div class="w-head"><h3 class="w-title">Le bassin des Micocouliers — 10 × 5 m</h3><span class="w-tag">Chauffée</span></div>
@@ -565,30 +481,26 @@
 
 <section class="proof">
   <div class="wrap">
-    <div class="proof-head reveal">
-      <div><p class="section-kicker">La confiance avant le plongeon</p><h2>Chez quelqu’un. Avec les repères d’un vrai lieu d’accueil.</h2></div>
-      <p>Une maison de famille reste une maison de famille. L’accès, les règles, les équipements pour enfants et l’intimité de chacun sont précisés avant la réservation.</p>
-    </div>
     <div class="stats reveal">
-      <div class="stat"><b>★ 4,92</b><span>des hôtes évalués après de vrais moments</span></div>
-      <div class="stat"><b>12 points</b><span>sécurité, accès et confort vérifiés</span></div>
-      <div class="stat"><b>Jauge claire</b><span>adultes et enfants comptés avant de venir</span></div>
-      <div class="stat"><b>Prix figé</b><span>aucun supplément improvisé sur place</span></div>
+      <div class="stat"><b>★ 4,92</b><span>note moyenne des bassins</span></div>
+      <div class="stat"><b>12 points</b><span>vérifiés avant chaque mise en ligne</span></div>
+      <div class="stat"><b>48 h</b><span>délai max de versement à l'hôte</span></div>
+      <div class="stat"><b>2 modes</b><span>en ligne ou sur place selon l’hôte</span></div>
     </div>
-    <div class="quotes">
+    <div class="quotes" hidden>
       <figure class="quote reveal" style="margin:0">
         <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
-        <p>« Pour les 8 ans de Lina, elle a cru qu’on partait en vacances. On était à douze minutes de la maison. »</p>
+        <p>« Deux heures privatisées pour les 8 ans de ma fille. Tout était prêt, rien à payer sur place. »</p>
         <footer>Nadia — Marseille</footer>
       </figure>
       <figure class="quote reveal" style="margin:0">
         <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
-        <p>« Séance du matin avec mon fils. Trois familles, de la place pour tout le monde et zéro gêne. »</p>
+        <p>« Séance ouverte du matin à 8 €. Trois foyers, chacun son coin du bassin. »</p>
         <footer>Julien — Aix-en-Provence</footer>
       </figure>
       <figure class="quote reveal" style="margin:0">
         <div class="q-stars" aria-label="5 étoiles"><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></div>
-        <p>« Le jacuzzi un soir de janvier, juste nous deux. Une vraie coupure sans prendre la voiture deux heures. »</p>
+        <p>« Le jacuzzi un soir de janvier, réservé à 17 h. Le numéro de l'hôte arrive avec le paiement. »</p>
         <footer>Sarah — Avignon</footer>
       </figure>
     </div>
@@ -599,14 +511,12 @@
   <img class="bg" src="img/famille-hero-v2.webp" alt="" loading="lazy" width="1536" height="1024">
   <div class="h-veil"></div>
   <div class="h-inner2">
-    <p class="section-kicker reveal" style="color:var(--solaire)">Devenir hôte</p>
-    <h2 class="reveal">Vous n’ouvrez pas seulement un bassin. Vous accueillez leurs bons souvenirs.</h2>
+    <h2 class="reveal">Vous avez un bassin&nbsp;?</h2>
     <ul class="reveal">
       <li>Vos prix, vos horaires, vos règles — modifiables à tout moment.</li>
       <li>Privatisation, séance ouverte, ou les deux.</li>
       <li>Versement automatique sous 48 h après chaque séance.</li>
       <li>Baigneurs identifiés, caution par empreinte bancaire.</li>
-      <li>Familles, couples ou nageurs : vous choisissez qui vous accueillez et quand.</li>
     </ul>
     <div class="reveal">
       <a class="btn btn-bassin" href="hote.html">Estimer mes revenus</a>
@@ -680,44 +590,61 @@
     });
   });
 
-  /* Filtres catégories */
+  /* Résultats : filtres et vues liste/carte */
+  var gridEl = document.getElementById('grid');
+  var mapEl = document.getElementById('map-panel');
+  var countEl = document.getElementById('result-count');
   var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
-  var activeCategory = 'all', activeMoment = 'all';
-  var momentTitles = {
-    family:'Des lieux où les familles se sentent bien',
-    friends:'Des lieux faits pour se retrouver',
-    couple:'Des parenthèses à vivre à deux',
-    sport:'Des bassins pour nager vraiment'
-  };
-  function applyFilters(){
-    cards.forEach(function(card){
-      var categoryOk = activeCategory === 'all' || card.dataset.cat.split(' ').indexOf(activeCategory) !== -1;
-      var momentOk = activeMoment === 'all' || card.dataset.moment.split(' ').indexOf(activeMoment) !== -1;
-      card.classList.toggle('hide', !(categoryOk && momentOk));
+  var pins = Array.prototype.slice.call(document.querySelectorAll('.map-pin'));
+
+  function setFilter(filter){
+    var visible = 0;
+    cards.forEach(function(card, index){
+      var show = filter === 'all' || card.dataset.cat.split(' ').indexOf(filter) !== -1;
+      card.classList.toggle('hide', !show);
+      pins[index].classList.toggle('is-hidden', !show);
+      if(show) visible++;
     });
-    document.getElementById('listing-title').textContent = momentTitles[activeMoment] || 'Des lieux pour tous vos moments';
+    countEl.textContent = visible+' lieu'+(visible > 1 ? 'x' : '')+' · autour d’Aix-en-Provence';
+    var firstPin = pins.find(function(pin){ return !pin.classList.contains('is-hidden'); });
+    if(firstPin) firstPin.click();
   }
+
   document.querySelectorAll('.chip').forEach(function(chip){
     chip.addEventListener('click', function(){
       document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); c.setAttribute('aria-selected','false'); });
       chip.classList.add('active'); chip.setAttribute('aria-selected','true');
-      activeCategory = chip.dataset.filter;
-      applyFilters();
+      setFilter(chip.dataset.filter);
     });
   });
-  document.querySelectorAll('[data-moment-filter]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      activeMoment = btn.dataset.momentFilter;
-      document.querySelectorAll('[data-moment-filter]').forEach(function(other){ other.classList.toggle('active', other.dataset.momentFilter === activeMoment); });
-      activeCategory = 'all';
-      document.querySelectorAll('.chip').forEach(function(chip){ var all = chip.dataset.filter === 'all'; chip.classList.toggle('active', all); chip.setAttribute('aria-selected', all ? 'true' : 'false'); });
-      applyFilters();
-      document.getElementById('annonces').scrollIntoView({behavior:'smooth',block:'start'});
+
+  document.querySelectorAll('.view-btn').forEach(function(button){
+    button.addEventListener('click', function(){
+      var mapView = button.dataset.view === 'map';
+      gridEl.hidden = mapView;
+      mapEl.hidden = !mapView;
+      document.querySelectorAll('.view-btn').forEach(function(other){
+        var active = other === button;
+        other.classList.toggle('active', active);
+        other.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
     });
   });
+
+  pins.forEach(function(pin){
+    pin.addEventListener('click', function(){
+      var card = cards[parseInt(pin.dataset.card,10)];
+      pins.forEach(function(other){ other.classList.remove('active'); });
+      pin.classList.add('active');
+      document.getElementById('map-preview-img').src = card.querySelector('.c-img img').src;
+      document.getElementById('map-preview-title').textContent = card.querySelector('h3').textContent;
+      document.getElementById('map-preview-place').textContent = card.querySelector('.c-place').textContent;
+      document.getElementById('map-preview-price').textContent = card.querySelector('.c-price').textContent.trim();
+      document.getElementById('map-preview').href = card.href;
+    });
+  });
+
   document.querySelector('.search .go').addEventListener('click', function(){
-    activeCategory = 'all'; activeMoment = 'all'; applyFilters();
-    document.querySelectorAll('[data-moment-filter]').forEach(function(btn){ btn.classList.remove('active'); });
     document.getElementById('annonces').scrollIntoView({behavior:'smooth',block:'start'});
   });
 

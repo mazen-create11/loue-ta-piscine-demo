@@ -25,15 +25,6 @@
 .u-proof:first-child{border-left:0}
 .u-proof b{font-family:var(--serif);font-size:20px;font-weight:500;display:block}
 .u-proof small{font-size:11.5px;color:rgba(255,255,255,.68)}
-.u-moments{padding:42px 0 12px}
-.u-moments .wrap{display:grid;grid-template-columns:1.1fr repeat(3,1fr);gap:10px;align-items:stretch}
-.u-moment-intro{padding:18px 24px 18px 0;display:flex;flex-direction:column;justify-content:center}
-.u-moment-intro small{color:var(--u-accent);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.12em}
-.u-moment-intro h2{font-family:var(--serif);font-size:27px;line-height:1.06;font-weight:500;margin:7px 0 0}
-.u-moment{position:relative;overflow:hidden;min-height:150px;border:1px solid color-mix(in srgb,var(--u-accent) 18%,var(--line));border-radius:13px;background:color-mix(in srgb,var(--u-soft) 54%,#fff);padding:18px;display:flex;flex-direction:column;justify-content:flex-end}
-.u-moment::after{content:"";position:absolute;width:82px;height:82px;border:1px solid var(--u-accent);border-radius:50%;opacity:.12;right:-25px;top:-34px;box-shadow:0 0 0 17px transparent,0 0 0 18px var(--u-accent)}
-.u-moment b{font-family:var(--serif);font-size:18px;font-weight:500;line-height:1.1;position:relative;z-index:1}
-.u-moment small{font-size:11px;color:var(--brume);line-height:1.45;margin-top:6px;position:relative;z-index:1}
 .u-list{padding:70px 0 90px}
 .u-head{display:grid;grid-template-columns:1.2fr .8fr;gap:50px;align-items:end;margin-bottom:34px}
 .u-head h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,45px);line-height:1.05;margin:0}
@@ -53,15 +44,9 @@
 .u-title h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .u-rating{font-size:12px;font-weight:600;white-space:nowrap;color:var(--u-accent)}
 .u-place{font-size:12.5px;color:var(--brume);margin:2px 0 7px}
-.u-use{font-size:10px;color:var(--u-accent);text-transform:uppercase;letter-spacing:.065em;font-weight:600;margin:-2px 0 5px}
 .u-price{font-size:13.5px;margin:0}
 .u-price b{font-weight:600}
 .u-day{font-size:12px;color:var(--brume);margin:3px 0 0}
 .u-day b{color:var(--encre)}
-.u-family-note{margin-top:54px;border-radius:16px;background:var(--u-soft);display:grid;grid-template-columns:.9fr 1.1fr;overflow:hidden}
-.u-family-note img{width:100%;height:100%;object-fit:cover;min-height:260px}
-.u-family-copy{padding:42px;display:flex;flex-direction:column;justify-content:center}
-.u-family-copy h2{font-family:var(--serif);font-weight:500;font-size:32px;line-height:1.08;margin:0 0 12px}
-.u-family-copy p{color:var(--brume);font-size:14px;line-height:1.65;margin:0}
-@media(max-width:850px){.u-grid{grid-template-columns:repeat(2,1fr)}.u-head{grid-template-columns:1fr;gap:12px}.u-family-note{grid-template-columns:1fr}.u-strip .wrap{padding:0}.u-proof{padding:14px}.u-proof b{font-size:17px}.u-moments .wrap{grid-template-columns:1fr 1fr}.u-moment-intro{grid-column:1/3}}
-@media(max-width:620px){.u-hero{min-height:650px}.u-hero-content{padding-bottom:36px}.u-search{flex-direction:column}.u-search button{padding:13px}.u-strip .wrap{grid-template-columns:1fr}.u-proof{border-left:0;border-top:1px solid rgba(255,255,255,.16)}.u-proof:first-child{border-top:0}.u-grid{grid-template-columns:1fr}.u-family-copy{padding:30px 24px}.u-moments{padding-top:28px}.u-moments .wrap{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.u-moments .wrap::-webkit-scrollbar{display:none}.u-moment-intro{min-width:78vw;scroll-snap-align:start}.u-moment{min-width:64vw;scroll-snap-align:center}}
+@media(max-width:850px){.u-grid{grid-template-columns:repeat(2,1fr)}.u-head{grid-template-columns:1fr;gap:12px}.u-strip .wrap{padding:0}.u-proof{padding:14px}.u-proof b{font-size:17px}}
+@media(max-width:620px){.u-hero{min-height:650px}.u-hero-content{padding-bottom:36px}.u-search{flex-direction:column}.u-search button{padding:13px}.u-strip .wrap{grid-template-columns:1fr}.u-proof{border-left:0;border-top:1px solid rgba(255,255,255,.16)}.u-proof:first-child{border-top:0}.u-grid{grid-template-columns:1fr}}
