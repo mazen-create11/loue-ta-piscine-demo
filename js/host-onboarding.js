@@ -40,7 +40,7 @@
   }
   function showAlert(message,field){
     alertBox.textContent=message;alertBox.hidden=false;
-    if(field){field.focus();field.scrollIntoView({behavior:'smooth',block:'center'});}
+    if(field){var target=field.closest('.app-select')?field.closest('.app-select').querySelector('.app-select-trigger'):field;target.focus();target.scrollIntoView({behavior:'smooth',block:'center'});}
   }
   function clearAlert(){alertBox.hidden=true;alertBox.textContent='';}
   function selectedCount(name){return form.querySelectorAll('[name="'+name+'"]:checked').length;}
@@ -83,7 +83,7 @@
     document.getElementById('progress-label').textContent='Étape '+current+' sur 4';
     document.getElementById('progress-percent').textContent=(current*25)+' %';
     document.getElementById('progress-bar').style.width=(current*25)+'%';
-    back.hidden=current===1;
+    document.getElementById('back-label').textContent=current===1?'Retour au site':'Étape précédente';
     next.innerHTML=current===4?'Créer mon compte <span>→</span>':'Continuer <span>→</span>';
     clearAlert();window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -92,13 +92,14 @@
     try{localStorage.setItem(STORAGE_KEY,JSON.stringify(draft));}catch(e){}
     steps.forEach(function(step){step.hidden=true;});
     document.getElementById('form-actions').hidden=true;
+    document.querySelector('.step-navigation').hidden=true;
     document.querySelector('.signup-progress').hidden=true;
     document.getElementById('signup-success').hidden=false;
     document.getElementById('signup-success').scrollIntoView({behavior:'smooth',block:'start'});
   }
 
   next.addEventListener('click',function(){if(!validateStep())return;save();if(current===4)finish();else{current++;render();}});
-  back.addEventListener('click',function(){if(current>1){save();current--;render();}});
+  back.addEventListener('click',function(){if(current===1){location.href='index.html';return;}save();current--;render();});
   form.addEventListener('input',function(){document.getElementById('draft-state').textContent='Enregistrement…';clearTimeout(form._saveTimer);form._saveTimer=setTimeout(save,450);});
 
   var cityInput=document.getElementById('host-city'),results=document.getElementById('city-results');

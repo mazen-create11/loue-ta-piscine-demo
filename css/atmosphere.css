@@ -62,7 +62,8 @@ body.confirmation-app{
 .home-app .logo span,.universe .logo span{font-family:var(--sans);font-weight:600;letter-spacing:-.025em}
 .home-app header.solid{background:rgba(245,250,248,.94);box-shadow:0 1px 0 rgba(12,45,58,.08);backdrop-filter:blur(18px) saturate(1.2)}
 .home-app .btn-message{min-height:40px;padding:8px 9px;border:0;border-radius:10px;background:transparent;color:#fff;box-shadow:none;backdrop-filter:none}
-.home-app .btn-message::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--solaire);box-shadow:none}
+.home-app .btn-message svg{width:20px;height:20px;stroke:currentColor}
+.home-app .btn-message .nav-unread{box-shadow:0 0 0 2px rgba(12,45,58,.28)}
 .home-app .host-entry{min-height:42px;padding:9px 14px;border-radius:12px;background:rgba(255,255,255,.95);color:var(--encre);box-shadow:0 10px 26px -15px rgba(0,0,0,.65)}
 .home-app .nav a.host-entry,.home-app .nav a.host-entry:hover{color:var(--encre)}
 .home-app .host-entry-short{display:none}

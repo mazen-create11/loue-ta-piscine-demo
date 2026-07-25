@@ -19,7 +19,7 @@
     <nav class="nav" aria-label="Navigation principale">
       <a class="hideable" href="piscines.html">Explorer</a>
       <a class="hideable" href="confirmation.html">Réservations</a>
-      <a class="btn btn-message active" href="messages.html" aria-current="page">Messages</a>
+      <a class="btn btn-message active" href="messages.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M4 5.5h16v11H9l-5 3.5V5.5Z" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke-linecap="round"/></svg><span class="message-label">Messages</span><i class="nav-unread" aria-label="2 messages non lus">2</i></a>
       <a class="btn host-entry" href="devenir-hote.html"><span class="host-entry-long">Proposer mon espace</span><span class="host-entry-short">Publier</span></a>
     </nav>
   </div>
@@ -46,11 +46,12 @@
 
     <section class="thread-pane" aria-label="Conversation active">
       <header class="thread-head">
-        <button class="thread-back" id="thread-back" type="button" aria-label="Retour aux conversations">‹</button>
+        <button class="thread-back" id="thread-back" type="button" aria-label="Retour aux conversations"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <div class="thread-avatar" id="thread-avatar">C</div>
-        <div class="thread-identity"><div><b id="thread-name">Claire</b><span class="verified" aria-label="Hôte vérifiée">✓</span></div><small id="thread-listing">La piscine des Micocouliers · Aix-en-Provence</small></div>
+        <div class="thread-identity"><div><b id="thread-name">Claire</b><span class="verified" aria-label="Hôte vérifiée">✓</span></div><small id="thread-listing">La piscine des Micocouliers · Aix-en-Provence</small><span class="thread-presence"><i></i>Hôte disponible · répond en moyenne sous 12 min</span></div>
         <a class="thread-booking-link" href="fiche.html">Voir l’annonce</a>
         <button class="thread-more" id="thread-more" type="button" aria-label="Plus d’options">•••</button>
+        <div class="thread-options" id="thread-options" hidden><button type="button" data-thread-action="archive">Archiver la conversation</button><button type="button" data-thread-action="report">Signaler un problème</button><button type="button" data-thread-action="support">Contacter la plateforme</button></div>
       </header>
 
       <div class="booking-context" id="booking-context">

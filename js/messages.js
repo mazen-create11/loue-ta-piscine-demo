@@ -79,7 +79,7 @@
     });
     list.innerHTML=items.length?items.map(function(c){
       return '<button class="conversation-item '+(c.id===state.selected?'active ':'')+(c.unread?'unread':'')+'" type="button" data-id="'+esc(c.id)+'" aria-current="'+(c.id===state.selected?'true':'false')+'">'+
-        '<span class="conversation-avatar">'+esc(c.initial)+'</span><span class="conversation-copy"><span class="topline"><b>'+esc(c.name)+'</b>'+(c.verified?'<i class="verified">✓</i>':'')+'</span><small>'+esc(c.listing)+' · '+esc(c.city)+'</small><p>'+esc(lastMessage(c))+'</p></span><span class="conversation-side">'+esc(c.last)+(c.unread?'<i>'+c.unread+'</i>':'')+'</span></button>';
+        '<span class="conversation-avatar">'+esc(c.initial)+'</span><span class="conversation-copy"><span class="topline"><b>'+esc(c.name)+'</b>'+(c.verified?'<i class="verified">✓</i>':'')+'</span><small>'+esc(c.listing)+' · '+esc(c.city)+'</small><em class="conv-status">'+esc(statusText(c.status))+'</em><p>'+esc(lastMessage(c))+'</p></span><span class="conversation-side">'+esc(c.last)+(c.unread?'<i>'+c.unread+'</i>':'')+'</span></button>';
     }).join(''):'<p class="conversation-empty">Aucune conversation trouvée.</p>';
     var unread=state.conversations.reduce(function(n,c){return n+(Number(c.unread)||0);},0);
     document.getElementById('unread-total').textContent=unread;
@@ -103,7 +103,7 @@
     stream.innerHTML='<div class="date-divider">Aujourd’hui</div>'+c.messages.map(function(m){
       if(m.author==='system') return '<div class="message-row system"><span class="system-message">'+esc(m.body)+'</span></div>';
       var mine=m.author==='me';
-      return '<div class="message-row '+(mine?'me':'host')+'">'+(mine?'':'<span class="message-mini-avatar">'+esc(c.initial)+'</span>')+'<div class="message-bubble"><p>'+esc(m.body)+'</p><time>'+esc(m.time)+'</time></div></div>';
+      return '<div class="message-row '+(mine?'me':'host')+'">'+(mine?'':'<span class="message-mini-avatar">'+esc(c.initial)+'</span>')+'<div class="message-bubble"><p>'+esc(m.body)+'</p><time>'+esc(m.time)+(mine?'<span class="read-state">✓✓ Lu</span>':'')+'</time></div></div>';
     }).join('');
     requestAnimationFrame(function(){stream.scrollTop=stream.scrollHeight;});
   }
@@ -155,8 +155,10 @@
   });
   document.getElementById('thread-back').addEventListener('click',function(){document.body.classList.remove('thread-open');history.replaceState(null,'','messages.html');});
   document.getElementById('help-button').addEventListener('click',function(){toast('Demande envoyée à l’équipe support');});
-  document.getElementById('thread-more').addEventListener('click',function(){toast('Options de la conversation');});
-  document.addEventListener('click',function(e){if(!e.target.closest('.message-composer')){menu.hidden=true;plus.setAttribute('aria-expanded','false');}});
+  var threadMore=document.getElementById('thread-more'),threadOptions=document.getElementById('thread-options');
+  threadMore.addEventListener('click',function(){threadOptions.hidden=!threadOptions.hidden;});
+  threadOptions.addEventListener('click',function(e){var action=e.target.dataset.threadAction;if(!action)return;threadOptions.hidden=true;toast(action==='archive'?'Conversation archivée':action==='report'?'Signalement prêt à être transmis':'L’équipe support a été prévenue');});
+  document.addEventListener('click',function(e){if(!e.target.closest('.message-composer')){menu.hidden=true;plus.setAttribute('aria-expanded','false');}if(!e.target.closest('.thread-more')&&!e.target.closest('.thread-options'))threadOptions.hidden=true;});
 
   renderList();renderThread();
   if(params.get('conversation'))document.body.classList.add('thread-open');

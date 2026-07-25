@@ -49,6 +49,9 @@
     </div>
 
     <form class="signup-form" id="host-form" novalidate>
+      <div class="step-navigation">
+        <button class="back-button" id="back-button" type="button"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="back-label">Retour au site</span></button>
+      </div>
       <div class="form-alert" id="form-alert" role="alert" aria-live="polite" hidden></div>
 
       <section class="form-step active" data-step="1">
@@ -107,7 +110,7 @@
           <label class="field"><span>Mot de passe</span><input name="password" type="password" autocomplete="new-password" minlength="8" required><small>8 caractères minimum</small></label>
           <label class="field"><span>Sécurité du lieu</span><select name="safety" required><option value="">Choisir</option><option>Barrière</option><option>Alarme</option><option>Couverture</option><option>Abri</option><option>Non concerné — spa/sauna</option></select></label>
         </div>
-        <div class="identity-note"><span>◎</span><div><b>Vérification sécurisée après l’inscription</b><small>Votre identité et vos justificatifs seront vérifiés par notre partenaire. Aucune pièce d’identité n’est stockée par Loue ta piscine.</small></div></div>
+        <div class="identity-note"><span><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" aria-hidden="true"><path d="M12 3 19 6v5c0 4.4-2.9 7.8-7 10-4.1-2.2-7-5.6-7-10V6l7-3Z" stroke-linejoin="round"/><path d="M9 12h6M12 9v6" stroke-linecap="round"/></svg></span><div><b>Vérification d’identité à finaliser <i>Démo</i></b><small>Aucune CNI n’est envoyée dans cette démo. En production, la pièce et le selfie passent directement par le parcours sécurisé du prestataire agréé.</small></div></div>
         <label class="legal-check"><input type="checkbox" name="terms" required><span>Je certifie être autorisé à louer ce lieu et j’accepte les conditions hôtes.</span></label>
       </section>
 
@@ -117,12 +120,11 @@
         <h2>Bienvenue parmi les hôtes.</h2>
         <p>Votre brouillon est enregistré. Ajoutez vos photos et vos justificatifs depuis votre espace avant la mise en ligne.</p>
         <div class="success-next"><span>1</span><div><b>Compléter l’annonce</b><small>Photos, équipements et règlement.</small></div><i>→</i></div>
-        <div class="success-next"><span>2</span><div><b>Vérifier votre identité</b><small>Contrôle sécurisé et confidentiel.</small></div><i>→</i></div>
+        <div class="success-next"><span>2</span><div><b>Vérifier votre identité</b><small>CNI et selfie via le prestataire agréé.</small></div><i>→</i></div>
         <a class="btn btn-bassin success-cta" href="hote.html?onboarding=done">Ouvrir mon espace hôte →</a>
       </section>
 
       <div class="form-actions" id="form-actions">
-        <button class="back-button" id="back-button" type="button" hidden>Retour</button>
         <span class="draft-state" id="draft-state">Brouillon enregistré</span>
         <button class="next-button" id="next-button" type="button">Continuer <span>→</span></button>
       </div>
@@ -131,5 +133,6 @@
 </main>
 
 <script src="js/host-onboarding.js"></script>
+<script src="js/custom-selects.js"></script>
 </body>
 </html>
