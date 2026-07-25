@@ -61,6 +61,15 @@
 
   .desc{font-size:15.5px; line-height:1.7; max-width:62ch; margin:0 0 8px}
   .desc-host{font-size:12.5px; color:var(--brume); margin:0 0 30px}
+  .made-for{max-width:640px; margin:28px 0 34px; padding:22px; border-radius:14px; background:linear-gradient(135deg,#E7EEE7,#F4ECDE); border:1px solid color-mix(in srgb,var(--bassin) 14%,var(--line)); position:relative; overflow:hidden}
+  .made-for::after{content:""; position:absolute; width:130px; height:130px; border:1px solid rgba(47,93,84,.12); border-radius:50%; right:-48px; top:-70px; box-shadow:0 0 0 20px transparent,0 0 0 21px rgba(47,93,84,.08)}
+  .made-for>p{margin:0 0 15px; font-size:10.5px; color:var(--bassin); text-transform:uppercase; letter-spacing:.1em; font-weight:600}
+  .occasion-list{display:grid; grid-template-columns:repeat(3,1fr); gap:9px; position:relative; z-index:1}
+  .occasion-item{padding-right:9px; border-right:1px solid rgba(47,93,84,.16)}
+  .occasion-item:last-child{border-right:0}
+  .occasion-item b{display:block; font-family:var(--serif); font-size:16px; line-height:1.12; font-weight:500; margin-bottom:5px}
+  .occasion-item small{display:block; color:var(--brume); font-size:10.5px; line-height:1.45}
+  @media (max-width:580px){.made-for{padding:18px}.occasion-list{grid-template-columns:1fr}.occasion-item{border-right:0;border-bottom:1px solid rgba(47,93,84,.14);padding:0 0 10px}.occasion-item:last-child{border-bottom:0;padding-bottom:0}}
 
   h2.small{font-family:var(--serif); font-weight:500; font-size:21px; margin:34px 0 16px}
 
@@ -311,6 +320,15 @@
 
       <p class="desc">Un bassin de pierre des années 60, restauré, au fond d'un jardin de lavandes et de micocouliers. L'eau est chauffée d'avril à octobre, la douche est au mur, les transats à l'ombre du grand arbre. Le portillon donne directement sur le jardin : vous ne traversez pas la maison.</p>
       <p class="desc-host">Description rédigée par Claire, relue lors de la Visite.</p>
+
+      <div class="made-for">
+        <p>Ce bassin est particulièrement aimé pour</p>
+        <div class="occasion-list">
+          <div class="occasion-item"><b>Les journées en famille</b><small>Barrière normée, zone à 1,20 m, WC dédiés et quatre transats à l’ombre.</small></div>
+          <div class="occasion-item"><b>La bande au complet</b><small>Jusqu’à 15 personnes en journée privée, barbecue et grande table disponibles.</small></div>
+          <div class="occasion-item"><b>Le calme du matin</b><small>Créneaux dès 9 h, eau à 27 °C et 10 mètres pour faire quelques longueurs.</small></div>
+        </div>
+      </div>
 
       <h2 class="small">Équipements</h2>
       <div class="equip">
