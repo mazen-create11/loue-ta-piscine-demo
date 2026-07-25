@@ -10,14 +10,14 @@
 <meta property="og:description" content="La piscine d'à côté, rien qu'à vous. À l'heure ou à la journée.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://loue-ta-piscine-demo.netlify.app/">
-<meta property="og:image" content="https://loue-ta-piscine-demo.netlify.app/img/hero-bleue.webp">
+<meta property="og:image" content="https://loue-ta-piscine-demo.netlify.app/img/famille-hero-v2.webp">
 <meta property="og:site_name" content="Loue ta piscine">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15.2' fill='%2310222B'/%3E%3Ccircle cx='21.8' cy='9.4' r='2.3' fill='%23B98A46'/%3E%3Cpath d='M4.8 18.2q2.8 -2.4 5.6 0t5.6 0t5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.9' fill='none' stroke-linecap='round'/%3E%3Cpath d='M7.4 22.6q2.8 -2.1 5.6 0t5.6 0' stroke='%23F2F1EA' stroke-width='1.6' fill='none' stroke-linecap='round' opacity='.55'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/sentient-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/generalsans-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/hero-bleue.webp" as="image">
+<link rel="preload" href="img/famille-hero-v2.webp" as="image">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"Loue ta piscine","description":"Location de piscines, jacuzzis et saunas entre particuliers, à l'heure ou à la journée.","inLanguage":"fr-FR"}
 </script>
@@ -128,6 +128,8 @@
   .badge-ouverte{background:rgba(47,93,84,.88); color:#F2F1EA}
   .badge-bleue{background:rgba(16,34,43,.82); color:#E8C989}
   .badge-neutre{background:rgba(250,249,244,.88); color:var(--encre)}
+  .badge-premium{background:linear-gradient(145deg,#F7E9B7,#B98A46); color:#10222B; border:1px solid rgba(255,255,255,.6); box-shadow:0 3px 10px rgba(16,34,43,.24), inset 0 1px 0 rgba(255,255,255,.7); text-shadow:0 1px 0 rgba(255,255,255,.45)}
+  .card .c-badge.badge-secondary{top:39px}
   .card .fav{position:absolute; top:9px; right:9px; z-index:2; width:32px; height:32px; border:none; border-radius:50%; background:rgba(16,34,43,.35); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; transition:background .2s var(--eo), transform .15s var(--eo)}
   .card .fav:hover{background:rgba(16,34,43,.55)}
   .card .fav:active{transform:scale(.9)}
@@ -143,6 +145,12 @@
   .card .c-price{font-size:14px}
   .card .c-price b{font-weight:600}
   .card .c-price span{color:var(--brume)}
+  .card .c-day{font-size:12px; color:var(--brume); margin:3px 0 0}
+  .card .c-day b{color:var(--encre); font-weight:600}
+  .c-flags{display:flex; gap:6px; flex-wrap:wrap; margin-top:8px}
+  .pay-place,.premium-proof{display:inline-flex; align-items:center; gap:4px; width:max-content; border-radius:6px; padding:3px 7px; font-size:10.5px; font-weight:600}
+  .pay-place{background:color-mix(in srgb,var(--bassin) 10%,#fff); border:1px solid color-mix(in srgb,var(--bassin) 25%,var(--line)); color:var(--bassin)}
+  .premium-proof{background:linear-gradient(145deg,#FAF0C8,#D3A957); color:#5D431A; box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 2px 6px rgba(138,100,48,.15)}
 
   /* ============ Widget ============ */
   .w-sec{background:var(--craie-2); border-block:1px solid var(--line)}
@@ -264,20 +272,20 @@
       <span>loue ta piscine</span>
     </a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="#annonces" class="hideable">Piscines</a>
-      <a href="#annonces" class="hideable">Jacuzzis</a>
-      <a href="#annonces" class="hideable">Saunas</a>
+      <a href="piscines.html" class="hideable">Piscines</a>
+      <a href="jacuzzis.html" class="hideable">Jacuzzis</a>
+      <a href="saunas.html" class="hideable">Saunas</a>
       <a href="hote.html" class="btn btn-hote">Devenir hôte</a>
     </nav>
   </div>
 </header>
 
 <div class="hero">
-  <img class="bg" src="img/hero-bleue.webp" alt="Piscine privée au crépuscule, cyprès et lanterne" fetchpriority="high" width="1800" height="1200">
+  <img class="bg" src="img/famille-hero-v2.webp" alt="Une famille joue dans une piscine privée sous le soleil de fin de journée" fetchpriority="high" width="1536" height="1024">
   <div class="veil"></div>
   <div class="h-content">
-    <h1>La piscine d'à côté,<br>rien qu'à vous.</h1>
-    <p class="sub">Piscines, jacuzzis et saunas de particuliers. À l'heure ou à la journée.</p>
+    <h1>Les plus beaux souvenirs<br>commencent dans l’eau.</h1>
+    <p class="sub">Une piscine, un jacuzzi ou un sauna près de chez vous. Pour deux heures ou toute la journée.</p>
     <div class="search" role="search" aria-label="Rechercher un bassin">
       <button class="field" type="button"><span class="f-label">Où</span><span class="f-val">Aix-en-Provence</span></button>
       <button class="field" type="button"><span class="f-label">Quand</span><span class="f-val">Samedi 25 juillet</span></button>
@@ -316,14 +324,17 @@
 
       <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
         <div class="c-img">
-          <span class="c-badge badge-ouverte">Séance ouverte</span>
+          <span class="c-badge badge-premium">✦ À la une</span>
+          <span class="c-badge badge-ouverte badge-secondary">Séance ouverte</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
-          <img src="img/provencale.webp" alt="Bassin en pierre provençal à l'heure dorée" loading="lazy" width="900" height="600">
+          <img src="img/famille-bleue-v2.webp" alt="Une famille réunie dans un bassin à l'heure bleue" loading="lazy" width="1536" height="1024">
         </div>
         <div class="c-body">
           <div class="c-row"><h3>Le bassin des Micocouliers</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93 <small>(41)</small></span></div>
           <p class="c-place">Aix-en-Provence · à 12 min</p>
           <p class="c-price"><b>dès 7 €</b><span> /pers · séance 2 h — ou privatisé 68 €</span></p>
+          <p class="c-day"><b>290 € la journée</b> · jusqu’à 15 personnes</p>
+          <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span><span class="premium-proof">★ Hôte Premium</span></div>
         </div>
       </a>
 
@@ -337,19 +348,23 @@
           <div class="c-row"><h3>Le miroir des collines</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,88 <small>(26)</small></span></div>
           <p class="c-place">Cassis · à 25 min</p>
           <p class="c-price"><b>34 €</b><span> /h · 2 h minimum</span></p>
+          <p class="c-day"><b>250 € la journée</b> · jusqu’à 10 personnes</p>
         </div>
       </a>
 
       <a class="card reveal" href="fiche.html" data-cat="piscine ouverte">
         <div class="c-img">
-          <span class="c-badge badge-ouverte">Séance ouverte</span>
+          <span class="c-badge badge-premium">✦ À la une</span>
+          <span class="c-badge badge-ouverte badge-secondary">Séance ouverte</span>
           <button class="fav" type="button" aria-pressed="false" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M12 20.5C7 16.6 3.5 13.4 3.5 9.8 3.5 7.2 5.6 5.5 8 5.5c1.6 0 3.1.8 4 2.1.9-1.3 2.4-2.1 4-2.1 2.4 0 4.5 1.7 4.5 4.3 0 3.6-3.5 6.8-8.5 10.7z"/></svg></button>
-          <img src="img/familiale.webp" alt="Piscine familiale au fond d'un verger, bouée jaune sur la margelle" loading="lazy" width="900" height="600">
+          <img src="img/famille-jeux-v2.webp" alt="Deux enfants jouent au pistolet à eau sous la surveillance d’un adulte" loading="lazy" width="1536" height="1024">
         </div>
         <div class="c-body">
           <div class="c-row"><h3>La piscine du verger</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,97 <small>(58)</small></span></div>
           <p class="c-place">Pertuis · à 18 min</p>
           <p class="c-price"><b>dès 6 €</b><span> /pers · enfants −50 %</span></p>
+          <p class="c-day"><b>180 € la journée</b> · jusqu’à 12 personnes</p>
+          <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span><span class="premium-proof">★ Hôte Premium</span></div>
         </div>
       </a>
 
@@ -363,6 +378,7 @@
           <div class="c-row"><h3>Les margelles blondes</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,91 <small>(33)</small></span></div>
           <p class="c-place">Lourmarin · à 30 min</p>
           <p class="c-price"><b>12 €</b><span> /pers · le créneau du soir</span></p>
+          <p class="c-day"><b>220 € la journée</b> · jusqu’à 8 personnes</p>
         </div>
       </a>
 
@@ -376,6 +392,7 @@
           <div class="c-row"><h3>Le rooftop des Chartreux</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,85 <small>(19)</small></span></div>
           <p class="c-place">Marseille 4ᵉ · à 8 min</p>
           <p class="c-price"><b>25 €</b><span> /h · jusqu'à 4 personnes</span></p>
+          <p class="c-day"><b>160 € la journée</b> · jusqu’à 4 personnes</p>
         </div>
       </a>
 
@@ -389,6 +406,8 @@
           <div class="c-row"><h3>Le bain du cabanon</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,96 <small>(47)</small></span></div>
           <p class="c-place">Luberon · à 35 min</p>
           <p class="c-price"><b>22 €</b><span> /h · chauffé toute l'année</span></p>
+          <p class="c-day"><b>140 € la journée</b> · jusqu’à 5 personnes</p>
+          <div class="c-flags"><span class="pay-place">✓ Paiement sur place</span></div>
         </div>
       </a>
 
@@ -402,6 +421,7 @@
           <div class="c-row"><h3>L'orangerie</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,90 <small>(24)</small></span></div>
           <p class="c-place">Avignon · à 40 min</p>
           <p class="c-price"><b>28 €</b><span> /h · intérieure, 29 °C</span></p>
+          <p class="c-day"><b>240 € la journée</b> · jusqu’à 10 personnes</p>
         </div>
       </a>
 
@@ -415,6 +435,7 @@
           <div class="c-row"><h3>Le sauna de la bastide</h3><span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,94 <small>(31)</small></span></div>
           <p class="c-place">Aix-en-Provence · à 15 min</p>
           <p class="c-price"><b>18 €</b><span> /h · 2 à 6 personnes</span></p>
+          <p class="c-day"><b>120 € la journée</b> · jusqu’à 6 personnes</p>
         </div>
       </a>
 
@@ -472,7 +493,7 @@
 </section>
 
 <section class="hosts" id="hotes" style="padding:0">
-  <img class="bg" src="img/hero-bleue.webp" alt="" loading="lazy" width="1800" height="1200">
+  <img class="bg" src="img/famille-hero-v2.webp" alt="" loading="lazy" width="1536" height="1024">
   <div class="h-veil"></div>
   <div class="h-inner2">
     <h2 class="reveal">Votre bassin peut payer son propre entretien.</h2>
@@ -509,7 +530,7 @@
     </div>
     <div>
       <h3>Réserver</h3>
-      <a href="#annonces">Piscines</a><a href="#annonces">Jacuzzis</a><a href="#annonces">Saunas</a><a href="#creneaux">Séances ouvertes</a>
+      <a href="piscines.html">Piscines</a><a href="jacuzzis.html">Jacuzzis</a><a href="saunas.html">Saunas</a><a href="#creneaux">Séances ouvertes</a>
     </div>
     <div>
       <h3>Hôtes</h3>

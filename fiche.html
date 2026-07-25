@@ -42,7 +42,8 @@
 
   /* ---- Layout ---- */
   .sheet{display:grid; grid-template-columns:1fr 400px; gap:44px; padding:30px 0 72px; align-items:start}
-  @media (max-width:960px){ .sheet{grid-template-columns:1fr} }
+  .sheet>*{min-width:0}
+  @media (max-width:960px){ .sheet{grid-template-columns:minmax(0,1fr)} }
 
   .title-row{display:flex; align-items:baseline; justify-content:space-between; gap:16px; flex-wrap:wrap; margin:0 0 4px}
   h1{font-family:var(--serif); font-weight:500; font-size:clamp(26px,3.4vw,36px); line-height:1.1; margin:0}
@@ -55,6 +56,8 @@
   .b-ouverte{background:color-mix(in srgb,var(--bassin) 13%,transparent); color:var(--bassin)}
   .b-visite{background:color-mix(in srgb,var(--solaire) 15%,transparent); color:var(--solaire-ink)}
   .b-neutre{background:var(--craie-2); border:1px solid var(--line); color:var(--brume)}
+  .b-premium{background:linear-gradient(145deg,#FAEFC4,#D2A34D); color:#5B421B; border:1px solid rgba(185,138,70,.35); box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 3px 8px rgba(138,100,48,.16)}
+  .b-onsite{background:color-mix(in srgb,var(--bassin) 10%,#fff); color:var(--bassin); border:1px solid color-mix(in srgb,var(--bassin) 24%,var(--line))}
 
   .desc{font-size:15.5px; line-height:1.7; max-width:62ch; margin:0 0 8px}
   .desc-host{font-size:12.5px; color:var(--brume); margin:0 0 30px}
@@ -103,16 +106,39 @@
 
   /* ---- Panneau réservation ---- */
   .book{position:sticky; top:82px; background:var(--blanc); border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow-2); overflow:hidden}
+  .book-close{display:none; position:absolute; right:15px; top:14px; width:34px; height:34px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--encre); font-size:20px; z-index:2}
   .book .bk-head{padding:20px 24px 0; display:flex; align-items:baseline; justify-content:space-between; gap:10px}
   .book .bk-price{font-size:14px; color:var(--brume)}
   .book .bk-price b{font-family:var(--serif); font-weight:500; font-size:22px; color:var(--encre)}
   .book .bk-body{padding:16px 24px 22px}
+  .format-picks{display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:14px}
+  .format-pick{border:1px solid var(--line); border-radius:10px; background:var(--craie-2); padding:10px 11px; text-align:left; color:var(--brume); transition:all .18s var(--eo)}
+  .format-pick span{display:block; font-size:10px; text-transform:uppercase; letter-spacing:.08em; font-weight:600}
+  .format-pick b{display:block; color:var(--encre); font-size:14px; margin-top:2px}
+  .format-pick small{display:block; font-size:10px; color:var(--brume); margin-top:1px}
+  .format-pick.active{border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 7%,#fff); box-shadow:inset 3px 0 0 var(--bassin)}
+  .booking-journey{display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin:0 0 15px; counter-reset:journey}
+  .journey-step{counter-increment:journey; min-width:0; color:var(--brume); font-size:9px; font-weight:600; line-height:1.25; letter-spacing:.025em}
+  .journey-step::before{content:counter(journey); display:flex; align-items:center; justify-content:center; width:21px; height:21px; border-radius:50%; border:1px solid var(--line); background:var(--craie-2); margin-bottom:5px; font-size:10px}
+  .journey-step::after{content:""; display:block; height:2px; border-radius:99px; background:var(--line); margin-top:6px}
+  .journey-step.active{color:var(--encre)}
+  .journey-step.active::before{border-color:var(--bassin); color:var(--bassin); background:color-mix(in srgb,var(--bassin) 8%,#fff)}
+  .journey-step.done{color:var(--bassin)}
+  .journey-step.done::before{content:"✓"; border-color:var(--bassin); background:var(--bassin); color:#fff}
+  .journey-step.done::after,.journey-step.active::after{background:var(--bassin)}
+  .cal-nav{display:flex; align-items:center; justify-content:space-between; gap:8px; margin:0 0 8px}
+  .cal-nav b{font-size:12.5px; font-weight:600}
+  .cal-nav span{display:flex; gap:4px}
+  .cal-nav button{width:29px; height:29px; border:1px solid var(--line); border-radius:7px; background:#fff; color:var(--encre); font-size:15px}
+  .cal-nav button:hover:not(:disabled){border-color:var(--bassin); color:var(--bassin)}
+  .cal-nav button:disabled{opacity:.35; cursor:default}
   .day-strip{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:14px}
-  .day{border:1px solid var(--line); background:var(--craie-2); border-radius:7px; padding:7px 2px; text-align:center; transition:all .18s var(--eo)}
+  .day{border:1px solid var(--line); background:var(--craie-2); border-radius:8px; padding:6px 1px 5px; text-align:center; transition:all .18s var(--eo); min-width:0}
   .day small{display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--brume)}
   .day b{font-size:13.5px; font-weight:600; font-variant-numeric:tabular-nums}
+  .day .day-price{display:block; font-size:8.5px; color:var(--bassin); white-space:nowrap; margin-top:2px}
   .day.active{background:var(--encre); border-color:var(--encre)}
-  .day.active small,.day.active b{color:#F2F1EA}
+  .day.active small,.day.active b,.day.active .day-price{color:#F2F1EA}
   .day:disabled{opacity:.4; cursor:default}
   .slots{display:flex; flex-direction:column; gap:6px; margin-bottom:4px}
   .slot{display:flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:9px; padding:9px 12px; background:var(--blanc); text-align:left; width:100%; transition:border-color .18s var(--eo), background .18s var(--eo), transform .18s var(--eo), box-shadow .18s var(--eo)}
@@ -162,8 +188,38 @@
   .bk-total{border-top:1px dashed var(--line); margin-top:12px; padding-top:12px}
   .bk-cta{width:100%; font-size:14.5px; padding:13px 12px}
   .t-small{font-size:10.5px; color:var(--brume); text-align:center; margin:9px 0 0; line-height:1.5}
+  .payment-methods{display:grid; gap:6px; margin:12px 0}
+  .pay-choice{display:flex; align-items:flex-start; gap:9px; border:1px solid var(--line); border-radius:9px; padding:9px 11px; background:#fff; cursor:pointer}
+  .pay-choice:has(input:checked){border-color:var(--bassin); background:color-mix(in srgb,var(--bassin) 5%,#fff)}
+  .pay-choice input{margin-top:3px; accent-color:var(--bassin)}
+  .pay-choice span{font-size:12px; font-weight:600; line-height:1.35}
+  .pay-choice small{display:block; font-size:10.5px; font-weight:400; color:var(--brume); margin-top:1px}
   .bk-msg{display:block; text-align:center; font-size:12px; margin-top:12px}
   .bk-empty{color:var(--brume); font-size:12.5px; text-align:center; padding:10px 6px 4px; line-height:1.55}
+  .custom-request{width:100%; border:1px dashed color-mix(in srgb,var(--bassin) 45%,var(--line)); border-radius:9px; background:color-mix(in srgb,var(--bassin) 4%,#fff); color:var(--bassin); padding:9px 12px; margin-top:7px; font-size:11.5px; font-weight:600}
+  .cap-status{display:grid; grid-template-columns:1fr auto; align-items:center; gap:7px 10px; padding:10px 12px; margin:0 0 11px; border-radius:9px; background:var(--craie-2); font-size:11px; color:var(--brume)}
+  .cap-status b{font-size:11.5px; color:var(--encre)}
+  .cap-track{grid-column:1/3; height:5px; border-radius:99px; background:var(--line); overflow:hidden}
+  .cap-track i{display:block; height:100%; border-radius:99px; background:var(--bassin)}
+  .mobile-bookbar,.book-overlay{display:none}
+  @media (max-width:960px){
+    body{padding-bottom:82px}
+    body.booking-open{overflow:hidden}
+    .book{position:fixed; inset:auto 0 0 0; z-index:121; max-height:min(88dvh,760px); overflow-y:auto; border-radius:22px 22px 0 0; transform:translateY(105%); transition:transform .28s var(--eo); box-shadow:0 -18px 50px rgba(6,14,18,.2)}
+    .book.open{transform:none}
+    .book-close{display:block}
+    .book .bk-head{padding:24px 64px 0 20px}
+    .book .bk-body{padding:16px 20px 28px}
+    .book-overlay{position:fixed; inset:0; z-index:120; background:rgba(6,14,18,.48); backdrop-filter:blur(2px)}
+    .book-overlay.open{display:block}
+    .mobile-bookbar{display:flex; align-items:center; gap:12px; position:fixed; inset:auto 0 0 0; z-index:110; min-height:72px; padding:10px max(16px,env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left)); background:rgba(250,249,244,.96); border-top:1px solid var(--line); backdrop-filter:blur(12px)}
+    .mobile-bookbar div{flex:1; min-width:0}
+    .mobile-bookbar b{display:block; font-family:var(--serif); font-size:18px; font-weight:500}
+    .mobile-bookbar small{display:block; color:var(--brume); font-size:10.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+    .mobile-bookbar .btn{padding:12px 17px; white-space:nowrap}
+    .fab{bottom:94px}
+    .bot{bottom:158px}
+  }
 
   /* ---- Assistant baigneur ---- */
   .fab{position:fixed; right:20px; bottom:20px; z-index:90; width:54px; height:54px; border-radius:50%; border:none; background:var(--encre); box-shadow:0 8px 24px rgba(6,14,18,.35); display:flex; align-items:center; justify-content:center; transition:transform .2s var(--eo)}
@@ -215,9 +271,9 @@
       <span>loue ta piscine</span>
     </a>
     <nav class="nav" aria-label="Navigation principale">
-      <a href="index.html#annonces" class="hideable">Piscines</a>
-      <a href="index.html#annonces" class="hideable">Jacuzzis</a>
-      <a href="index.html#annonces" class="hideable">Saunas</a>
+      <a href="piscines.html" class="hideable">Piscines</a>
+      <a href="jacuzzis.html" class="hideable">Jacuzzis</a>
+      <a href="saunas.html" class="hideable">Saunas</a>
       <a href="hote.html" class="btn btn-ligne">Devenir hôte</a>
     </nav>
   </div>
@@ -245,10 +301,12 @@
       </div>
       <p class="place">Aix-en-Provence — quartier des Micocouliers · 10 × 5 m · profondeur 1,20 – 2 m</p>
       <div class="badges">
+        <span class="b b-premium">★ Hôte Premium</span>
         <span class="b b-visite">Visitée le 12 mai 2026</span>
         <span class="b b-ouverte">Séances ouvertes</span>
         <span class="b b-neutre">Privatisable</span>
         <span class="b b-neutre">Chauffée · 27 °C</span>
+        <span class="b b-onsite">✓ Paiement sur place disponible</span>
       </div>
 
       <p class="desc">Un bassin de pierre des années 60, restauré, au fond d'un jardin de lavandes et de micocouliers. L'eau est chauffée d'avril à octobre, la douche est au mur, les transats à l'ombre du grand arbre. Le portillon donne directement sur le jardin : vous ne traversez pas la maison.</p>
@@ -319,7 +377,7 @@
         <div class="avatar" aria-hidden="true">C</div>
         <div>
           <b>Claire</b>
-          <p class="h-meta">Hôte vérifiée · membre depuis 2025 · répond en ~1 h</p>
+          <p class="h-meta">Hôte Premium · note 4,93 · paiement sur place débloqué · répond en ~1 h</p>
           <p>Le bassin est celui de la maison de famille. Je vous accueille au portillon à chaque première venue — après, vous êtes chez vous.</p>
           <p class="h-note">La messagerie reste intégrée avant réservation. Le numéro de Claire vous est communiqué dès la réservation confirmée.</p>
         </div>
@@ -333,12 +391,29 @@
       </figure>
     </article>
 
-    <aside class="book" aria-label="Réserver ce bassin">
+    <aside class="book" id="booking-panel" aria-label="Réserver ce bassin" aria-hidden="false">
+      <button class="book-close" id="book-close" type="button" aria-label="Fermer la réservation">×</button>
       <div class="bk-head">
         <span class="bk-price"><b>dès 7 €</b> /pers · séance 2 h</span>
         <span class="note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg>4,93</span>
       </div>
       <div class="bk-body">
+        <div class="booking-journey" id="booking-journey" aria-label="Étapes de réservation">
+          <span class="journey-step active">Format</span>
+          <span class="journey-step">Date &amp; heure</span>
+          <span class="journey-step">Groupe &amp; paiement</span>
+        </div>
+        <div class="format-picks" id="format-picks" aria-label="Format de réservation">
+          <button class="format-pick active" type="button" data-format="slot"><span>À la séance</span><b>dès 7 € / personne</b><small>2 h · ouverte ou privatisée</small></button>
+          <button class="format-pick" type="button" data-format="day"><span>À la journée</span><b>290 € au total</b><small>9 h – 19 h · jusqu’à 15 pers.</small></button>
+        </div>
+        <div class="cal-nav">
+          <b id="calendar-range">25 – 31 juillet</b>
+          <span>
+            <button type="button" id="week-prev" aria-label="Semaine précédente">‹</button>
+            <button type="button" id="week-next" aria-label="Semaine suivante">›</button>
+          </span>
+        </div>
         <div class="day-strip" id="days" role="tablist"></div>
         <div class="slots" id="slots"></div>
         <div id="config"></div>
@@ -346,6 +421,12 @@
     </aside>
   </div>
 </main>
+
+<div class="book-overlay" id="book-overlay" aria-hidden="true"></div>
+<div class="mobile-bookbar" aria-label="Réservation rapide">
+  <div><b id="mobile-price">dès 7 € /pers.</b><small id="mobile-recap">Créneaux et prix visibles immédiatement</small></div>
+  <button class="btn btn-encre" id="book-open" type="button">Voir les disponibilités</button>
+</div>
 
 <footer class="site">
   <div class="f-inner">
@@ -363,7 +444,7 @@
     </div>
     <div>
       <h3>Réserver</h3>
-      <a href="index.html#annonces">Piscines</a><a href="index.html#annonces">Jacuzzis</a><a href="index.html#annonces">Saunas</a>
+      <a href="piscines.html">Piscines</a><a href="jacuzzis.html">Jacuzzis</a><a href="saunas.html">Saunas</a>
     </div>
     <div>
       <h3>Hôtes</h3>
@@ -400,42 +481,87 @@
 <script>
 (function(){
   "use strict";
-  /* 7 jours de calendrier — données démo */
+  /* Deux semaines de disponibilités — démo du futur moteur de créneaux */
   function d(t,cap,booked,pP,pV){ return {t:t, regime:'open', cap:cap, booked:booked, priceP:pP, pricePriv:pV}; }
   var BUF = {buffer:true};
   var DAYS = [
-    {lbl:['Sam','25'], slots:[ d('9 h – 11 h',12,4,8,68), d('11 h – 13 h',12,12,8,68), BUF, {t:'13 h 30 – 16 h 30', regime:'priv'}, BUF, d('17 h – 19 h',12,0,8,68), d('19 h 30 – 21 h 30',10,6,12,105) ]},
-    {lbl:['Dim','26'], slots:[ d('9 h – 11 h',12,2,8,68), d('11 h – 13 h',12,5,8,68), BUF, {t:'14 h – 18 h · demi-journée', regime:'priv'}, BUF, d('19 h 30 – 21 h 30',10,0,12,105) ]},
-    {lbl:['Lun','27'], slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,3,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,0,12,105) ]},
-    {lbl:['Mar','28'], slots:[ d('9 h – 11 h',12,1,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,4,7,68), d('19 h 30 – 21 h 30',10,2,12,105) ]},
-    {lbl:['Mer','29'], slots:[ d('9 h – 11 h',12,6,7,68), d('11 h – 13 h',12,8,7,68), BUF, {t:'14 h – 21 h · journée privée', regime:'priv'} ]},
-    {lbl:['Jeu','30'], slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,3,12,105) ]},
-    {lbl:['Ven','31'], slots:[ d('9 h – 11 h',12,2,7,68), d('11 h – 13 h',12,7,7,68), BUF, d('14 h – 16 h',12,5,7,68), d('17 h – 19 h',12,9,7,68), d('19 h 30 – 21 h 30',10,8,12,105) ]}
+    {lbl:['Sam','25'], month:'juillet', slots:[ d('9 h – 11 h',12,4,8,68), d('11 h – 13 h',12,12,8,68), BUF, {t:'13 h 30 – 16 h 30', regime:'priv'}, BUF, d('17 h – 19 h',12,0,8,68), d('19 h 30 – 21 h 30',10,6,12,105) ]},
+    {lbl:['Dim','26'], month:'juillet', slots:[ d('9 h – 11 h',12,2,8,68), d('11 h – 13 h',12,5,8,68), BUF, {t:'14 h – 18 h · demi-journée', regime:'priv'}, BUF, d('19 h 30 – 21 h 30',10,0,12,105) ]},
+    {lbl:['Lun','27'], month:'juillet', slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,3,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,0,12,105) ]},
+    {lbl:['Mar','28'], month:'juillet', slots:[ d('9 h – 11 h',12,1,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,4,7,68), d('19 h 30 – 21 h 30',10,2,12,105) ]},
+    {lbl:['Mer','29'], month:'juillet', slots:[ d('9 h – 11 h',12,6,7,68), d('11 h – 13 h',12,8,7,68), BUF, {t:'14 h – 21 h · journée privée', regime:'priv'} ]},
+    {lbl:['Jeu','30'], month:'juillet', slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,3,12,105) ]},
+    {lbl:['Ven','31'], month:'juillet', slots:[ d('9 h – 11 h',12,2,7,68), d('11 h – 13 h',12,7,7,68), BUF, d('14 h – 16 h',12,5,7,68), d('17 h – 19 h',12,9,7,68), d('19 h 30 – 21 h 30',10,8,12,105) ]},
+    {lbl:['Sam','1'], month:'août', slots:[ d('9 h – 11 h',12,0,9,72), d('11 h – 13 h',12,3,9,72), BUF, d('14 h – 16 h',12,0,9,72), d('17 h – 19 h',12,6,9,72), d('19 h 30 – 21 h 30',10,2,13,110) ]},
+    {lbl:['Dim','2'], month:'août', slots:[ d('9 h – 11 h',12,1,9,72), d('11 h – 13 h',12,0,9,72), BUF, {t:'14 h – 18 h · demi-journée', regime:'priv'}, BUF, d('19 h 30 – 21 h 30',10,0,13,110) ]},
+    {lbl:['Lun','3'], month:'août', slots:[ d('9 h – 11 h',12,0,7,68), d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,2,7,68) ]},
+    {lbl:['Mar','4'], month:'août', slots:[ d('9 h – 11 h',12,2,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('17 h – 19 h',12,0,7,68), d('19 h 30 – 21 h 30',10,4,12,105) ]},
+    {lbl:['Mer','5'], month:'août', slots:[ d('9 h – 11 h',12,0,7,68), d('11 h – 13 h',12,0,7,68), BUF, d('14 h – 16 h',12,5,7,68), d('17 h – 19 h',12,0,7,68) ]},
+    {lbl:['Jeu','6'], month:'août', slots:[ d('9 h – 11 h',12,3,7,68), d('11 h – 13 h',12,6,7,68), BUF, d('14 h – 16 h',12,0,7,68), d('17 h – 19 h',12,0,7,68) ]},
+    {lbl:['Ven','7'], month:'août', slots:[ d('9 h – 11 h',12,0,8,68), d('11 h – 13 h',12,4,8,68), BUF, d('14 h – 16 h',12,6,8,68), d('17 h – 19 h',12,0,8,68), d('19 h 30 – 21 h 30',10,0,12,105) ]}
   ];
   var EXTRAS = [
     {id:'bbq', lbl:'Barbecue à disposition', sub:'charbon fourni', price:15},
     {id:'serv', lbl:'Serviettes — lot de 4', sub:'lavées entre chaque séance', price:6},
     {id:'gouter', lbl:'Goûter maison', sub:'préparé par Claire, 6 pers.', price:18}
   ];
-  var state = {day:0, slot:null, persons:2, privatise:false, extras:{}};
+  var state = {day:0, week:0, slot:null, persons:2, privatise:false, format:'slot', payment:'online', extras:{}};
   var daysEl = document.getElementById('days'), slotsEl = document.getElementById('slots'), cfgEl = document.getElementById('config');
+  var rangeEl = document.getElementById('calendar-range'), prevEl = document.getElementById('week-prev'), nextEl = document.getElementById('week-next');
 
   function euro(n){ return n.toFixed(2).replace('.', ',').replace(',00','') + ' €'; }
 
+  function dayFloor(dy){
+    var prices = dy.slots.filter(function(s){ return !s.buffer && s.regime !== 'priv' && s.booked < s.cap; }).map(function(s){ return s.priceP; });
+    return prices.length ? Math.min.apply(Math, prices) : null;
+  }
+
+  function syncJourney(){
+    var steps = document.querySelectorAll('#booking-journey .journey-step');
+    steps.forEach(function(step, i){
+      var active = state.slot === null ? i === 1 : i === 2;
+      var done = i === 0 || (state.slot !== null && i === 1);
+      step.classList.toggle('active', active);
+      step.classList.toggle('done', done);
+    });
+  }
+
   function renderDays(){
     daysEl.innerHTML = '';
-    DAYS.forEach(function(dy, i){
+    var start = state.week * 7;
+    var visible = DAYS.slice(start, start + 7);
+    var first = visible[0], last = visible[visible.length - 1];
+    rangeEl.textContent = first.lbl[1] + (first.month === last.month ? ' – ' + last.lbl[1] + ' ' + last.month : ' ' + first.month + ' – ' + last.lbl[1] + ' ' + last.month);
+    prevEl.disabled = state.week === 0;
+    nextEl.disabled = start + 7 >= DAYS.length;
+    visible.forEach(function(dy, offset){
+      var i = start + offset;
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'day' + (state.day === i ? ' active' : '');
       b.setAttribute('role','tab'); b.setAttribute('aria-selected', state.day === i ? 'true' : 'false');
-      b.innerHTML = '<small>'+dy.lbl[0]+'</small><b>'+dy.lbl[1]+'</b>';
-      b.addEventListener('click', function(){ state.day = i; state.slot = null; state.privatise = false; render(); });
+      var floor = dayFloor(dy);
+      b.innerHTML = '<small>'+dy.lbl[0]+'</small><b>'+dy.lbl[1]+'</b><span class="day-price">'+(floor === null ? 'complet' : 'dès '+floor+'€')+'</span>';
+      b.addEventListener('click', function(){ state.day = i; state.slot = null; state.privatise = state.format === 'day'; render(); });
       daysEl.appendChild(b);
     });
   }
 
   function renderSlots(){
     slotsEl.innerHTML = '';
+    if(state.format === 'day'){
+      var taken = state.day === 4;
+      var dayBtn = document.createElement('button');
+      dayBtn.type = 'button';
+      dayBtn.className = 'slot' + (state.slot === 'day' ? ' selected' : '');
+      dayBtn.disabled = taken;
+      dayBtn.innerHTML = taken
+        ? '<span class="s-time">9 h – 19 h</span><span class="s-info">Déjà réservée</span><span class="s-tag tag-full">Indisponible</span>'
+        : '<span class="s-time">9 h – 19 h</span><span class="s-info">Jusqu’à 15 personnes</span><span class="s-price">290 €<small> /jour</small></span><span class="s-tag tag-priv">Privatisé</span>';
+      if(!taken) dayBtn.addEventListener('click', function(){ state.slot = 'day'; state.privatise = true; if(state.persons < 2) state.persons = 2; render(); });
+      slotsEl.appendChild(dayBtn);
+      addCustomRequest();
+      return;
+    }
     DAYS[state.day].slots.forEach(function(s, i){
       if(s.buffer){
         var b = document.createElement('div');
@@ -465,18 +591,34 @@
       }
       slotsEl.appendChild(btn);
     });
+    addCustomRequest();
+  }
+
+  function addCustomRequest(){
+    var custom = document.createElement('button');
+    custom.type = 'button'; custom.className = 'custom-request';
+    custom.textContent = 'Un autre horaire ? Demander à Claire';
+    custom.addEventListener('click', function(){
+      if(!document.getElementById('bot').classList.contains('open')) document.getElementById('fab').click();
+      var input = document.querySelector('#bot-form input');
+      if(input) input.value = 'Bonjour Claire, auriez-vous un autre horaire disponible ce jour-là ?';
+    });
+    slotsEl.appendChild(custom);
   }
 
   function renderConfig(){
     if(state.slot === null){
       cfgEl.innerHTML = '<p class="bk-empty">Choisissez un créneau — le prix est tout compris, avant de payer.</p>'+
         '<a class="bk-msg" href="#">Poser une question à Claire — messagerie intégrée</a>';
+      document.getElementById('mobile-price').textContent = state.format === 'day' ? '290 € la journée' : 'dès 7 € /pers.';
+      document.getElementById('mobile-recap').textContent = 'Disponibilités et prix en temps réel';
       return;
     }
-    var s = DAYS[state.day].slots[state.slot];
+    var isDay = state.slot === 'day';
+    var s = isDay ? {t:'9 h – 19 h · journée complète', regime:'day', cap:15, booked:0, priceP:0, pricePriv:290} : DAYS[state.day].slots[state.slot];
     var left = s.cap - s.booked;
-    var canPriv = s.booked === 0;
-    var base = state.privatise ? s.pricePriv : s.priceP * state.persons;
+    var canPriv = isDay || s.booked === 0;
+    var base = (isDay || state.privatise) ? s.pricePriv : s.priceP * state.persons;
     var extrasTotal = 0, extrasRows = '';
     EXTRAS.forEach(function(x){
       var on = !!state.extras[x.id];
@@ -486,44 +628,77 @@
         '<span class="o-price">+'+euro(x.price)+'</span></div>';
     });
     var total = base + extrasTotal;
+    var occupied = isDay || state.privatise ? state.persons : s.booked + state.persons;
+    var fill = Math.min(100, Math.round(occupied / s.cap * 100));
     cfgEl.innerHTML =
       '<div class="bk-config">'+
-      '<p class="bk-recap">'+DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' juillet · '+s.t+' · '+(state.privatise ? 'privatisé' : 'séance ouverte')+'</p>'+
-      '<div class="persons"><span class="p-lbl">Baigneurs</span><div class="stepper">'+
+      '<p class="bk-recap">'+DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' '+DAYS[state.day].month+' · '+s.t+' · '+(isDay ? 'journée privée' : state.privatise ? 'privatisé' : 'séance ouverte')+'</p>'+
+      '<div class="cap-status"><b>'+(isDay || state.privatise ? 'Votre groupe : '+state.persons+' / '+s.cap : occupied+' / '+s.cap+' places après réservation')+'</b><span>'+(s.cap-occupied)+' restante'+(s.cap-occupied>1?'s':'')+'</span><span class="cap-track"><i style="width:'+fill+'%"></i></span></div>'+
+      '<div class="persons"><span class="p-lbl">'+(isDay ? 'Participants' : 'Baigneurs')+'</span><div class="stepper">'+
         '<button type="button" id="p-minus" aria-label="Moins"'+(state.persons<=1?' disabled':'')+'>−</button>'+
         '<span class="p-num">'+state.persons+'</span>'+
-        '<button type="button" id="p-plus" aria-label="Plus"'+((state.privatise ? state.persons>=s.cap : state.persons>=left)?' disabled':'')+'>+</button>'+
+        '<button type="button" id="p-plus" aria-label="Plus"'+(((isDay || state.privatise) ? state.persons>=s.cap : state.persons>=left)?' disabled':'')+'>+</button>'+
       '</div></div>'+
-      '<div class="privat'+(canPriv?'':' off')+'">'+
+      (isDay ? '<div class="privat" style="border-color:var(--bassin);background:#fff"><div><b style="font-size:12.5px">Journée entièrement privatisée</b><small style="display:block;color:var(--brume);font-size:11px">Le bassin est réservé à votre groupe, jusqu’à 15 personnes.</small></div></div>' : '<div class="privat'+(canPriv?'':' off')+'">'+
         '<input type="checkbox" id="privcheck"'+(state.privatise?' checked':'')+(canPriv?'':' disabled')+'>'+
         '<label for="privcheck"><b>Privatiser — '+euro(s.pricePriv)+'</b>'+
-        '<small>'+(canPriv?'Possible tant que personne n’a réservé.':s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label>'+
-      '</div>'+
+        '<small>'+(canPriv?'Possible tant que personne n’a réservé.':s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label></div>')+
       extrasRows+
+      '<div class="payment-methods" role="radiogroup" aria-label="Mode de paiement">'+
+        '<label class="pay-choice"><input type="radio" name="payment" value="online"'+(state.payment==='online'?' checked':'')+'><span>Payer en ligne<small>Paiement sécurisé et confirmation immédiate</small></span></label>'+
+        '<label class="pay-choice"><input type="radio" name="payment" value="onsite"'+(state.payment==='onsite'?' checked':'')+'><span>Payer sur place<small>Débloqué : Claire est notée 4,93, au-dessus du seuil de 4,5</small></span></label>'+
+      '</div>'+
       '<div class="bk-total">'+
-        '<div class="t-row"><span>'+(state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(base)+'</span></div>'+
+        '<div class="t-row"><span>'+(isDay ? 'Journée privée · jusqu’à 15 pers.' : state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(base)+'</span></div>'+
         (extrasTotal ? '<div class="t-row"><span>Extras</span><span class="amt">'+euro(extrasTotal)+'</span></div>' : '')+
         '<div class="t-row"><span>Frais de service</span><span class="amt">inclus</span></div>'+
         '<div class="t-row grand"><span>Total — tout compris</span><span class="amt">'+euro(total)+'</span></div>'+
-        '<a class="btn btn-encre bk-cta" href="confirmation.html" style="display:flex">Réserver '+DAYS[state.day].lbl[0].toLowerCase()+' '+DAYS[state.day].lbl[1]+' juil., '+s.t+' →</a>'+
-        '<p class="t-small">Plusieurs heures ? Demi-journée privatisée 139 € · journée complète 290 €.<br>Annulation gratuite jusqu’à 48 h avant. Rien à payer sur place.<br>Le numéro de Claire vous est envoyé à la confirmation.</p>'+
+        '<a class="btn btn-encre bk-cta" href="confirmation.html?format='+(isDay?'journee':'seance')+'&total='+total+(state.payment==='onsite'?'&paiement=place':'')+'" style="display:flex">'+(state.payment==='onsite'?'Confirmer — paiement sur place':'Réserver et payer')+' →</a>'+
+        '<p class="t-small">'+(isDay?'Forfait journée de 9 h à 19 h, jusqu’à 15 personnes.':'Demi-journée privatisée 139 € · journée complète 290 €.')+'<br>Annulation gratuite jusqu’à 48 h avant. '+(state.payment==='onsite'?'Aucun débit maintenant.':'Paiement sécurisé en ligne.')+'<br>Le numéro de Claire vous est envoyé à la confirmation.</p>'+
       '</div></div>';
     var minus = document.getElementById('p-minus'), plus = document.getElementById('p-plus');
     if(minus) minus.addEventListener('click', function(){ if(state.persons>1){ state.persons--; renderConfig(); } });
     if(plus) plus.addEventListener('click', function(){
-      var max = state.privatise ? s.cap : left;
+      var max = (isDay || state.privatise) ? s.cap : left;
       if(state.persons < max){ state.persons++; renderConfig(); }
     });
     var pc = document.getElementById('privcheck');
-    if(pc && canPriv) pc.addEventListener('change', function(){ state.privatise = pc.checked; renderConfig(); });
+    if(pc && canPriv && !isDay) pc.addEventListener('change', function(){ state.privatise = pc.checked; renderConfig(); });
     EXTRAS.forEach(function(x){
       var el = document.getElementById('x-'+x.id);
       if(el) el.addEventListener('change', function(){ state.extras[x.id] = el.checked; renderConfig(); });
     });
+    document.querySelectorAll('input[name="payment"]').forEach(function(el){
+      el.addEventListener('change', function(){ state.payment = el.value; renderConfig(); });
+    });
+    document.getElementById('mobile-price').textContent = euro(total)+' au total';
+    document.getElementById('mobile-recap').textContent = DAYS[state.day].lbl[0]+' '+DAYS[state.day].lbl[1]+' '+DAYS[state.day].month+' · '+s.t;
   }
 
-  function render(){ renderDays(); renderSlots(); renderConfig(); }
+  function render(){
+    document.querySelectorAll('.format-pick').forEach(function(btn){ btn.classList.toggle('active', btn.dataset.format === state.format); });
+    renderDays(); renderSlots(); renderConfig(); syncJourney();
+  }
+  document.querySelectorAll('.format-pick').forEach(function(btn){
+    btn.addEventListener('click', function(){ state.format = btn.dataset.format; state.slot = null; state.privatise = state.format === 'day'; render(); });
+  });
+  prevEl.addEventListener('click', function(){ if(state.week > 0){ state.week--; state.day = state.week * 7; state.slot = null; render(); } });
+  nextEl.addEventListener('click', function(){ if((state.week + 1) * 7 < DAYS.length){ state.week++; state.day = state.week * 7; state.slot = null; render(); } });
   render();
+
+  /* Réservation mobile : le calendrier reste accessible sans traverser toute la fiche */
+  var bookingPanel = document.getElementById('booking-panel'), bookOverlay = document.getElementById('book-overlay');
+  function toggleBooking(open){
+    bookingPanel.classList.toggle('open', open);
+    bookOverlay.classList.toggle('open', open);
+    document.body.classList.toggle('booking-open', open);
+    bookingPanel.setAttribute('aria-hidden', open || window.matchMedia('(min-width:961px)').matches ? 'false' : 'true');
+  }
+  document.getElementById('book-open').addEventListener('click', function(){ toggleBooking(true); });
+  document.getElementById('book-close').addEventListener('click', function(){ toggleBooking(false); });
+  bookOverlay.addEventListener('click', function(){ toggleBooking(false); });
+  document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape') toggleBooking(false); });
+  if(window.matchMedia('(max-width:960px)').matches) bookingPanel.setAttribute('aria-hidden','true');
 
   /* ============ Assistant baigneur — même fonction serverless, tâche « guest » ============ */
   function aiCall(task, messages, context){
@@ -605,9 +780,9 @@
   };
   function screenContext(){
     var d = DAYS[state.day];
-    var ctx = 'Le visiteur regarde le ' + d.lbl[0] + ' ' + d.lbl[1] + ' juillet.';
+    var ctx = 'Le visiteur regarde le ' + d.lbl[0] + ' ' + d.lbl[1] + ' ' + d.month + '.';
     if(state.slot !== null){
-      var s = d.slots[state.slot];
+      var s = state.slot === 'day' ? {t:'9 h – 19 h'} : d.slots[state.slot];
       ctx += ' Créneau sélectionné : ' + s.t + (state.privatise ? ' en privatisation' : ' en séance ouverte') + ', ' + state.persons + ' baigneur(s).';
     }
     return ctx;

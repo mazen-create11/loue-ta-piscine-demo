@@ -32,9 +32,9 @@
   .side .wa-box a{color:var(--solaire); font-weight:600; text-decoration:none; display:inline-flex; margin-top:7px}
 
   /* ============ Contenu / vues ============ */
-  .content{padding:24px 30px 64px; max-width:1080px}
+  .content{padding:24px 30px 64px; max-width:1080px; min-width:0; width:100%}
   /* Mobile : ce bloc doit rester APRÈS les définitions de .side/.content qu'il écrase */
-  @media (max-width:900px){ .shell{grid-template-columns:1fr} aside.side{position:fixed; inset:auto 0 0 0; height:auto; flex-direction:row; padding:8px 10px; z-index:60; border-top:1px solid rgba(242,241,234,.1); overflow-x:auto} .side .logo,.side .me,.side .wa-box,.side .spacer{display:none} .side a.item{flex:none} .content{padding-bottom:110px} }
+  @media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr)} aside.side{position:fixed; inset:auto 0 0 0; width:100vw; max-width:100vw; height:auto; flex-direction:row; padding:8px 10px; z-index:60; border-top:1px solid rgba(242,241,234,.1); overflow-x:auto} .side .logo,.side .me,.side .wa-box,.side .spacer{display:none} .side a.item{flex:none} .content{max-width:100vw; padding:20px 16px 110px} .view,.cards,.cols,.panel{min-width:0; max-width:100%} }
   .view{display:none}
   .view.active{display:block; animation:view-in .32s var(--eo)}
   @keyframes view-in{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
@@ -55,6 +55,7 @@
   /* ---- KPI ---- */
   .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px}
   @media (max-width:860px){ .cards{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:520px){ .cards{grid-template-columns:1fr} }
   .kpi{background:var(--blanc); border:1px solid var(--line); border-radius:13px; padding:17px 19px; box-shadow:var(--shadow-1); position:relative; overflow:hidden; transition:box-shadow .2s var(--eo), transform .2s var(--eo)}
   .kpi:hover{box-shadow:var(--shadow-2); transform:translateY(-1px)}
   .kpi .k-lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--brume); font-weight:600; margin:0 0 7px}
@@ -68,7 +69,8 @@
 
   /* ---- Panneaux ---- */
   .cols{display:grid; grid-template-columns:1.5fr 1fr; gap:16px; align-items:start}
-  @media (max-width:1000px){ .cols{grid-template-columns:1fr} }
+  .cols>*{min-width:0}
+  @media (max-width:1000px){ .cols{grid-template-columns:minmax(0,1fr)} }
   .panel{background:var(--blanc); border:1px solid var(--line); border-radius:13px; box-shadow:var(--shadow-1); margin-bottom:16px; overflow:hidden}
   .panel .p-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:16px 20px 14px; border-bottom:1px solid var(--craie)}
   .panel h2{font-size:14.5px; font-weight:600; margin:0}
@@ -111,6 +113,24 @@
   .chart-note{font-size:11.5px; color:var(--brume); margin:26px 0 0; line-height:1.5}
 
   /* ---- Calendrier semaine ---- */
+  .calendar-toolbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; width:100%}
+  .cal-nav{display:flex; align-items:center; gap:4px}
+  .cal-nav button,.cal-actions button,.cal-view button{border:1px solid var(--line); background:#fff; color:var(--encre); border-radius:7px; min-height:34px; padding:7px 10px; font-family:var(--sans); font-size:11.5px; font-weight:600}
+  .cal-nav button:not(:disabled):hover,.cal-actions button:hover,.cal-view button:hover{border-color:var(--bassin); color:var(--bassin)}
+  .cal-nav .today-btn{padding-inline:13px}
+  .cal-range{font-size:13.5px; font-weight:600; margin-right:auto}
+  .cal-range small{display:block; color:var(--brume); font-size:10.5px; font-weight:400}
+  .cal-view{display:flex; padding:3px; border-radius:9px; background:var(--craie); gap:2px}
+  .cal-view button{border:0; min-height:29px; background:transparent; padding:5px 9px; color:var(--brume)}
+  .cal-view button.active{background:#fff; color:var(--encre); box-shadow:var(--shadow-1)}
+  .cal-summary{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0 14px}
+  .cal-stat{padding:10px 12px; border:1px solid var(--craie); border-radius:9px; background:var(--craie-2)}
+  .cal-stat b{display:block; font-family:var(--serif); font-size:20px; font-weight:500; line-height:1}
+  .cal-stat small{font-size:10.5px; color:var(--brume)}
+  .cal-actions{display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin:0 0 10px}
+  .cal-actions button:first-child{background:var(--bassin); color:#fff; border-color:var(--bassin)}
+  .cal-actions .sync-state{margin-left:auto; font-size:10.5px; color:var(--bassin); display:flex; align-items:center; gap:5px}
+  .cal-actions .sync-state::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--bassin)}
   .week{display:grid; grid-template-columns:repeat(7,1fr); gap:8px; padding:4px 0 8px; overflow-x:auto}
   @media (max-width:860px){ .week{grid-template-columns:repeat(7,minmax(120px,1fr)); }}
   .wd{min-width:0}
@@ -119,7 +139,8 @@
   .wd .wd-head b{font-size:15px; font-variant-numeric:tabular-nums}
   .wd.today .wd-head b{color:var(--bassin)}
   .wd .wd-col{display:flex; flex-direction:column; gap:5px}
-  .cell{border-radius:7px; padding:7px 9px; font-size:10.5px; line-height:1.35; border:1px solid var(--line); background:var(--craie-2); color:var(--brume)}
+  .cell{display:block; width:100%; text-align:left; border-radius:7px; padding:7px 9px; font-family:var(--sans); font-size:10.5px; line-height:1.35; border:1px solid var(--line); background:var(--craie-2); color:var(--brume); min-height:48px; transition:transform .16s var(--eo),box-shadow .16s var(--eo)}
+  .cell:hover{transform:translateY(-1px); box-shadow:var(--shadow-1)}
   .cell b{display:block; font-size:10.5px; font-variant-numeric:tabular-nums; color:var(--encre)}
   .cell.open{background:color-mix(in srgb,var(--bassin) 10%,#fff); border-color:color-mix(in srgb,var(--bassin) 35%,transparent)}
   .cell.open b{color:var(--bassin)}
@@ -129,6 +150,60 @@
   .cell.libre{border-style:dashed; background:transparent}
   .legend{display:flex; gap:16px; flex-wrap:wrap; padding:10px 0 2px; font-size:11.5px; color:var(--brume)}
   .legend i{display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-2px; margin-right:6px; border:1px solid var(--line)}
+  .agenda-list{display:none}
+  .calendar-panel.agenda-mode .week,.calendar-panel.agenda-mode .legend,.calendar-panel.agenda-mode .month-grid{display:none}
+  .calendar-panel.agenda-mode .agenda-list{display:block}
+  .agenda-day{display:grid; grid-template-columns:72px 1fr; gap:12px; padding:13px 0; border-bottom:1px solid var(--craie)}
+  .agenda-day:last-child{border-bottom:0}
+  .agenda-date b{display:block; font-size:13px}
+  .agenda-date small{color:var(--brume); font-size:10.5px}
+  .agenda-events{display:grid; gap:7px}
+  .agenda-event{display:grid; grid-template-columns:90px 1fr auto; gap:9px; align-items:center; padding:9px 10px; border:1px solid var(--line); border-left:3px solid var(--bassin); border-radius:8px; background:#fff; font-size:11.5px}
+  .agenda-event.priv{border-left-color:var(--encre); background:var(--craie-2)}
+  .agenda-event.libre{border-left-color:var(--line); border-style:dashed}
+  .agenda-event b{font-variant-numeric:tabular-nums; font-size:11.5px}
+  .agenda-event small{display:block; color:var(--brume); font-size:10.5px}
+  .month-grid{display:none; grid-template-columns:repeat(7,1fr); gap:5px}
+  .calendar-panel.month-mode .week,.calendar-panel.month-mode .legend,.calendar-panel.month-mode .agenda-list{display:none}
+  .calendar-panel.month-mode .month-grid{display:grid}
+  .month-dow{text-align:center; text-transform:uppercase; color:var(--brume); font-size:9px; letter-spacing:.07em; padding:5px}
+  .month-day{min-height:68px; border:1px solid var(--line); border-radius:8px; background:#fff; padding:7px; font-family:var(--sans); text-align:left; color:var(--encre); position:relative}
+  .month-day:hover{border-color:var(--bassin)}
+  .month-day.muted{opacity:.32}
+  .month-day.today{box-shadow:inset 0 0 0 2px var(--bassin)}
+  .month-day b{font-size:11px}
+  .month-day small{display:block; margin-top:14px; color:var(--brume); font-size:9.5px}
+  .month-day .dots{display:flex; gap:3px; position:absolute; top:9px; right:7px}
+  .month-day .dots i{width:5px; height:5px; border-radius:50%; background:var(--bassin)}
+  .month-day .dots i.priv{background:var(--encre)}
+  .calendar-rules{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:0 0 16px}
+  .cal-rule{border:1px solid var(--line); background:#fff; border-radius:10px; padding:11px 12px}
+  .cal-rule small{display:block; color:var(--brume); font-size:9.5px; text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px}
+  .cal-rule b{display:block; font-size:12px}
+  .cal-rule span{display:block; color:var(--brume); font-size:10px; margin-top:2px; line-height:1.35}
+  .cap-input{width:54px; padding:6px 5px; border:1px solid var(--line); border-radius:7px; background:var(--craie-2); font:600 12px var(--sans); text-align:center}
+  .cap-input:focus{outline:2px solid color-mix(in srgb,var(--bassin) 30%,transparent); border-color:var(--bassin)}
+  @media (max-width:720px){
+    .calendar-toolbar{align-items:flex-start}
+    .cal-range{order:-1; flex-basis:100%; font-size:15px}
+    .cal-view{margin-left:auto}
+    .cal-summary{grid-template-columns:repeat(3,1fr)}
+    .cal-stat{padding:9px}
+    .cal-stat b{font-size:17px}
+    .cal-actions{display:grid; grid-template-columns:1fr 1fr}
+    .cal-actions button{width:100%}
+    .cal-actions .sync-state{grid-column:1/3; margin-left:0}
+    .calendar-rules{grid-template-columns:1fr 1fr}
+    .week{display:none}
+    .legend{display:none}
+    .calendar-panel:not(.month-mode) .agenda-list{display:block}
+    .agenda-day{grid-template-columns:55px 1fr; gap:8px}
+    .agenda-event{grid-template-columns:1fr auto; gap:3px 8px}
+    .agenda-event>b{grid-column:1/3}
+    .month-day{min-height:52px; padding:5px}
+    .month-day small{display:none}
+    .month-day .dots{top:auto; right:auto; left:5px; bottom:6px}
+  }
 
   /* ---- Créneaux (réglage) ---- */
   .cren{display:flex; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid var(--craie); flex-wrap:wrap; transition:opacity .25s var(--eo)}
@@ -153,6 +228,12 @@
   .money input{width:52px; text-align:right; font-family:var(--sans); font-size:13.5px; font-weight:600; padding:8px 4px 8px 9px; border:none; background:transparent; font-variant-numeric:tabular-nums}
   .money input:focus{outline:none}
   .money .cur{padding:0 9px 0 2px; font-size:12.5px; color:var(--brume)}
+  .money.floor-hit{border-color:var(--alerte); animation:floor-pulse .35s var(--eo)}
+  @keyframes floor-pulse{50%{transform:translateX(3px)}}
+  .price-floor{display:flex; gap:11px; align-items:flex-start; background:color-mix(in srgb,var(--solaire) 9%,#fff); border:1px solid color-mix(in srgb,var(--solaire) 28%,var(--line)); border-radius:10px; padding:11px 13px; margin:2px 0 7px}
+  .price-floor .shield{width:26px; height:26px; border-radius:8px; background:var(--solaire); color:#fff; display:flex; align-items:center; justify-content:center; flex:none; font-size:13px}
+  .price-floor b{display:block; font-size:12px}
+  .price-floor small{display:block; color:var(--brume); font-size:10.5px; line-height:1.45; margin-top:2px}
   .switch{position:relative; width:38px; height:22px; flex:none}
   .switch input{opacity:0; width:100%; height:100%; position:absolute; margin:0; cursor:pointer}
   .switch .tr{position:absolute; inset:0; background:var(--line); border-radius:99px; transition:background .2s var(--eo); pointer-events:none}
@@ -370,7 +451,7 @@
   .upsell b{font-size:13.5px; display:block}
   .upsell p{margin:1px 0 0; font-size:12px; color:var(--brume)}
   .upsell .btn{padding:9px 16px; font-size:12.5px; white-space:nowrap}
-  @media (max-width:700px){ .upsell{flex-wrap:wrap} }
+  @media (max-width:700px){ .upsell{display:grid; grid-template-columns:32px minmax(0,1fr)} .upsell .btn{grid-column:1/-1; width:100%} }
   .paywall{position:fixed; inset:0; z-index:120; background:rgba(11,24,31,.55); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; padding:20px}
   .paywall.open{display:flex; animation:view-in .25s var(--eo)}
   .pw-card{background:var(--blanc); border-radius:18px; width:min(420px, 100%); overflow:hidden; box-shadow:0 24px 70px rgba(6,14,18,.4); max-height:calc(100vh - 40px); display:flex; flex-direction:column}
@@ -561,14 +642,17 @@
           <div class="panel">
             <div class="p-head"><h2>Prix &amp; extras</h2><a class="p-link" href="#">Simulateur →</a></div>
             <div class="p-body">
-              <div class="field-row"><label>Séance ouverte<small>par personne, 2 h — <span class="ai-inline">✦ le samedi matin supporte 9 €</span></small></label><span class="money"><input type="text" inputmode="numeric" value="8" data-name="Séance ouverte" aria-label="Prix séance ouverte"><span class="cur">€</span></span></div>
-              <div class="field-row"><label>Privatisation 2 h<small>tous les jours · l'heure bleue à 105 €</small></label><span class="money"><input type="text" inputmode="numeric" value="68" data-name="Privatisation" aria-label="Prix privatisation"><span class="cur">€</span></span></div>
-              <div class="field-row"><label>Demi-journée privatisée<small>4 h · dégressif</small></label><span class="money"><input type="text" inputmode="numeric" value="139" data-name="Demi-journée" aria-label="Prix demi-journée"><span class="cur">€</span></span></div>
-              <div class="field-row"><label>Journée privatisée<small>9 h – 19 h · rapporte plus qu'une journée de séances</small></label><span class="money"><input type="text" inputmode="numeric" value="290" data-name="Journée" aria-label="Prix journée"><span class="cur">€</span></span></div>
+              <div class="price-floor"><span class="shield">⌁</span><div><b>Prix planchers anti-contournement</b><small>Impossible d’afficher 1 € puis de demander un supplément sur place : 6 €/pers., 40 €/2 h, 90 €/demi-journée et 120 €/journée minimum.</small></div></div>
+              <div class="field-row"><label>Séance ouverte<small>par personne, 2 h — minimum plateforme 6 €</small></label><span class="money"><input type="number" inputmode="numeric" value="8" min="6" data-min="6" data-name="Séance ouverte" aria-label="Prix séance ouverte"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Privatisation 2 h<small>minimum plateforme 40 € · l'heure bleue à 105 €</small></label><span class="money"><input type="number" inputmode="numeric" value="68" min="40" data-min="40" data-name="Privatisation" aria-label="Prix privatisation"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Demi-journée privatisée<small>4 h · minimum plateforme 90 €</small></label><span class="money"><input type="number" inputmode="numeric" value="139" min="90" data-min="90" data-name="Demi-journée" aria-label="Prix demi-journée"><span class="cur">€</span></span></div>
+              <div class="field-row"><label>Journée privatisée<small>9 h – 19 h · minimum plateforme 120 €</small></label><span class="money"><input type="number" inputmode="numeric" value="290" min="120" data-min="120" data-name="Journée" aria-label="Prix journée"><span class="cur">€</span></span></div>
               <div class="field-row"><label>Barbecue<small>+15 € par séance</small></label><span class="switch"><input type="checkbox" checked data-name="Barbecue" aria-label="Activer le barbecue"><span class="tr"></span></span></div>
               <div class="field-row"><label>Serviettes — lot de 4<small>+6 €</small></label><span class="switch"><input type="checkbox" checked data-name="Serviettes" aria-label="Activer les serviettes"><span class="tr"></span></span></div>
               <div class="field-row"><label>Goûter maison<small>+18 € — 6 pers.</small></label><span class="switch"><input type="checkbox" data-name="Goûter maison" aria-label="Activer le goûter"><span class="tr"></span></span></div>
               <div class="field-row"><label>Réservation instantanée<small>sans validation manuelle</small></label><span class="switch"><input type="checkbox" checked data-name="Réservation instantanée" aria-label="Activer la réservation instantanée"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Paiement sur place<small>débloqué automatiquement : votre note est de 4,93 / 5</small></label><span class="switch"><input type="checkbox" checked data-name="Paiement sur place" aria-label="Activer le paiement sur place"><span class="tr"></span></span></div>
+              <div class="field-row"><label>Mise à la une Premium<small>badge étoile en relief dans les résultats</small></label><span class="switch"><input type="checkbox" checked data-name="Mise à la une Premium" aria-label="Activer la mise à la une"><span class="tr"></span></span></div>
             </div>
           </div>
         </div>
@@ -638,10 +722,45 @@
 
     <!-- ================= VUE : CALENDRIER ================= -->
     <section class="view" id="v-calendrier">
-      <div class="panel">
-        <div class="p-head"><h2>Semaine du 25 au 31 juillet</h2><a class="p-link" href="#">Semaine suivante →</a></div>
+      <div class="calendar-rules" aria-label="Règles actives du calendrier">
+        <div class="cal-rule"><small>Réservation instantanée</small><b>Jusqu’à 12 personnes</b><span>Au-delà, vous validez la demande.</span></div>
+        <div class="cal-rule"><small>Préavis minimum</small><b>24 heures</b><span>Pas d’arrivée surprise le jour même.</span></div>
+        <div class="cal-rule"><small>Rotation</small><b>30 minutes</b><span>Insérée entre deux groupes.</span></div>
+        <div class="cal-rule"><small>Capacité maximale</small><b>15 personnes</b><span>Limite vérifiée lors de la Visite.</span></div>
+      </div>
+
+      <div class="panel calendar-panel" id="calendar-panel">
+        <div class="p-head">
+          <div class="calendar-toolbar">
+            <div class="cal-nav" aria-label="Naviguer dans le calendrier">
+              <button type="button" id="cal-prev" aria-label="Période précédente">‹</button>
+              <button type="button" class="today-btn" id="cal-today">Aujourd’hui</button>
+              <button type="button" id="cal-next" aria-label="Période suivante">›</button>
+            </div>
+            <div class="cal-range" id="host-cal-range">25 – 31 juillet 2026<small>Fuseau Europe/Paris</small></div>
+            <div class="cal-view" aria-label="Affichage du calendrier">
+              <button type="button" data-cal-view="month">Mois</button>
+              <button type="button" class="active" data-cal-view="week">Semaine</button>
+              <button type="button" data-cal-view="agenda">Agenda</button>
+            </div>
+          </div>
+        </div>
         <div class="p-body">
+          <div class="cal-summary">
+            <div class="cal-stat"><b>23</b><small>réservations</small></div>
+            <div class="cal-stat"><b>74 %</b><small>de remplissage</small></div>
+            <div class="cal-stat"><b>486 €</b><small>revenu attendu</small></div>
+          </div>
+          <div class="cal-actions">
+            <button type="button" data-cal-action="Bloquer une période">+ Bloquer une période</button>
+            <button type="button" data-cal-action="Modification groupée">Modifier plusieurs dates</button>
+            <button type="button" data-cal-action="Copie de la semaine précédente">Copier la semaine passée</button>
+            <button type="button" data-cal-action="Synchronisation iCal">Synchroniser iCal</button>
+            <span class="sync-state">Synchronisé il y a 4 min</span>
+          </div>
           <div class="week" id="week"></div>
+          <div class="agenda-list" id="agenda-list"></div>
+          <div class="month-grid" id="month-grid" aria-label="Juillet 2026"></div>
           <div class="legend">
             <span><i style="background:color-mix(in srgb,var(--bassin) 10%,#fff); border-color:color-mix(in srgb,var(--bassin) 35%,transparent)"></i>Séance ouverte</span>
             <span><i style="background:color-mix(in srgb,var(--bassin) 30%,#fff); border-color:var(--bassin)"></i>Complète</span>
@@ -663,17 +782,17 @@
             <div class="cren" data-label="13 h 30 – 16 h 30">
               <span class="c-time">13 h 30 – 16 h 30</span>
               <select aria-label="Régime de l'après-midi" class="regime"><option>Séance ouverte</option><option selected>Privatisation</option><option>Fermé</option></select>
-              <span class="c-jauge">jusqu'à <b>15</b></span>
+              <span class="c-jauge">Jauge <input class="cap-input" type="number" min="1" max="15" value="15" data-booked="0" aria-label="Capacité du créneau de l'après-midi"></span>
             </div>
             <div class="cren" data-label="17 h – 19 h">
               <span class="c-time">17 h – 19 h</span>
               <select aria-label="Régime de fin de journée" class="regime"><option selected>Séance ouverte</option><option>Privatisation</option><option>Fermé</option></select>
-              <span class="c-jauge">jauge <b>12</b></span>
+              <span class="c-jauge">Jauge <input class="cap-input" type="number" min="4" max="15" value="12" data-booked="4" aria-label="Capacité du créneau de fin de journée"></span>
             </div>
             <div class="cren" data-label="19 h 30 – 21 h 30">
               <span class="c-time">19 h 30 – 21 h 30<small>l'heure bleue · +4 €</small></span>
               <select aria-label="Régime du soir" class="regime"><option selected>Séance ouverte</option><option>Privatisation</option><option>Fermé</option></select>
-              <span class="c-jauge">jauge <b>10</b></span>
+              <span class="c-jauge">Jauge <input class="cap-input" type="number" min="6" max="15" value="10" data-booked="6" aria-label="Capacité du créneau du soir"></span>
             </div>
             <p class="chart-note">Un créneau avec des réservations en cours ne change pas de régime — il se libère à l'annulation ou après la séance. Le tampon de rotation (30 min) s'insère automatiquement.</p>
           </div>
@@ -1010,7 +1129,7 @@
       var jauge = cren.querySelector('.c-jauge');
       cren.classList.toggle('closed', sel.value === 'Fermé');
       if(jauge){
-        if(sel.value === 'Séance ouverte') jauge.innerHTML = 'jauge <b>12</b>';
+        if(sel.value === 'Séance ouverte') jauge.innerHTML = 'Jauge <input class="cap-input" type="number" min="1" max="15" value="12" data-booked="0" aria-label="Capacité du créneau">';
         else if(sel.value === 'Privatisation') jauge.innerHTML = 'jusqu’à <b>15</b>';
         else jauge.innerHTML = '—';
       }
@@ -1018,7 +1137,17 @@
     });
   });
   document.querySelectorAll('.money input').forEach(function(inp){
-    inp.addEventListener('change', function(){ toast(inp.dataset.name + ' : ' + inp.value + ' € — enregistré'); });
+    inp.addEventListener('change', function(){
+      var floor = Number(inp.dataset.min || 0), value = Number(inp.value || 0);
+      if(value < floor){
+        inp.value = floor;
+        inp.closest('.money').classList.add('floor-hit');
+        setTimeout(function(){ inp.closest('.money').classList.remove('floor-hit'); },500);
+        toast('Prix minimum pour '+inp.dataset.name.toLowerCase()+' : '+floor+' €');
+        return;
+      }
+      toast(inp.dataset.name + ' : ' + inp.value + ' € — enregistré');
+    });
   });
   document.querySelectorAll('.switch input[data-name]').forEach(function(sw){
     sw.addEventListener('change', function(){ toast(sw.dataset.name + (sw.checked ? ' : activé' : ' : désactivé')); });
@@ -1027,6 +1156,13 @@
   if(anLive) anLive.addEventListener('change', function(){
     document.querySelector('.pill-status').textContent = anLive.checked ? 'En ligne' : 'En pause';
     toast(anLive.checked ? 'Annonce remise en ligne' : 'Annonce mise en pause — plus visible dans la recherche');
+  });
+  document.addEventListener('change', function(ev){
+    if(!ev.target.matches('.cap-input')) return;
+    var input = ev.target, booked = Number(input.dataset.booked || 0), value = Number(input.value || 0);
+    if(value < booked){ input.value = booked; toast('Impossible : '+booked+' places sont déjà réservées'); return; }
+    if(value > 15){ input.value = 15; toast('La capacité vérifiée de ce bassin est limitée à 15 personnes'); return; }
+    toast('Jauge mise à jour : '+input.value+' personnes maximum');
   });
 
   /* ============ Calendrier semaine ============ */
@@ -1039,15 +1175,80 @@
     {d:['Jeu','30'], cells:[['9 h – 11 h','Libre','libre'],['14 h – 16 h','Libre','libre'],['17 h – 19 h','Demande · 3 baigneurs','libre','cell-sarah'],['19 h 30 – 21 h 30','3/10','open']]},
     {d:['Ven','31'], cells:[['9 h – 11 h','2/12','open'],['11 h – 13 h','7/12','open'],['14 h – 16 h','5/12','open'],['17 h – 19 h','9/12','open'],['19 h 30 – 21 h 30','8/10','open']]}
   ];
-  var weekEl = document.getElementById('week');
-  WEEK.forEach(function(day){
-    var col = document.createElement('div');
-    col.className = 'wd' + (day.today ? ' today' : '');
-    var cells = day.cells.map(function(c){
-      return '<div class="cell '+c[2]+'"'+(c[3] ? ' id="'+c[3]+'"' : '')+' title="'+c[0]+' — '+c[1]+'"><b>'+c[0]+'</b>'+c[1]+'</div>';
-    }).join('');
-    col.innerHTML = '<div class="wd-head"><small>'+day.d[0]+'</small><b>'+day.d[1]+'</b></div><div class="wd-col">'+cells+'</div>';
-    weekEl.appendChild(col);
+  var weekEl = document.getElementById('week'), agendaEl = document.getElementById('agenda-list');
+  var hostWeeks = {
+    '-1':{range:'18 – 24 juillet 2026', days:[['Sam','18'],['Dim','19'],['Lun','20'],['Mar','21'],['Mer','22'],['Jeu','23'],['Ven','24']]},
+    '0':{range:'25 – 31 juillet 2026', days:[['Sam','25'],['Dim','26'],['Lun','27'],['Mar','28'],['Mer','29'],['Jeu','30'],['Ven','31']]},
+    '1':{range:'1 – 7 août 2026', days:[['Sam','1'],['Dim','2'],['Lun','3'],['Mar','4'],['Mer','5'],['Jeu','6'],['Ven','7']]}
+  };
+  var calOffset = 0;
+  function renderHostWeek(){
+    var meta = hostWeeks[String(calOffset)] || hostWeeks['0'];
+    document.getElementById('host-cal-range').innerHTML = meta.range+'<small>Fuseau Europe/Paris</small>';
+    if(location.hash === '#/calendrier') document.getElementById('view-sub').textContent = 'Semaine du '+meta.range.replace('2026','').trim();
+    weekEl.innerHTML = ''; agendaEl.innerHTML = '';
+    WEEK.forEach(function(day, dayIndex){
+      var shown = {d:meta.days[dayIndex], today:calOffset === 0 && day.today, cells:day.cells};
+      var col = document.createElement('div');
+      col.className = 'wd' + (shown.today ? ' today' : '');
+      var cells = shown.cells.map(function(c){
+        return '<button type="button" class="cell '+c[2]+'"'+(calOffset === 0 && c[3] ? ' id="'+c[3]+'"' : '')+' title="'+c[0]+' — '+c[1]+'"><b>'+c[0]+'</b>'+c[1]+'</button>';
+      }).join('');
+      col.innerHTML = '<div class="wd-head"><small>'+shown.d[0]+'</small><b>'+shown.d[1]+'</b></div><div class="wd-col">'+cells+'</div>';
+      weekEl.appendChild(col);
+
+      var agenda = document.createElement('div');
+      agenda.className = 'agenda-day';
+      agenda.innerHTML = '<div class="agenda-date"><b>'+shown.d[0]+' '+shown.d[1]+'</b><small>'+shown.cells.length+' créneaux</small></div><div class="agenda-events">'+shown.cells.map(function(c){
+        return '<button type="button" class="agenda-event '+c[2]+'"><b>'+c[0]+'</b><span>'+c[1]+'<small>'+(c[2] === 'open' ? 'Séance ouverte · paiement suivi' : c[2] === 'priv' ? 'Espace entièrement réservé' : c[2] === 'full' ? 'Jauge atteinte' : 'Disponible à la réservation')+'</small></span><span class="s-tag '+(c[2] === 'priv' ? 'tag-priv' : 'tag-open')+'">'+(c[2] === 'priv' ? 'Privé' : c[2] === 'libre' ? 'Libre' : c[2] === 'full' ? 'Complet' : 'Ouvert')+'</span></button>';
+      }).join('')+'</div>';
+      agendaEl.appendChild(agenda);
+    });
+  }
+
+  var monthEl = document.getElementById('month-grid'), monthOffset = 0;
+  var hostMonths = {
+    '-1':{name:'Juin 2026',days:30,offset:0},
+    '0':{name:'Juillet 2026',days:31,offset:2},
+    '1':{name:'Août 2026',days:31,offset:5}
+  };
+  function renderHostMonth(){
+    var meta = hostMonths[String(monthOffset)] || hostMonths['0'];
+    document.getElementById('host-cal-range').innerHTML = meta.name+'<small>Vue mensuelle · tarifs et réservations</small>';
+    if(location.hash === '#/calendrier') document.getElementById('view-sub').textContent = meta.name+' — disponibilités et tarifs';
+    monthEl.innerHTML = '';
+    ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].forEach(function(dow){ monthEl.insertAdjacentHTML('beforeend','<div class="month-dow">'+dow+'</div>'); });
+    for(var blank=0; blank<meta.offset; blank++) monthEl.insertAdjacentHTML('beforeend','<div class="month-day muted"></div>');
+    for(var md=1; md<=meta.days; md++){
+      var count = monthOffset === 0 && md >= 25 ? WEEK[Math.min(md-25,6)].cells.filter(function(c){ return c[2] !== 'libre'; }).length : (md * 3 + monthOffset) % 5;
+      monthEl.insertAdjacentHTML('beforeend','<button type="button" class="month-day'+(monthOffset===0 && md===25?' today':'')+'"><b>'+md+'</b><span class="dots">'+(count ? '<i></i>' : '')+(count>2 ? '<i class="priv"></i>' : '')+'</span><small>'+(count ? count+' réservation'+(count>1?'s':'') : 'disponible')+'</small></button>');
+    }
+  }
+  renderHostWeek();
+
+  var calPanel = document.getElementById('calendar-panel'), currentCalView = 'week';
+  function setCalView(view){
+    currentCalView = view;
+    calPanel.classList.toggle('agenda-mode', view === 'agenda');
+    calPanel.classList.toggle('month-mode', view === 'month');
+    document.querySelectorAll('[data-cal-view]').forEach(function(btn){ btn.classList.toggle('active', btn.dataset.calView === view); });
+    if(view === 'month') renderHostMonth(); else renderHostWeek();
+  }
+  document.querySelectorAll('[data-cal-view]').forEach(function(btn){ btn.addEventListener('click', function(){ setCalView(btn.dataset.calView); }); });
+  setCalView(window.matchMedia('(max-width:720px)').matches ? 'agenda' : 'week');
+  document.getElementById('cal-prev').addEventListener('click', function(){
+    if(currentCalView === 'month'){ if(monthOffset > -1){ monthOffset--; renderHostMonth(); } else toast('Juin est la première période de cette démo'); }
+    else if(calOffset > -1){ calOffset--; renderHostWeek(); } else toast('Les semaines précédentes restent disponibles dans la vue Mois');
+  });
+  document.getElementById('cal-next').addEventListener('click', function(){
+    if(currentCalView === 'month'){ if(monthOffset < 1){ monthOffset++; renderHostMonth(); } else toast('Août est la dernière période de cette démo'); }
+    else if(calOffset < 1){ calOffset++; renderHostWeek(); } else toast('Août est prêt — passez en vue Mois pour aller plus loin');
+  });
+  document.getElementById('cal-today').addEventListener('click', function(){ calOffset = 0; monthOffset = 0; if(currentCalView === 'month') renderHostMonth(); else renderHostWeek(); });
+  document.querySelectorAll('[data-cal-action]').forEach(function(btn){ btn.addEventListener('click', function(){ toast(btn.dataset.calAction+' — outil ouvert dans la version connectée'); }); });
+  document.addEventListener('click', function(ev){
+    var cell = ev.target.closest('.cell,.agenda-event,.month-day');
+    if(cell) toast('Créneau sélectionné — disponibilité, jauge et prix prêts à modifier');
   });
 
   /* ============ Messagerie ============ */
