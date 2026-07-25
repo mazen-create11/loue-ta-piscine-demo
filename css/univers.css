@@ -16,9 +16,9 @@
 .u-hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(42px,7vw,82px);line-height:.95;letter-spacing:-.025em;margin:0;max-width:11ch}
 .u-hero-copy{font-size:clamp(15px,1.7vw,18px);line-height:1.55;max-width:47ch;color:rgba(255,255,255,.82);margin:18px 0 28px}
 .u-search{display:flex;width:min(680px,100%);background:rgba(250,249,244,.95);color:var(--encre);border-radius:12px;padding:7px;box-shadow:0 16px 40px rgba(0,0,0,.28);backdrop-filter:blur(12px)}
-.u-search label{flex:1;padding:8px 14px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--solaire-ink);font-weight:600}
+.u-search label,.u-search-field{flex:1;padding:8px 14px;border:0;background:transparent;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--solaire-ink);font-weight:600}
 .u-search span{display:block;text-transform:none;letter-spacing:0;color:var(--encre);font-size:14px;margin-top:2px;font-weight:500}
-.u-search button{border:0;border-radius:8px;background:var(--u-accent);color:#fff;font-weight:600;padding:0 24px}
+.u-search>button:last-child{border:0;border-radius:8px;background:var(--u-accent);color:#fff;font-weight:600;padding:0 24px}
 .u-strip{background:var(--u-accent);color:#fff}
 .u-strip .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;padding-block:0}
 .u-proof{padding:18px 24px;border-left:1px solid rgba(255,255,255,.16)}
@@ -49,4 +49,4 @@
 .u-day{font-size:12px;color:var(--brume);margin:3px 0 0}
 .u-day b{color:var(--encre)}
 @media(max-width:850px){.u-grid{grid-template-columns:repeat(2,1fr)}.u-head{grid-template-columns:1fr;gap:12px}.u-strip .wrap{padding:0}.u-proof{padding:14px}.u-proof b{font-size:17px}}
-@media(max-width:620px){.u-hero{min-height:650px}.u-hero-content{padding-bottom:36px}.u-search{flex-direction:column}.u-search button{padding:13px}.u-strip .wrap{grid-template-columns:1fr}.u-proof{border-left:0;border-top:1px solid rgba(255,255,255,.16)}.u-proof:first-child{border-top:0}.u-grid{grid-template-columns:1fr}}
+@media(max-width:620px){.u-hero{min-height:650px}.u-hero-content{padding-bottom:36px}.u-search{flex-direction:column}.u-search>button:last-child{padding:13px}.u-strip .wrap{grid-template-columns:1fr}.u-proof{border-left:0;border-top:1px solid rgba(255,255,255,.16)}.u-proof:first-child{border-top:0}.u-grid{grid-template-columns:1fr}}

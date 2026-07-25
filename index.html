@@ -281,22 +281,49 @@
   </div>
 </header>
 
-<div class="hero">
+<div class="hero" id="recherche">
   <img class="bg" src="img/famille-hero-v2.webp" alt="Une famille joue dans une piscine privée sous le soleil de fin de journée" fetchpriority="high" width="1536" height="1024">
   <div class="veil"></div>
   <div class="h-content">
     <h1>Un bassin près de chez vous.</h1>
     <p class="sub">Piscine, jacuzzi ou sauna. À l’heure ou à la journée.</p>
-    <div class="search" role="search" aria-label="Rechercher un bassin">
-      <button class="field" type="button"><span class="f-label">Où</span><span class="f-val">Aix-en-Provence</span></button>
-      <button class="field" type="button"><span class="f-label">Quand</span><span class="f-val">Samedi 25 juillet</span></button>
-      <button class="field" type="button"><span class="f-label">Baigneurs</span><span class="f-val">4 personnes</span></button>
-      <button class="go" type="button">Chercher</button>
+    <div class="search-shell" id="search-shell">
+      <div class="search" role="search" aria-label="Rechercher un lieu">
+        <button class="field" id="location-trigger" type="button" aria-expanded="false" aria-controls="location-popover"><span class="f-label">Où</span><span class="f-val" id="location-value">Aix-en-Provence</span></button>
+        <button class="field" id="date-trigger" type="button" aria-expanded="false" aria-controls="date-popover"><span class="f-label">Quand</span><span class="f-val" id="date-value">Samedi 25 juillet</span></button>
+        <button class="field" id="guest-trigger" type="button" aria-expanded="false" aria-controls="guest-popover"><span class="f-label">Baigneurs</span><span class="f-val" id="guest-value">4 personnes</span></button>
+        <button class="go" id="search-submit" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4" stroke-linecap="round"/></svg><span>Chercher</span></button>
+      </div>
+
+      <div class="search-popover location-popover" id="location-popover" hidden>
+        <div class="pop-head"><b>Choisir une destination</b><button class="pop-close" type="button" data-close-search aria-label="Fermer">×</button></div>
+        <label class="place-input"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4" stroke-linecap="round"/></svg><input id="place-input" type="search" placeholder="Ville, village ou code postal" autocomplete="off" aria-autocomplete="list" aria-controls="place-results"></label>
+        <p class="place-help" id="place-help">Toutes les communes de France, même les villages.</p>
+        <div class="place-results" id="place-results" role="listbox" aria-label="Destinations suggérées">
+          <button class="place-option" type="button" role="option" data-name="Aix-en-Provence" data-postcode="13100"><span class="place-mark">A</span><span class="place-copy"><b>Aix-en-Provence</b><small>Bouches-du-Rhône · 13100</small></span></button>
+          <button class="place-option" type="button" role="option" data-name="Marseille" data-postcode="13001"><span class="place-mark">M</span><span class="place-copy"><b>Marseille</b><small>Bouches-du-Rhône · 13001</small></span></button>
+          <button class="place-option" type="button" role="option" data-name="Lyon" data-postcode="69001"><span class="place-mark">L</span><span class="place-copy"><b>Lyon</b><small>Rhône · 69001</small></span></button>
+          <button class="place-option" type="button" role="option" data-name="Nice" data-postcode="06000"><span class="place-mark">N</span><span class="place-copy"><b>Nice</b><small>Alpes-Maritimes · 06000</small></span></button>
+        </div>
+      </div>
+
+      <div class="search-popover date-popover" id="date-popover" hidden>
+        <div class="pop-head"><b>Choisir une date</b><button class="pop-close" type="button" data-close-search aria-label="Fermer">×</button></div>
+        <div class="date-quick" aria-label="Dates rapides"><button type="button" data-date-quick="today">Aujourd’hui</button><button type="button" data-date-quick="tomorrow">Demain</button><button type="button" data-date-quick="weekend">Ce week-end</button></div>
+        <div class="cal-head"><button class="cal-nav" id="cal-prev" type="button" aria-label="Mois précédent">‹</button><b id="cal-title"></b><button class="cal-nav" id="cal-next" type="button" aria-label="Mois suivant">›</button></div>
+        <div class="cal-grid" id="calendar-grid" role="grid" aria-label="Calendrier"></div>
+      </div>
+
+      <div class="search-popover guest-popover" id="guest-popover" hidden>
+        <div class="pop-head"><b>Nombre de baigneurs</b><button class="pop-close" type="button" data-close-search aria-label="Fermer">×</button></div>
+        <div class="guest-row"><span class="guest-copy"><b>Baigneurs</b><small>Capacité vérifiée sur chaque annonce</small></span><span class="guest-step"><button id="guest-minus" type="button" aria-label="Retirer une personne">−</button><b id="guest-count">4</b><button id="guest-plus" type="button" aria-label="Ajouter une personne">+</button></span></div>
+      </div>
     </div>
   </div>
 </div>
+<div class="search-toast" id="search-toast" role="status" aria-live="polite"></div>
 
-<div class="chipbar" aria-label="Catégories">
+<div class="chipbar" aria-label="Type de lieu">
   <div class="c-inner" role="tablist">
     <button class="chip active" data-filter="all" role="tab" aria-selected="true">Tout</button>
     <button class="chip" data-filter="piscine" role="tab" aria-selected="false">
@@ -444,7 +471,7 @@
       </a>
 
     </div>
-    <div class="map-panel" id="map-panel" hidden aria-label="Carte des lieux disponibles">
+    <div class="map-panel" id="map-panel" data-location="Aix-en-Provence" hidden aria-label="Carte des lieux disponibles">
       <button class="map-pin active" type="button" data-card="0" style="left:43%;top:38%">7 €</button>
       <button class="map-pin" type="button" data-card="1" style="left:72%;top:61%">34 €</button>
       <button class="map-pin" type="button" data-card="2" style="left:31%;top:67%">6 €</button>
@@ -454,27 +481,6 @@
       <button class="map-pin" type="button" data-card="6" style="left:52%;top:75%">28 €</button>
       <button class="map-pin" type="button" data-card="7" style="left:66%;top:82%">18 €</button>
       <a class="map-preview" id="map-preview" href="fiche.html"><img id="map-preview-img" src="img/famille-bleue-v2.webp" alt=""><span class="map-preview-copy"><b id="map-preview-title">Le bassin des Micocouliers</b><span id="map-preview-place">Aix-en-Provence · à 12 min</span><strong id="map-preview-price">dès 7 € /pers</strong></span></a>
-    </div>
-  </div>
-</section>
-
-<section class="w-sec" id="creneaux">
-  <div class="wrap">
-    <h2 class="reveal">Privatisez. Ou partagez la séance, et divisez le prix.</h2>
-    <p class="w-intro reveal">Choisissez un créneau, le nombre de personnes et le mode de réservation.</p>
-    <div class="widget reveal" id="widget">
-      <div class="w-left">
-        <div class="w-head"><h3 class="w-title">Le bassin des Micocouliers — 10 × 5 m</h3><span class="w-tag">Chauffée</span></div>
-        <p class="w-loc">Aix-en-Provence · hôte vérifié · règlement affiché avant paiement</p>
-        <div class="day-tabs" role="tablist">
-          <button class="day-tab active" data-day="0" role="tab" aria-selected="true">Sam 25 juil.</button>
-          <button class="day-tab" data-day="1" role="tab" aria-selected="false">Dim 26 juil.</button>
-        </div>
-        <div class="slots" id="slots"></div>
-      </div>
-      <div class="w-right" id="recap" aria-live="polite">
-        <p class="r-empty">Choisissez un créneau.<br>Le prix est tout compris, avant de payer.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -511,19 +517,17 @@
   <img class="bg" src="img/famille-hero-v2.webp" alt="" loading="lazy" width="1536" height="1024">
   <div class="h-veil"></div>
   <div class="h-inner2">
-    <h2 class="reveal">Vous avez un bassin&nbsp;?</h2>
-    <ul class="reveal">
-      <li>Vos prix, vos horaires, vos règles — modifiables à tout moment.</li>
-      <li>Privatisation, séance ouverte, ou les deux.</li>
-      <li>Versement automatique sous 48 h après chaque séance.</li>
-      <li>Baigneurs identifiés, caution par empreinte bancaire.</li>
-    </ul>
-    <div class="reveal">
-      <a class="btn btn-bassin" href="hote.html">Estimer mes revenus</a>
+    <div class="host-panel reveal">
+      <span class="host-kicker">Espace hôte</span>
+      <h2>Votre bassin, vos règles.</h2>
+      <p>Choisissez vos horaires, vos prix et votre mode de réservation depuis un seul espace.</p>
+      <div class="host-actions">
+        <a class="btn btn-bassin" href="hote.html">Estimer mes revenus</a>
       <a class="wa" href="#">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z" stroke-linejoin="round"/></svg>
         WhatsApp, 7 j/7
       </a>
+      </div>
     </div>
   </div>
 </section>
@@ -545,7 +549,7 @@
     </div>
     <div>
       <h3>Réserver</h3>
-      <a href="piscines.html">Piscines</a><a href="jacuzzis.html">Jacuzzis</a><a href="saunas.html">Saunas</a><a href="#creneaux">Séances ouvertes</a>
+      <a href="piscines.html">Piscines</a><a href="jacuzzis.html">Jacuzzis</a><a href="saunas.html">Saunas</a><a href="index.html?type=ouverte#annonces">Séances ouvertes</a>
     </div>
     <div>
       <h3>Hôtes</h3>
@@ -596,6 +600,8 @@
   var countEl = document.getElementById('result-count');
   var cards = Array.prototype.slice.call(document.querySelectorAll('#grid .card'));
   var pins = Array.prototype.slice.call(document.querySelectorAll('.map-pin'));
+  var selectedPlaceName = 'Aix-en-Provence';
+  var activeFilter = 'all';
 
   function setFilter(filter){
     var visible = 0;
@@ -605,7 +611,8 @@
       pins[index].classList.toggle('is-hidden', !show);
       if(show) visible++;
     });
-    countEl.textContent = visible+' lieu'+(visible > 1 ? 'x' : '')+' · autour d’Aix-en-Provence';
+    countEl.textContent = visible+' lieu'+(visible > 1 ? 'x' : '')+' · autour de '+selectedPlaceName;
+    mapEl.dataset.location = selectedPlaceName;
     var firstPin = pins.find(function(pin){ return !pin.classList.contains('is-hidden'); });
     if(firstPin) firstPin.click();
   }
@@ -614,7 +621,8 @@
     chip.addEventListener('click', function(){
       document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('active'); c.setAttribute('aria-selected','false'); });
       chip.classList.add('active'); chip.setAttribute('aria-selected','true');
-      setFilter(chip.dataset.filter);
+      activeFilter = chip.dataset.filter;
+      setFilter(activeFilter);
     });
   });
 
@@ -644,123 +652,179 @@
     });
   });
 
-  document.querySelector('.search .go').addEventListener('click', function(){
+  /* Recherche France : communes officielles, calendrier et jauge */
+  var locationTrigger = document.getElementById('location-trigger');
+  var dateTrigger = document.getElementById('date-trigger');
+  var guestTrigger = document.getElementById('guest-trigger');
+  var placeInput = document.getElementById('place-input');
+  var placeResults = document.getElementById('place-results');
+  var placeHelp = document.getElementById('place-help');
+  var locationValue = document.getElementById('location-value');
+  var dateValue = document.getElementById('date-value');
+  var guestValue = document.getElementById('guest-value');
+  var guestCountEl = document.getElementById('guest-count');
+  var calendarEl = document.getElementById('calendar-grid');
+  var calTitle = document.getElementById('cal-title');
+  var toastEl = document.getElementById('search-toast');
+  var guests = 4;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var selectedDate = new Date(today);
+  var calendarCursor = new Date(today.getFullYear(),today.getMonth(),1);
+  var searchTimer = null;
+  var requestController = null;
+  var toastTimer = null;
+  var fallbackPlaces = [
+    {nom:'Aix-en-Provence',codesPostaux:['13100'],departement:{nom:'Bouches-du-Rhône'}},
+    {nom:'Marseille',codesPostaux:['13001'],departement:{nom:'Bouches-du-Rhône'}},
+    {nom:'Lyon',codesPostaux:['69001'],departement:{nom:'Rhône'}},
+    {nom:'Nice',codesPostaux:['06000'],departement:{nom:'Alpes-Maritimes'}}
+  ];
+
+  function closeSearchPopovers(){
+    document.querySelectorAll('.search-popover').forEach(function(pop){ pop.hidden = true; });
+    [locationTrigger,dateTrigger,guestTrigger].forEach(function(trigger){ trigger.setAttribute('aria-expanded','false'); });
+    document.body.classList.remove('search-open');
+  }
+
+  function openSearchPopover(trigger, popover){
+    var opening = popover.hidden;
+    closeSearchPopovers();
+    if(opening){ popover.hidden = false; trigger.setAttribute('aria-expanded','true'); document.body.classList.add('search-open'); }
+  }
+
+  locationTrigger.addEventListener('click',function(){
+    openSearchPopover(locationTrigger,document.getElementById('location-popover'));
+    if(locationTrigger.getAttribute('aria-expanded') === 'true') setTimeout(function(){ placeInput.focus(); placeInput.select(); },30);
+  });
+  dateTrigger.addEventListener('click',function(){ openSearchPopover(dateTrigger,document.getElementById('date-popover')); });
+  guestTrigger.addEventListener('click',function(){ openSearchPopover(guestTrigger,document.getElementById('guest-popover')); });
+  document.querySelectorAll('[data-close-search]').forEach(function(button){ button.addEventListener('click',closeSearchPopovers); });
+
+  function makePlaceOption(place){
+    var button = document.createElement('button'); button.type = 'button'; button.className = 'place-option'; button.setAttribute('role','option');
+    button.dataset.name = place.nom; button.dataset.postcode = (place.codesPostaux && place.codesPostaux[0]) || '';
+    var mark = document.createElement('span'); mark.className = 'place-mark'; mark.textContent = place.nom.slice(0,1).toUpperCase();
+    var copy = document.createElement('span'); copy.className = 'place-copy';
+    var name = document.createElement('b'); name.textContent = place.nom;
+    var detail = document.createElement('small'); detail.textContent = ((place.departement && place.departement.nom) || 'France') + (button.dataset.postcode ? ' · '+button.dataset.postcode : '');
+    copy.appendChild(name); copy.appendChild(detail); button.appendChild(mark); button.appendChild(copy); return button;
+  }
+
+  function renderPlaces(places){
+    placeResults.innerHTML = '';
+    if(!places.length){
+      var empty = document.createElement('p'); empty.className = 'place-help'; empty.textContent = 'Aucune commune trouvée. Essayez un autre nom ou un code postal.'; placeResults.appendChild(empty); return;
+    }
+    places.slice(0,8).forEach(function(place){ placeResults.appendChild(makePlaceOption(place)); });
+  }
+
+  placeInput.addEventListener('input',function(){
+    clearTimeout(searchTimer);
+    var query = placeInput.value.trim();
+    if(query.length < 2){ placeHelp.textContent = query.length ? 'Saisissez au moins 2 caractères.' : 'Toutes les communes de France, même les villages.'; renderPlaces(fallbackPlaces); return; }
+    placeHelp.textContent = 'Recherche dans les communes françaises…';
+    searchTimer = setTimeout(function(){
+      if(requestController) requestController.abort();
+      requestController = new AbortController();
+      var isPostcode = /^\d{5}$/.test(query);
+      var endpoint = 'https://geo.api.gouv.fr/communes?'+(isPostcode ? 'codePostal=' : 'nom=')+encodeURIComponent(query)+'&fields=nom,codesPostaux,departement&format=json&boost=population&limit=8';
+      fetch(endpoint,{signal:requestController.signal}).then(function(response){ if(!response.ok) throw new Error('API'); return response.json(); }).then(function(places){
+        placeHelp.textContent = places.length ? places.length+' destination'+(places.length>1?'s':'')+' trouvée'+(places.length>1?'s':'') : 'Aucun résultat';
+        renderPlaces(places);
+      }).catch(function(error){
+        if(error.name === 'AbortError') return;
+        placeHelp.textContent = 'Recherche momentanément indisponible. Essayez une destination proposée.';
+        renderPlaces(fallbackPlaces);
+      });
+    },280);
+  });
+
+  placeResults.addEventListener('click',function(event){
+    var option = event.target.closest('.place-option'); if(!option) return;
+    selectedPlaceName = option.dataset.name;
+    locationValue.textContent = selectedPlaceName;
+    placeInput.value = selectedPlaceName;
+    closeSearchPopovers();
+  });
+
+  function sameDay(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+  function formatDate(date){ return new Intl.DateTimeFormat('fr-FR',{weekday:'short',day:'numeric',month:'long'}).format(date).replace(/^./,function(c){return c.toUpperCase();}); }
+  function isoDate(date){ return date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(date.getDate()).padStart(2,'0'); }
+  function chooseDate(date){
+    selectedDate = new Date(date); selectedDate.setHours(0,0,0,0);
+    dateValue.textContent = formatDate(selectedDate);
+    calendarCursor = new Date(selectedDate.getFullYear(),selectedDate.getMonth(),1);
+    renderCalendar(); closeSearchPopovers();
+  }
+
+  function renderCalendar(){
+    calendarEl.innerHTML = '';
+    calTitle.textContent = new Intl.DateTimeFormat('fr-FR',{month:'long',year:'numeric'}).format(calendarCursor);
+    ['L','M','M','J','V','S','D'].forEach(function(label){ var d=document.createElement('span');d.className='dow';d.textContent=label;calendarEl.appendChild(d); });
+    var first = new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),1);
+    var offset = (first.getDay()+6)%7;
+    for(var blank=0;blank<offset;blank++){ calendarEl.appendChild(document.createElement('span')); }
+    var days = new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,0).getDate();
+    var maxDate = new Date(today); maxDate.setFullYear(maxDate.getFullYear()+1);
+    for(var day=1;day<=days;day++){
+      (function(){
+        var date = new Date(calendarCursor.getFullYear(),calendarCursor.getMonth(),day);
+        var button = document.createElement('button'); button.type='button'; button.className='cal-day'; button.textContent=day;
+        button.disabled = date < today || date > maxDate;
+        if(sameDay(date,today)) button.classList.add('today');
+        if(sameDay(date,selectedDate)) button.classList.add('selected');
+        button.setAttribute('aria-label',new Intl.DateTimeFormat('fr-FR',{dateStyle:'full'}).format(date));
+        button.addEventListener('click',function(){ chooseDate(date); }); calendarEl.appendChild(button);
+      })();
+    }
+    var minCursor = new Date(today.getFullYear(),today.getMonth(),1);
+    var maxCursor = new Date(today.getFullYear()+1,today.getMonth(),1);
+    document.getElementById('cal-prev').disabled = calendarCursor <= minCursor;
+    document.getElementById('cal-next').disabled = calendarCursor >= maxCursor;
+  }
+
+  document.getElementById('cal-prev').addEventListener('click',function(){ if(this.disabled)return;calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendar(); });
+  document.getElementById('cal-next').addEventListener('click',function(){ if(this.disabled)return;calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendar(); });
+  document.querySelectorAll('[data-date-quick]').forEach(function(button){ button.addEventListener('click',function(){
+    var date = new Date(today);
+    if(button.dataset.dateQuick==='tomorrow') date.setDate(date.getDate()+1);
+    if(button.dataset.dateQuick==='weekend'){ var untilSaturday=(6-date.getDay()+7)%7;date.setDate(date.getDate()+untilSaturday); }
+    chooseDate(date);
+  }); });
+
+  function updateGuests(next){ guests=Math.max(1,Math.min(30,next));guestCountEl.textContent=guests;guestValue.textContent=guests+' personne'+(guests>1?'s':'');document.getElementById('guest-minus').disabled=guests===1;document.getElementById('guest-plus').disabled=guests===30; }
+  document.getElementById('guest-minus').addEventListener('click',function(){updateGuests(guests-1);});
+  document.getElementById('guest-plus').addEventListener('click',function(){updateGuests(guests+1);});
+
+  function showSearchToast(){
+    toastEl.textContent = selectedPlaceName+' · '+formatDate(selectedDate)+' · '+guests+' baigneur'+(guests>1?'s':'');
+    toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){toastEl.classList.remove('show');},2800);
+  }
+
+  document.getElementById('search-submit').addEventListener('click',function(){
+    closeSearchPopovers(); setFilter(activeFilter); showSearchToast();
+    var params = new URLSearchParams(); params.set('ville',selectedPlaceName); params.set('date',isoDate(selectedDate)); params.set('baigneurs',guests);
+    if(activeFilter!=='all') params.set('type',activeFilter);
+    history.replaceState(null,'',location.pathname+'?'+params.toString()+'#annonces');
     document.getElementById('annonces').scrollIntoView({behavior:'smooth',block:'start'});
   });
 
-  /* ===== Widget créneaux ===== */
-  var DAYS = [
-    [
-      {t:'9 h – 11 h',  regime:'open', cap:12, booked:4,  priceP:8,  pricePriv:68},
-      {t:'11 h – 13 h', regime:'open', cap:12, booked:12, priceP:8,  pricePriv:68},
-      {buffer:true},
-      {t:'13 h 30 – 16 h 30', regime:'priv'},
-      {buffer:true},
-      {t:'17 h – 19 h', regime:'open', cap:12, booked:0,  priceP:8,  pricePriv:68},
-      {t:'19 h 30 – 21 h 30 · l’heure bleue', regime:'open', cap:10, booked:6, priceP:12, pricePriv:105}
-    ],
-    [
-      {t:'9 h – 11 h',  regime:'open', cap:12, booked:2,  priceP:8,  pricePriv:68},
-      {t:'11 h – 13 h', regime:'open', cap:12, booked:5,  priceP:8,  pricePriv:68},
-      {buffer:true},
-      {t:'14 h – 18 h · demi-journée', regime:'priv'},
-      {buffer:true},
-      {t:'19 h 30 – 21 h 30 · l’heure bleue', regime:'open', cap:10, booked:0, priceP:12, pricePriv:105}
-    ]
-  ];
-  var state = {day:0, slot:null, persons:2, privatise:false};
-  var slotsEl = document.getElementById('slots');
-  var recapEl = document.getElementById('recap');
-
-  function euro(n){ return n.toFixed(2).replace('.', ',').replace(',00','') + ' €'; }
-
-  function renderSlots(){
-    slotsEl.innerHTML = '';
-    DAYS[state.day].forEach(function(s, i){
-      if(s.buffer){
-        var b = document.createElement('div');
-        b.className = 'buffer-row'; b.textContent = 'rotation · 30 min';
-        slotsEl.appendChild(b); return;
-      }
-      var btn = document.createElement('button');
-      btn.className = 'slot' + (state.slot === i ? ' selected' : '');
-      btn.type = 'button';
-      var left = s.cap - s.booked;
-      if(s.regime === 'priv'){
-        btn.disabled = true;
-        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info">Réservé — un seul groupe</span><span class="s-tag tag-priv">Privatisé</span>';
-      } else if(left <= 0){
-        btn.disabled = true;
-        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:100%"></b></i>'+s.cap+' baigneurs</span><span class="s-tag tag-full">Complet</span>';
-      } else {
-        var fill = Math.round(s.booked / s.cap * 100);
-        btn.innerHTML = '<span class="s-time">'+s.t+'</span><span class="s-info"><i class="gauge"><b style="width:'+fill+'%"></b></i>'+left+' place'+(left>1?'s':'')+'</span><span class="s-price">'+euro(s.priceP)+'<small>/pers</small></span><span class="s-tag tag-open">Séance ouverte</span>';
-        btn.addEventListener('click', function(){
-          state.slot = i; state.privatise = false;
-          var cs = DAYS[state.day][i];
-          if(state.persons > cs.cap - cs.booked) state.persons = cs.cap - cs.booked;
-          render();
-        });
-      }
-      slotsEl.appendChild(btn);
-    });
+  document.addEventListener('click',function(event){ if(!event.target.closest('#search-shell')) closeSearchPopovers(); });
+  document.addEventListener('keydown',function(event){ if(event.key==='Escape') closeSearchPopovers(); });
+  dateValue.textContent = formatDate(selectedDate); renderCalendar(); updateGuests(guests);
+  var initialParams = new URLSearchParams(location.search);
+  if(initialParams.get('ville')){ selectedPlaceName=initialParams.get('ville').slice(0,80);locationValue.textContent=selectedPlaceName;placeInput.value=selectedPlaceName; }
+  if(/^\d{4}-\d{2}-\d{2}$/.test(initialParams.get('date')||'')){
+    var initialDate = new Date(initialParams.get('date')+'T12:00:00');
+    if(!isNaN(initialDate.getTime()) && initialDate>=today){selectedDate=initialDate;dateValue.textContent=formatDate(selectedDate);calendarCursor=new Date(selectedDate.getFullYear(),selectedDate.getMonth(),1);renderCalendar();}
   }
-
-  function renderRecap(){
-    if(state.slot === null){
-      recapEl.innerHTML = '<p class="r-empty">Choisissez un créneau.<br>Le prix est tout compris, avant de payer.</p>';
-      return;
-    }
-    var s = DAYS[state.day][state.slot];
-    var left = s.cap - s.booked;
-    var canPriv = s.booked === 0;
-    var total = state.privatise ? s.pricePriv : s.priceP * state.persons;
-    recapEl.innerHTML =
-      '<p class="r-lbl">Votre séance</p>'+
-      '<p class="r-time">'+s.t+'</p>'+
-      '<p class="r-note">'+(state.privatise
-        ? 'Privatisé : vous serez les seuls, jusqu’à '+s.cap+' baigneurs.'
-        : 'Séance ouverte — jusqu’à '+s.cap+' baigneurs au total.')+'</p>'+
-      '<div class="persons"><span class="p-lbl">Baigneurs</span>'+
-        '<div class="stepper">'+
-          '<button type="button" id="p-minus" aria-label="Moins de baigneurs"'+(state.persons<=1?' disabled':'')+'>−</button>'+
-          '<span class="p-num">'+state.persons+'</span>'+
-          '<button type="button" id="p-plus" aria-label="Plus de baigneurs"'+((state.privatise ? state.persons>=s.cap : state.persons>=left)?' disabled':'')+'>+</button>'+
-        '</div></div>'+
-      '<div class="privat'+(canPriv?'':' off')+'">'+
-        '<input type="checkbox" id="privcheck"'+(state.privatise?' checked':'')+(canPriv?'':' disabled')+'>'+
-        '<label for="privcheck"><b>Privatiser — '+euro(s.pricePriv)+'</b>'+
-        '<small>'+(canPriv ? 'Possible tant que personne n’a réservé.' : s.booked+' baigneur'+(s.booked>1?'s ont':' a')+' déjà réservé cette séance.')+'</small></label>'+
-      '</div>'+
-      '<div class="total">'+
-        '<div class="t-row"><span>'+(state.privatise ? 'Privatisation' : state.persons+' × '+euro(s.priceP))+'</span><span class="amt">'+euro(total)+'</span></div>'+
-        '<div class="t-row"><span>Frais de service</span><span class="amt">inclus</span></div>'+
-        '<div class="t-row grand"><span>Total</span><span class="amt">'+euro(total)+'</span></div>'+
-        '<a class="btn btn-encre" href="fiche.html" style="display:flex">Réserver</a>'+
-        '<p class="t-small">Annulation gratuite jusqu’à 48 h avant. Rien à payer sur place.</p>'+
-      '</div>';
-    var minus = document.getElementById('p-minus'), plus = document.getElementById('p-plus');
-    if(minus) minus.addEventListener('click', function(){ if(state.persons>1){ state.persons--; renderRecap(); } });
-    if(plus) plus.addEventListener('click', function(){
-      var max = state.privatise ? s.cap : left;
-      if(state.persons < max){ state.persons++; renderRecap(); }
-    });
-    var pc = document.getElementById('privcheck');
-    if(pc && canPriv) pc.addEventListener('change', function(){ state.privatise = pc.checked; renderRecap(); });
-  }
-
-  function render(){ renderSlots(); renderRecap(); }
-
-  document.querySelectorAll('.day-tab').forEach(function(tab){
-    tab.addEventListener('click', function(){
-      document.querySelectorAll('.day-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
-      state.day = parseInt(tab.dataset.day,10); state.slot = null; state.privatise = false;
-      render();
-    });
-  });
-
-  render();
+  if(/^\d{1,2}$/.test(initialParams.get('baigneurs')||'')) updateGuests(parseInt(initialParams.get('baigneurs'),10));
+  var initialType = initialParams.get('type');
+  if(['piscine','spa','sauna','ouverte'].indexOf(initialType)===-1) initialType=null;
+  var initialChip = initialType && document.querySelector('.chip[data-filter="'+initialType+'"]');
+  if(initialChip) initialChip.click(); else setFilter(activeFilter);
+  var initialOpen = initialParams.get('open');
+  if(initialOpen==='location'||initialOpen==='date'||initialOpen==='guest') setTimeout(function(){document.getElementById(initialOpen+'-trigger').click();},120);
 
   /* Liens de maquette (#) — neutralisés : pas de saut en haut de page */
   document.addEventListener('click', function(ev){
